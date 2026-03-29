@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  --color-accent-50: #fdf4ff;
+  --color-accent-100: #fae8ff;
+  --color-accent-200: #f5d0fe;
+  --color-accent-300: #f0abfc;
+  --color-accent-400: #e879f9;
+  --color-accent-500: #d946ef;
+  --color-accent-600: #c026d3;
+  --color-accent-700: #a21caf;
+  --color-accent-800: #86198f;
+  --color-accent-900: #701a75;
+
+  --color-navy-50: #f0f4ff;
+  --color-navy-100: #e0e8ff;
+  --color-navy-200: #c7d4fe;
+  --color-navy-300: #a4b8fc;
+  --color-navy-400: #8098f9;
+  --color-navy-500: #6375f3;
+  --color-navy-600: #4a52e6;
+  --color-navy-700: #3d41cb;
+  --color-navy-800: #1e2a5e;
+  --color-navy-900: #0f1b3d;
+  --color-navy-950: #0a1128;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-gray-700 font-sans antialiased;
+    margin: 0;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-navy-900 tracking-tight;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg;
+  }
+  .glass-dark {
+    @apply bg-navy-950/80 backdrop-blur-xl border border-white/10;
+  }
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-500;
+  }
+  .gradient-hero {
+    @apply bg-gradient-to-br from-navy-950 via-navy-900 to-primary-900;
+  }
+  .gradient-accent {
+    @apply bg-gradient-to-r from-primary-600 via-accent-500 to-primary-500;
+  }
+  .section-padding {
+    @apply py-16 md:py-24 px-4 sm:px-6 lg:px-8;
+  }
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+}
