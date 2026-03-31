@@ -10,7 +10,7 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -23,19 +23,24 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-gray-100'
-          : 'bg-transparent'
+          ? 'bg-white shadow-md shadow-black/5 border-b border-gray-100'
+          : 'bg-white'
       }`}
     >
       <div className="container-custom px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 md:h-20">
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-500 flex items-center justify-center shadow-lg shadow-primary-500/25 group-hover:shadow-primary-500/40 transition-shadow">
-              <GraduationCap size={22} className="text-white" />
+        <div className="flex items-center justify-between h-16 md:h-[72px]">
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center group-hover:bg-primary-700 transition-colors">
+              <GraduationCap size={20} className="text-white" />
             </div>
-            <span className={`text-xl font-bold tracking-tight transition-colors ${scrolled ? 'text-navy-900' : 'text-white'}`}>
-              Ancile <span className="text-primary-500">Academy</span>
-            </span>
+            <div className="flex flex-col leading-none">
+              <span className="text-lg font-extrabold text-gray-900 tracking-tight">
+                ancile
+              </span>
+              <span className="text-[10px] font-medium text-gray-400 tracking-widest uppercase">
+                Academy
+              </span>
+            </div>
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
@@ -45,12 +50,8 @@ export default function Navbar() {
                 to={link.path}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   location.pathname === link.path
-                    ? scrolled
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-white bg-white/15'
-                    : scrolled
-                      ? 'text-gray-600 hover:text-primary-600 hover:bg-gray-50'
-                      : 'text-gray-200 hover:text-white hover:bg-white/10'
+                    ? 'text-primary-600 bg-primary-50'
+                    : 'text-gray-600 hover:text-primary-600 hover:bg-gray-50'
                 }`}
               >
                 {link.label}
@@ -58,17 +59,15 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-3">
             <Button to="/contact" size="sm">
-              Get Started
+              Book FREE Consultation
             </Button>
           </div>
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? 'text-navy-900 hover:bg-gray-100' : 'text-white hover:bg-white/10'
-            }`}
+            className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -76,7 +75,7 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl">
+        <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl animate-in">
           <div className="px-4 py-4 space-y-1">
             {NAV_LINKS.map((link) => (
               <Link
@@ -93,7 +92,7 @@ export default function Navbar() {
             ))}
             <div className="pt-3">
               <Button to="/contact" className="w-full">
-                Get Started
+                Book FREE Consultation
               </Button>
             </div>
           </div>

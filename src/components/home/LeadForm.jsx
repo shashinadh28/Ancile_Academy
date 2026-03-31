@@ -1,90 +1,128 @@
-import { Send } from 'lucide-react';
-import SectionWrapper from '../shared/SectionWrapper';
-import { Input, Select, Textarea } from '../shared/FormInput';
+import { Send, BookOpen, Search, FileText, Coins, Plane } from 'lucide-react';
 import Button from '../shared/Button';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
 
 const destinations = ['USA', 'UK', 'Canada', 'Australia', 'Ireland', 'Europe', 'Other'];
-const intakes = ['Fall 2025', 'Spring 2026', 'Fall 2026', 'Spring 2027'];
-const studyLevels = ['Undergraduate', 'Postgraduate', 'PhD', 'Diploma/Certificate'];
+
+const steps = [
+  { icon: BookOpen, title: 'Choose Your Programme', desc: 'Select the course that inspires you and shapes your future.' },
+  { icon: Search, title: 'Find Your University', desc: 'Discover and shortlist top universities with expert guidance.' },
+  { icon: FileText, title: 'Prepare for Tests & Applications', desc: 'Get support to ace your English language test and craft a strong Statement of Purpose.' },
+  { icon: Coins, title: 'Secure Funding', desc: 'Apply for scholarships and manage your finances for a smooth visa process.' },
+  { icon: Plane, title: 'Visa & Beyond', desc: 'Prepare confidently for your visa interview and take the first step towards your international future.' },
+];
 
 export default function LeadForm() {
-  const [formRef, formInView] = useInView({ threshold: 0.1 });
+  const [stepsRef, stepsInView] = useInView({ threshold: 0.1 });
+  const [formRef, formInView] = useInView({ threshold: 0.2 });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Thank you! Our counselor will contact you within 24 hours.');
+    alert('Thank you! Our certified counsellor will contact you within 24 hours.');
   };
 
   return (
-    <SectionWrapper id="lead-form" className="bg-gray-50">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <AnimateIn animation="fadeDown">
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary-50 text-primary-600 mb-4">
-              Free Consultation
-            </span>
-          </AnimateIn>
-          <AnimateIn animation="fadeUp" delay={100}>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-3">
-              Get Your Free Counseling Session
-            </h2>
-          </AnimateIn>
-          <AnimateIn animation="fadeUp" delay={200}>
-            <p className="text-gray-500 text-lg">
-              Fill in your details and our expert counselors will reach out within 24 hours
-            </p>
-          </AnimateIn>
-        </div>
-
-        <AnimateIn animation="slideUp" delay={300} duration="slow">
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 p-6 md:p-10"
-          >
-            <div ref={formRef} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {[
-                <Input key="name" label="Full Name" name="fullName" placeholder="John Doe" required />,
-                <Input key="email" label="Email Address" name="email" type="email" placeholder="john@example.com" required />,
-                <Input key="phone" label="Phone Number" name="phone" type="tel" placeholder="+91 98765 43210" required />,
-                <Select key="dest" label="Preferred Destination" name="destination" placeholder="Select country" options={destinations} required />,
-                <Select key="level" label="Study Level" name="studyLevel" placeholder="Select level" options={studyLevels} required />,
-                <Select key="intake" label="Preferred Intake" name="intake" placeholder="Select intake" options={intakes} required />,
-              ].map((field, i) => (
-                <div
-                  key={i}
-                  className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-                  style={{ transitionDelay: `${400 + i * 100}ms` }}
-                >
-                  {field}
-                </div>
-              ))}
-            </div>
-            <div
-              className={`mt-5 transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-              style={{ transitionDelay: '1000ms' }}
-            >
-              <Textarea
-                label="Tell us about your goals"
-                name="message"
-                placeholder="Share your academic background, goals, and any specific questions..."
-                rows={3}
-              />
-            </div>
-            <div
-              className={`mt-6 text-center transition-all duration-700 ease-out ${formInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
-              style={{ transitionDelay: '1100ms' }}
-            >
-              <Button type="submit" size="lg">
-                <Send size={18} />
-                Book Free Session
-              </Button>
-            </div>
-          </form>
-        </AnimateIn>
+    <section className="bg-gradient-to-br from-primary-700 via-primary-600 to-navy-600 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-20 -right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-navy-500/20 rounded-full blur-3xl" />
       </div>
-    </SectionWrapper>
+      <div className="container-custom relative z-10 px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <AnimateIn animation="fadeUp">
+          <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-3">
+            Your Next Steps to Studying Abroad
+          </h2>
+          <p className="text-white/70 text-base md:text-lg max-w-xl mb-12 leading-relaxed">
+            Unlock a world of global opportunities, personal growth, and career success with a study experience beyond borders. The investment you make today pays off tomorrow with job prospects and extended visa options.
+          </p>
+        </AnimateIn>
+
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* Steps */}
+          <div ref={stepsRef} className="space-y-6">
+            {steps.map(({ icon: Icon, title, desc }, i) => (
+              <div
+                key={title}
+                className={`flex items-start gap-4 transition-all duration-700 ease-out ${
+                  stepsInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                }`}
+                style={{ transitionDelay: `${i * 120}ms` }}
+              >
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <Icon size={18} className="text-white/80" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold mb-0.5">{title}</h3>
+                  <p className="text-white/60 text-sm leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Form */}
+          <div
+            ref={formRef}
+            className={`transition-all duration-1000 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          >
+            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/10">
+              <h3 className="text-gray-900 font-bold text-lg mb-1">
+                Book Your <span className="text-primary-600">FREE Consultation</span> Call with Our Certified Counsellors
+              </h3>
+              <p className="text-gray-400 text-sm mb-6">Get personalized guidance in 24 hours</p>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input
+                  placeholder="Full Name *"
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                />
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-gray-500 shrink-0">+91</span>
+                  <input
+                    placeholder="Mobile Number*"
+                    type="tel"
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                  />
+                </div>
+                <input
+                  placeholder="Email ID *"
+                  type="email"
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                />
+                <select
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all appearance-none"
+                >
+                  <option value="">Destination*</option>
+                  {destinations.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+                <label className="flex items-start gap-2 text-xs text-gray-500 cursor-pointer">
+                  <input type="checkbox" required className="mt-0.5 accent-primary-600" />
+                  <span>
+                    I agree to Ancile Academy's <a href="#" className="text-primary-600 hover:underline">Privacy Policy</a> and <a href="#" className="text-primary-600 hover:underline">Terms and Conditions</a> *
+                  </span>
+                </label>
+                <Button type="submit" className="w-full" size="lg">
+                  Book a FREE Consultation
+                  <ArrowRightIcon />
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+    </svg>
   );
 }

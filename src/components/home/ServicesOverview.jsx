@@ -1,12 +1,22 @@
 import { ArrowRight, Compass, GraduationCap, FileText, Stamp, BookOpen, Award, Plane, MapPin } from 'lucide-react';
 import SectionWrapper, { SectionHeader } from '../shared/SectionWrapper';
-import Card, { IconBox } from '../shared/Card';
 import Button from '../shared/Button';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
 import { SERVICES } from '../../data/constants';
 
 const iconMap = { Compass, GraduationCap, FileText, Stamp, BookOpen, Award, Plane, MapPin };
+
+const colors = [
+  'bg-violet-100 text-violet-600',
+  'bg-blue-100 text-blue-600',
+  'bg-emerald-100 text-emerald-600',
+  'bg-amber-100 text-amber-600',
+  'bg-rose-100 text-rose-600',
+  'bg-cyan-100 text-cyan-600',
+  'bg-indigo-100 text-indigo-600',
+  'bg-orange-100 text-orange-600',
+];
 
 export default function ServicesOverview() {
   const [gridRef, gridInView] = useInView({ threshold: 0.05 });
@@ -15,34 +25,34 @@ export default function ServicesOverview() {
     <SectionWrapper>
       <AnimateIn animation="fadeUp">
         <SectionHeader
-          badge="Our Services"
-          title="Comprehensive Study Abroad Services"
+          title="Our Services"
           subtitle="From your first consultation to settling in your dream university — we handle every detail of your journey."
+          align="center"
         />
       </AnimateIn>
-      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {SERVICES.slice(0, 8).map(({ title, description, icon }, i) => {
           const Icon = iconMap[icon];
           return (
             <div
               key={title}
               className={`transition-all duration-700 ease-out ${gridInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
+              style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <Card className="group h-full">
-                <IconBox className="mb-5 group-hover:scale-110 transition-transform duration-300">
-                  <Icon size={24} />
-                </IconBox>
-                <h3 className="text-lg font-bold text-navy-900 mb-2">{title}</h3>
+              <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full group">
+                <div className={`w-12 h-12 rounded-xl ${colors[i]} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon size={22} />
+                </div>
+                <h3 className="text-base font-bold text-gray-900 mb-2">{title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
-              </Card>
+              </div>
             </div>
           );
         })}
       </div>
-      <AnimateIn animation="scaleIn" delay={400}>
+      <AnimateIn animation="scaleIn" delay={300}>
         <div className="text-center mt-10">
-          <Button to="/services" variant="secondary">
+          <Button to="/services" variant="outline-purple">
             View All Services
             <ArrowRight size={16} />
           </Button>

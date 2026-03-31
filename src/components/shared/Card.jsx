@@ -15,7 +15,7 @@ export default function Card({ children, className = '', hover = true, glass = f
 
 export function IconBox({ children, className = '' }) {
   return (
-    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white shadow-lg shadow-primary-500/25 ${className}`}>
+    <div className={`w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center text-primary-600 ${className}`}>
       {children}
     </div>
   );

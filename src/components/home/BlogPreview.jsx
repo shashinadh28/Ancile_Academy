@@ -14,9 +14,9 @@ export default function BlogPreview() {
     <SectionWrapper>
       <AnimateIn animation="fadeUp">
         <SectionHeader
-          badge="Latest Insights"
           title="Study Abroad Blog & Resources"
           subtitle="Expert advice, guides, and tips to help you prepare for your international education journey."
+          align="center"
         />
       </AnimateIn>
       <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -37,7 +37,7 @@ export default function BlogPreview() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3">
-                  <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-xs font-semibold text-primary-600">
+                  <span className="px-3 py-1 rounded-full bg-primary-600 text-white text-xs font-semibold">
                     {post.category}
                   </span>
                 </div>
@@ -51,7 +51,7 @@ export default function BlogPreview() {
                     {post.readTime}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-navy-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">
+                <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">
                   {post.title}
                 </h3>
                 <p className="text-sm text-gray-500 line-clamp-2 mb-4">{post.excerpt}</p>
@@ -65,7 +65,7 @@ export default function BlogPreview() {
       </div>
       <AnimateIn animation="scaleIn" delay={300}>
         <div className="text-center mt-10">
-          <Button to="/blog" variant="secondary">
+          <Button to="/blog" variant="outline-purple">
             View All Articles
             <ArrowRight size={16} />
           </Button>

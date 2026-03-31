@@ -1,38 +1,23 @@
-import { ArrowRight, Phone } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Button from '../shared/Button';
 import AnimateIn from '../shared/AnimateIn';
 
 export default function ContactCTA() {
   return (
-    <section className="section-padding bg-gradient-to-br from-primary-600 via-primary-700 to-navy-900 relative overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
-      </div>
-      <div className="container-custom relative z-10 text-center">
-        <AnimateIn animation="fadeDown">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Ready to Start Your Journey?
-          </h2>
-        </AnimateIn>
-        <AnimateIn animation="fadeUp" delay={200}>
-          <p className="text-lg text-primary-100 max-w-2xl mx-auto mb-10">
-            Take the first step toward your dream university. Book a free consultation with our expert counselors today.
-          </p>
-        </AnimateIn>
-        <AnimateIn animation="scaleIn" delay={400}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button to="/contact" variant="secondary" size="lg">
-              Book Free Consultation
-              <ArrowRight size={18} />
-            </Button>
-            <Button variant="outline" size="lg" href="tel:+911234567890">
-              <Phone size={18} />
-              Call Us Now
+    <section className="px-4 sm:px-6 lg:px-8 py-10">
+      <AnimateIn animation="scaleIn" duration="slow">
+        <div className="container-custom">
+          <div className="bg-gradient-to-r from-primary-700 via-primary-600 to-navy-600 rounded-2xl px-6 md:px-12 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <h3 className="text-white text-lg md:text-xl font-bold text-center md:text-left">
+              Book Your <span className="text-accent-300">FREE Consultation</span> with Our Experts
+            </h3>
+            <Button to="/contact" variant="secondary" size="md" className="shrink-0">
+              Talk to Us
+              <ArrowRight size={16} />
             </Button>
           </div>
-        </AnimateIn>
-      </div>
+        </div>
+      </AnimateIn>
     </section>
   );
 }

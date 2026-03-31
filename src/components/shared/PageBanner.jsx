@@ -4,15 +4,16 @@ import AnimateIn from './AnimateIn';
 
 export default function PageBanner({ title, subtitle, breadcrumbs = [] }) {
   return (
-    <section className="gradient-hero relative overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
+    <section className="bg-gradient-to-br from-primary-700 via-primary-600 to-navy-600 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-10 right-20 w-72 h-72 border border-white/20 rounded-full" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 border border-white/10 rounded-full" />
+        <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-white/5 rounded-full blur-2xl" />
       </div>
-      <div className="container-custom relative z-10 py-20 md:py-28 px-4 sm:px-6 lg:px-8">
+      <div className="container-custom relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 pt-28 md:pt-36">
         {breadcrumbs.length > 0 && (
           <AnimateIn animation="fadeRight">
-            <nav className="flex items-center gap-1 text-sm text-gray-400 mb-4">
+            <nav className="flex items-center gap-1 text-sm text-white/60 mb-4">
               <Link to="/" className="hover:text-white transition-colors">Home</Link>
               {breadcrumbs.map((crumb, i) => (
                 <span key={i} className="flex items-center gap-1">
@@ -20,7 +21,7 @@ export default function PageBanner({ title, subtitle, breadcrumbs = [] }) {
                   {crumb.path ? (
                     <Link to={crumb.path} className="hover:text-white transition-colors">{crumb.label}</Link>
                   ) : (
-                    <span className="text-primary-300">{crumb.label}</span>
+                    <span className="text-white">{crumb.label}</span>
                   )}
                 </span>
               ))}
@@ -34,7 +35,7 @@ export default function PageBanner({ title, subtitle, breadcrumbs = [] }) {
         </AnimateIn>
         {subtitle && (
           <AnimateIn animation="fadeUp" delay={250}>
-            <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
+            <p className="text-lg md:text-xl text-white/70 max-w-2xl">
               {subtitle}
             </p>
           </AnimateIn>
