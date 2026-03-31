@@ -26,11 +26,7 @@ export default function Destinations() {
               to={`/countries/${country.slug}`}
               className="group relative rounded-2xl overflow-hidden block aspect-[4/3]"
             >
-              <img
-                src={country.image}
-                alt={country.name}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              />
+              <img src={country.image} alt={country.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
               <div className="absolute inset-0 bg-primary-600/0 group-hover:bg-primary-600/20 transition-colors duration-300" />
               <div className="absolute bottom-0 left-0 p-4">

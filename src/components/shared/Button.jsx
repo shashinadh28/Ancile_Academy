@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 
 const variants = {
   primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30',
-  secondary: 'bg-white text-gray-900 border border-gray-200 hover:border-primary-200 hover:bg-primary-50 shadow-sm hover:shadow-md',
+  secondary: 'bg-white text-warm-900 border border-warm-200 hover:border-primary-300 hover:bg-primary-50 shadow-sm hover:shadow-md',
   outline: 'border-2 border-white text-white hover:bg-white hover:text-primary-700',
-  'outline-purple': 'border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white',
+  'outline-teal': 'border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white',
   ghost: 'text-primary-600 hover:bg-primary-50',
-  dark: 'bg-gray-900 text-white hover:bg-gray-800 shadow-lg',
+  dark: 'bg-warm-900 text-white hover:bg-warm-800 shadow-lg',
   accent: 'bg-accent-500 text-white hover:bg-accent-600 shadow-lg shadow-accent-500/25',
 };
 

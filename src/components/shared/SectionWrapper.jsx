@@ -17,15 +17,15 @@ export function SectionHeader({ badge, title, subtitle, light = false, align = '
   return (
     <div className={`max-w-3xl mb-12 md:mb-16 ${align === 'center' ? 'mx-auto text-center' : ''}`}>
       {badge && (
-        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${light ? 'bg-white/10 text-white/80' : 'bg-primary-50 text-primary-600'}`}>
+        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${light ? 'bg-white/10 text-white/80' : 'bg-primary-50 text-primary-700'}`}>
           {badge}
         </span>
       )}
-      <h2 className={`text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 ${light ? 'text-white' : 'text-gray-900'}`}>
+      <h2 className={`text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 ${light ? 'text-white' : 'text-warm-900'}`}>
         {title}
       </h2>
       {subtitle && (
-        <p className={`text-base md:text-lg leading-relaxed ${light ? 'text-white/70' : 'text-gray-500'}`}>
+        <p className={`text-base md:text-lg leading-relaxed ${light ? 'text-white/70' : 'text-warm-500'}`}>
           {subtitle}
         </p>
       )}
