@@ -34,7 +34,7 @@ export default function WhyChooseUs() {
   const [gridRef, gridInView] = useInView({ threshold: 0.1 });
 
   return (
-    <SectionWrapper className="bg-warm-50">
+    <SectionWrapper className="bg-gray-50">
       <AnimateIn animation="fadeUp">
         <SectionHeader
           title="Why Students Choose Ancile Academy"
@@ -49,12 +49,12 @@ export default function WhyChooseUs() {
             className={`transition-all duration-700 ease-out ${gridInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
             style={{ transitionDelay: `${i * 120}ms` }}
           >
-            <div className="bg-white rounded-2xl p-6 border border-warm-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full group">
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full group">
               <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
                 <Icon size={22} />
               </div>
-              <h3 className="text-base font-bold text-warm-900 mb-2">{title}</h3>
-              <p className="text-warm-500 text-sm leading-relaxed">{description}</p>
+              <h3 className="text-base font-bold text-gray-900 mb-2">{title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
             </div>
           </div>
         ))}

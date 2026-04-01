@@ -21,11 +21,11 @@ export function SectionHeader({ badge, title, subtitle, light = false, align = '
           {badge}
         </span>
       )}
-      <h2 className={`text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 ${light ? 'text-white' : 'text-warm-900'}`}>
+      <h2 className={`text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 ${light ? 'text-white' : 'text-gray-900'}`}>
         {title}
       </h2>
       {subtitle && (
-        <p className={`text-base md:text-lg leading-relaxed ${light ? 'text-white/70' : 'text-warm-500'}`}>
+        <p className={`text-base md:text-lg leading-relaxed ${light ? 'text-white/70' : 'text-gray-500'}`}>
           {subtitle}
         </p>
       )}

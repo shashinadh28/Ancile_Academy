@@ -28,8 +28,8 @@ export default function Contact() {
         <div className="grid lg:grid-cols-5 gap-10">
           <div className="lg:col-span-3">
             <AnimateIn animation="fadeRight">
-              <h2 className="text-3xl font-bold text-warm-900 mb-2">Let's Start a <span className="text-primary-600">Conversation</span></h2>
-              <p className="text-warm-500 mb-8">Fill in the form below and our counselors will get back to you within 24 hours.</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Let's Start a <span className="text-primary-600">Conversation</span></h2>
+              <p className="text-gray-500 mb-8">Fill in the form below and our counselors will get back to you within 24 hours.</p>
             </AnimateIn>
             <div ref={formRef}>
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -61,7 +61,7 @@ export default function Contact() {
               <div key={title} className={`transition-all duration-700 ease-out ${cardsInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`} style={{ transitionDelay: `${i * 100}ms` }}>
                 <Card className="flex items-start gap-4">
                   <IconBox className={`shrink-0 ${color}`}><Icon size={18} /></IconBox>
-                  <div><h3 className="font-bold text-warm-900 mb-1 text-sm">{title}</h3>{details.map(d => <p key={d} className="text-sm text-warm-500">{d}</p>)}</div>
+                  <div><h3 className="font-bold text-gray-900 mb-1 text-sm">{title}</h3>{details.map(d => <p key={d} className="text-sm text-gray-500">{d}</p>)}</div>
                 </Card>
               </div>
             ))}
@@ -77,10 +77,10 @@ export default function Contact() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper className="bg-warm-50">
+      <SectionWrapper className="bg-gray-50">
         <AnimateIn animation="scaleIn" duration="slow">
-          <div className="bg-warm-200 rounded-2xl h-72 flex items-center justify-center">
-            <div className="text-center"><MapPin size={40} className="text-warm-400 mx-auto mb-2" /><p className="text-warm-600 font-medium text-sm">Interactive Map</p><p className="text-xs text-warm-400">123 Education Lane, Knowledge Park, New Delhi</p></div>
+          <div className="bg-gray-200 rounded-2xl h-72 flex items-center justify-center">
+            <div className="text-center"><MapPin size={40} className="text-gray-400 mx-auto mb-2" /><p className="text-gray-600 font-medium text-sm">Interactive Map</p><p className="text-xs text-gray-400">123 Education Lane, Knowledge Park, New Delhi</p></div>
           </div>
         </AnimateIn>
       </SectionWrapper>

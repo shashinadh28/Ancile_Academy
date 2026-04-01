@@ -2,7 +2,7 @@ export function Input({ label, type = 'text', placeholder, name, required = fals
   return (
     <div>
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-warm-700 mb-1.5">
+        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1.5">
           {label} {required && <span className="text-red-400">*</span>}
         </label>
       )}
@@ -12,7 +12,7 @@ export function Input({ label, type = 'text', placeholder, name, required = fals
         name={name}
         placeholder={placeholder}
         required={required}
-        className="w-full px-4 py-3 rounded-xl border border-warm-200 bg-white text-warm-900 placeholder-warm-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200"
+        className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200"
       />
     </div>
   );
@@ -22,7 +22,7 @@ export function Select({ label, name, options, placeholder, required = false }) 
   return (
     <div>
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-warm-700 mb-1.5">
+        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1.5">
           {label} {required && <span className="text-red-400">*</span>}
         </label>
       )}
@@ -30,7 +30,7 @@ export function Select({ label, name, options, placeholder, required = false }) 
         id={name}
         name={name}
         required={required}
-        className="w-full px-4 py-3 rounded-xl border border-warm-200 bg-white text-warm-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200 appearance-none"
+        className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200 appearance-none"
       >
         {placeholder && <option value="">{placeholder}</option>}
         {options.map((opt) => (
@@ -47,7 +47,7 @@ export function Textarea({ label, name, placeholder, rows = 4, required = false 
   return (
     <div>
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-warm-700 mb-1.5">
+        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1.5">
           {label} {required && <span className="text-red-400">*</span>}
         </label>
       )}
@@ -57,7 +57,7 @@ export function Textarea({ label, name, placeholder, rows = 4, required = false 
         rows={rows}
         placeholder={placeholder}
         required={required}
-        className="w-full px-4 py-3 rounded-xl border border-warm-200 bg-white text-warm-900 placeholder-warm-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200 resize-none"
+        className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200 resize-none"
       />
     </div>
   );

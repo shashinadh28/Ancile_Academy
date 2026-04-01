@@ -15,7 +15,7 @@ export default function Countries() {
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {COUNTRIES.map((country, i) => (
             <div key={country.slug} className={`transition-all duration-700 ease-out ${gridInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${i * 100}ms` }}>
-              <Link to={`/countries/${country.slug}`} className="group bg-white rounded-2xl border border-warm-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block h-full">
+              <Link to={`/countries/${country.slug}`} className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block h-full">
                 <div className="relative h-48 overflow-hidden">
                   <img src={country.image} alt={country.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -25,7 +25,7 @@ export default function Countries() {
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-warm-500 text-sm mb-4 line-clamp-2">{country.tagline}</p>
+                  <p className="text-gray-500 text-sm mb-4 line-clamp-2">{country.tagline}</p>
                   <div className="grid grid-cols-3 gap-2 mb-4">
                     {Object.entries(country.stats).map(([key, value]) => (
                       <div key={key} className="text-center bg-primary-50 rounded-xl p-2">

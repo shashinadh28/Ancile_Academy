@@ -28,7 +28,7 @@ export default function BlogPreview() {
           >
             <Link
               to={`/blog/${post.slug}`}
-              className="group bg-white rounded-2xl border border-warm-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block h-full"
+              className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 block h-full"
             >
               <div className="relative h-48 overflow-hidden">
                 <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -37,12 +37,12 @@ export default function BlogPreview() {
                 </div>
               </div>
               <div className="p-5">
-                <div className="flex items-center gap-3 text-xs text-warm-400 mb-3">
+                <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
                   <span>{post.date}</span><span>•</span>
                   <span className="flex items-center gap-1"><Clock size={12} />{post.readTime}</span>
                 </div>
-                <h3 className="text-base font-bold text-warm-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">{post.title}</h3>
-                <p className="text-sm text-warm-500 line-clamp-2 mb-4">{post.excerpt}</p>
+                <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">{post.title}</h3>
+                <p className="text-sm text-gray-500 line-clamp-2 mb-4">{post.excerpt}</p>
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary-600">
                   Read More <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </span>
@@ -53,7 +53,7 @@ export default function BlogPreview() {
       </div>
       <AnimateIn animation="scaleIn" delay={300}>
         <div className="text-center mt-10">
-          <Button to="/blog" variant="outline-teal">View All Articles <ArrowRight size={16} /></Button>
+          <Button to="/blog" variant="outline-blue">View All Articles <ArrowRight size={16} /></Button>
         </div>
       </AnimateIn>
     </SectionWrapper>

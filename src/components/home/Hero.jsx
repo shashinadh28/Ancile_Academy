@@ -28,7 +28,7 @@ export default function Hero() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-4 items-center">
             <div className="max-w-xl">
               <AnimateIn animation="fadeRight" duration="slow">
-                <h1 className="text-4xl sm:text-5xl md:text-[54px] font-bold text-warm-900 leading-[1.12] mb-6">
+                <h1 className="text-4xl sm:text-5xl md:text-[54px] font-bold text-gray-900 leading-[1.12] mb-6">
                   Study Abroad With a{' '}
                   <span className="text-primary-600">Clear Career Outcome</span>{' '}
                   in Mind
@@ -36,7 +36,7 @@ export default function Hero() {
               </AnimateIn>
 
               <AnimateIn animation="fadeRight" delay={200}>
-                <p className="text-warm-500 text-lg leading-relaxed mb-8 max-w-md">
+                <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-md">
                   Get transparent course recommendations, scholarship clarity, error-free application and expert visa support — so you move forward with total confidence.
                 </p>
               </AnimateIn>
@@ -69,7 +69,7 @@ export default function Hero() {
         </div>
       </section>
 
-      <div className="bg-gradient-to-r from-warm-50 via-primary-50/30 to-warm-50 border-y border-warm-100">
+      <div className="bg-gradient-to-r from-gray-50 via-primary-50/30 to-gray-50 border-y border-gray-100">
         <div ref={statsRef} className="container-custom px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map(({ value, label }, i) => (
@@ -81,11 +81,11 @@ export default function Hero() {
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
                 <div className="text-3xl md:text-4xl font-bold text-primary-700 mb-1">{value}</div>
-                <div className="text-sm text-warm-500">{label}</div>
+                <div className="text-sm text-gray-500">{label}</div>
               </div>
             ))}
           </div>
-          <p className="text-center text-xs text-warm-400 mt-4">(As of Mar '25)</p>
+          <p className="text-center text-xs text-gray-400 mt-4">(As of Mar '25)</p>
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ export default function Card({ children, className = '', hover = true, glass = f
     <div
       className={`
         rounded-2xl p-6 
-        ${glass ? 'glass' : 'bg-white border border-warm-100 shadow-sm'}
+        ${glass ? 'glass' : 'bg-white border border-gray-100 shadow-sm'}
         ${hover ? 'hover:shadow-xl hover:-translate-y-1 transition-all duration-300' : ''}
         ${className}
       `}

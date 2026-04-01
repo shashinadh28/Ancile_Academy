@@ -4,11 +4,11 @@ import AnimateIn from './AnimateIn';
 
 export default function PageBanner({ title, subtitle, breadcrumbs = [] }) {
   return (
-    <section className="bg-gradient-to-br from-warm-900 via-warm-800 to-primary-900 relative overflow-hidden">
+    <section className="gradient-hero relative overflow-hidden">
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-10 right-20 w-72 h-72 border border-white/20 rounded-full" />
         <div className="absolute bottom-10 left-10 w-96 h-96 border border-white/10 rounded-full" />
-        <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-primary-500/10 rounded-full blur-2xl" />
+        <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-primary-400/10 rounded-full blur-2xl" />
       </div>
       <div className="container-custom relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 pt-28 md:pt-36">
         {breadcrumbs.length > 0 && (

@@ -15,7 +15,7 @@ export default function BlogPost() {
 
   return (
     <>
-      <section className="bg-gradient-to-br from-warm-900 via-warm-800 to-primary-900 relative overflow-hidden">
+      <section className="gradient-hero relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"><div className="absolute top-10 right-20 w-72 h-72 border border-white/10 rounded-full" /></div>
         <div className="container-custom relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 pt-28 md:pt-36">
           <AnimateIn animation="fadeRight"><Link to="/blog" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-6"><ArrowLeft size={16} />Back to Blog</Link></AnimateIn>
@@ -36,21 +36,21 @@ export default function BlogPost() {
           <AnimateIn animation="scaleIn" duration="slow"><div className="rounded-2xl overflow-hidden mb-10"><img src={post.image} alt={post.title} className="w-full h-64 md:h-96 object-cover" /></div></AnimateIn>
           <article>
             {post.content.split('\n\n').map((block, i) => {
-              if (block.startsWith('## ')) return <AnimateIn key={i} animation="fadeUp"><h2 className="text-2xl font-bold text-warm-900 mt-10 mb-4">{block.replace('## ', '')}</h2></AnimateIn>;
-              if (block.startsWith('### ')) return <AnimateIn key={i} animation="fadeUp"><h3 className="text-xl font-bold text-warm-900 mt-8 mb-3">{block.replace('### ', '')}</h3></AnimateIn>;
-              if (block.startsWith('- ')) return <AnimateIn key={i} animation="fadeUp"><ul className="space-y-2 my-4">{block.split('\n').map((item, j) => <li key={j} className="flex items-start gap-2 text-warm-500"><span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2.5 shrink-0" />{item.replace('- ', '')}</li>)}</ul></AnimateIn>;
-              return <AnimateIn key={i} animation="fadeUp"><p className="text-warm-500 leading-relaxed mb-4">{block}</p></AnimateIn>;
+              if (block.startsWith('## ')) return <AnimateIn key={i} animation="fadeUp"><h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">{block.replace('## ', '')}</h2></AnimateIn>;
+              if (block.startsWith('### ')) return <AnimateIn key={i} animation="fadeUp"><h3 className="text-xl font-bold text-gray-900 mt-8 mb-3">{block.replace('### ', '')}</h3></AnimateIn>;
+              if (block.startsWith('- ')) return <AnimateIn key={i} animation="fadeUp"><ul className="space-y-2 my-4">{block.split('\n').map((item, j) => <li key={j} className="flex items-start gap-2 text-gray-500"><span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2.5 shrink-0" />{item.replace('- ', '')}</li>)}</ul></AnimateIn>;
+              return <AnimateIn key={i} animation="fadeUp"><p className="text-gray-500 leading-relaxed mb-4">{block}</p></AnimateIn>;
             })}
           </article>
           {relatedPosts.length > 0 && (
-            <div className="mt-16 pt-10 border-t border-warm-200">
-              <AnimateIn animation="fadeUp"><h3 className="text-2xl font-bold text-warm-900 mb-6">Related Articles</h3></AnimateIn>
+            <div className="mt-16 pt-10 border-t border-gray-200">
+              <AnimateIn animation="fadeUp"><h3 className="text-2xl font-bold text-gray-900 mb-6">Related Articles</h3></AnimateIn>
               <div ref={relatedRef} className="grid md:grid-cols-2 gap-6">
                 {relatedPosts.map((r, i) => (
                   <div key={r.slug} className={`transition-all duration-700 ease-out ${relatedInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: `${i * 150}ms` }}>
-                    <Link to={`/blog/${r.slug}`} className="group flex gap-4 bg-warm-50 rounded-xl p-4 hover:bg-primary-50 transition-colors">
+                    <Link to={`/blog/${r.slug}`} className="group flex gap-4 bg-gray-50 rounded-xl p-4 hover:bg-primary-50 transition-colors">
                       <img src={r.image} alt={r.title} className="w-24 h-24 rounded-lg object-cover shrink-0" />
-                      <div><span className="text-xs text-primary-600 font-semibold">{r.category}</span><h4 className="font-bold text-warm-900 group-hover:text-primary-600 transition-colors line-clamp-2 mt-1">{r.title}</h4><span className="text-xs text-warm-400 mt-1 block">{r.readTime}</span></div>
+                      <div><span className="text-xs text-primary-600 font-semibold">{r.category}</span><h4 className="font-bold text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-2 mt-1">{r.title}</h4><span className="text-xs text-gray-400 mt-1 block">{r.readTime}</span></div>
                     </Link>
                   </div>
                 ))}

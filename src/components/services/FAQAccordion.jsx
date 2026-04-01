@@ -17,7 +17,7 @@ export default function FAQAccordion() {
           } ${
             openIndex === i
               ? 'border-primary-200 bg-primary-50/50 shadow-sm'
-              : 'border-warm-100 bg-white hover:border-warm-200'
+              : 'border-gray-100 bg-white hover:border-gray-200'
           }`}
           style={{ transitionDelay: `${i * 80}ms` }}
         >
@@ -25,11 +25,11 @@ export default function FAQAccordion() {
             onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
             className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
           >
-            <span className={`font-semibold pr-4 text-sm ${openIndex === i ? 'text-primary-700' : 'text-warm-900'}`}>{faq.question}</span>
-            <ChevronDown size={18} className={`shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180 text-primary-600' : 'text-warm-400'}`} />
+            <span className={`font-semibold pr-4 text-sm ${openIndex === i ? 'text-primary-700' : 'text-gray-900'}`}>{faq.question}</span>
+            <ChevronDown size={18} className={`shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180 text-primary-600' : 'text-gray-400'}`} />
           </button>
           <div className={`overflow-hidden transition-all duration-300 ${openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-            <div className="px-5 pb-5 text-warm-500 leading-relaxed text-sm">{faq.answer}</div>
+            <div className="px-5 pb-5 text-gray-500 leading-relaxed text-sm">{faq.answer}</div>
           </div>
         </div>
       ))}

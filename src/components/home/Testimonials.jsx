@@ -16,7 +16,7 @@ export default function Testimonials() {
   const prev = () => setPage((p) => (p - 1 + totalPages) % totalPages);
 
   return (
-    <section className="section-padding bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 relative overflow-hidden">
+    <section className="section-padding bg-gradient-to-br from-primary-800 via-primary-700 to-primary-900 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-10 left-10 w-72 h-72 border border-white/10 rounded-full" />
         <div className="absolute bottom-10 right-10 w-96 h-96 border border-white/5 rounded-full" />
@@ -39,14 +39,14 @@ export default function Testimonials() {
             >
               <div className="bg-white rounded-2xl p-6 md:p-7 h-full flex flex-col shadow-xl shadow-primary-900/10">
                 <Quote size={32} className="text-primary-500 mb-4 shrink-0" />
-                <p className="text-warm-600 leading-relaxed mb-6 flex-1 text-sm md:text-base">
+                <p className="text-gray-600 leading-relaxed mb-6 flex-1 text-sm md:text-base">
                   {t.quote}
                 </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-warm-100">
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
                   <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
                   <div>
-                    <h4 className="text-warm-900 font-semibold text-sm">{t.name}</h4>
-                    <p className="text-warm-400 text-xs">{t.country}</p>
+                    <h4 className="text-gray-900 font-semibold text-sm">{t.name}</h4>
+                    <p className="text-gray-400 text-xs">{t.country}</p>
                   </div>
                 </div>
               </div>
