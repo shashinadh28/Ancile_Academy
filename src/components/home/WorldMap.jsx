@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography, Marker } from '@vnedyalk0v/react19-simple-maps';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
 
