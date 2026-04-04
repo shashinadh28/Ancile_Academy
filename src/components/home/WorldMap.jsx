@@ -1,99 +1,139 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ComposableMap, Geographies, Geography, Marker } from '@vnedyalk0v/react19-simple-maps';
+import { geoNaturalEarth1, geoPath } from 'd3-geo';
+import * as topojson from 'topojson-client';
 import AnimateIn from '../shared/AnimateIn';
-import useInView from '../../hooks/useInView';
 
-const GEO_URL = '/countries-110m.json';
-
-// ISO 3166-1 numeric codes (no leading zeros — TopoJSON stores as numbers)
+// ── Destination config ───────────────────────────────────────────────────────
+// coords = [lng, lat] — used to place the marker pin
 const FEATURED = {
-  '840': { name: 'United States', flag: '🇺🇸', path: '/countries/usa', coords: [-100, 40] },
-  '826': { name: 'United Kingdom', flag: '🇬🇧', path: '/countries/uk', coords: [-1.5, 52] },
-  '124': { name: 'Canada', flag: '🇨🇦', path: '/countries/canada', coords: [-95, 60] },
-  '36': { name: 'Australia', flag: '🇦🇺', path: '/countries/australia', coords: [134, -26] },
-  '372': { name: 'Ireland', flag: '🇮🇪', path: '/countries/ireland', coords: [-8, 53] },
-  '554': { name: 'New Zealand', flag: '🇳🇿', path: '/countries/new-zealand', coords: [172, -40] },
+  '840': { name: 'United States',  path: '/countries/usa',         coords: [-100, 38]  },
+  '826': { name: 'United Kingdom', path: '/countries/uk',          coords: [  -2, 54]  },
+  '124': { name: 'Canada',         path: '/countries/canada',      coords: [ -96, 60]  },
+  '36':  { name: 'Australia',      path: '/countries/australia',   coords: [ 134, -25] },
+  '372': { name: 'Ireland',        path: '/countries/ireland',     coords: [  -8, 53]  },
+  '554': { name: 'New Zealand',    path: '/countries/new-zealand', coords: [ 172, -40] },
 };
 
-// Highlight these as "Europe" destination
+const EU_MARKER = { name: 'Europe', path: '/countries/europe', coords: [13, 52] };
+
+// ISO-3166-1 numeric codes for European countries (rendered as "Europe" group)
 const EU_CODES = new Set([
-  '276', '250', '528', '724', '380', '752', '578', '756', '40', '56',
-  '208', '246', '620', '616', '300', '703', '203', '348', '705', '191',
-  '100', '642', '233', '428', '440', '688', '804', '826', // note: UK is separate
+  '276','250','528','724','380','752','578','756','40','56',
+  '208','246','620','616','300','703','203','348','705','191',
+  '100','642','233','428','440','688','804',
 ]);
-// Remove UK from EU (it's featured separately)
-EU_CODES.delete('826');
 
-const EU_MARKER = [13, 50]; // Central Europe
+const LEGEND = [...Object.values(FEATURED), EU_MARKER];
 
-const LEGEND = [
-  ...Object.values(FEATURED),
-  { name: 'Europe', flag: '🇪🇺', path: '/countries/europe' },
-];
+// ── SVG viewport ─────────────────────────────────────────────────────────────
+const W = 900;
+const H = 450;
 
+const projection = geoNaturalEarth1()
+  .scale(153)
+  .translate([W / 2, H / 2 + 20]);
+
+const pathGen = geoPath().projection(projection);
+
+// ── Colours ──────────────────────────────────────────────────────────────────
+const C_DEFAULT  = '#cdd8e3';
+const C_FEATURED = '#3b82f6';
+const C_HOVER    = '#1d4ed8';
+
+// TopoJSON stores IDs as raw numbers (e.g. 36 for Australia, 840 for USA).
+// Normalise to a leading-zero-free string so FEATURED keys always match.
+const toId = (raw) => {
+  if (raw === undefined || raw === null) return '';
+  const n = Number(raw);
+  return isNaN(n) ? String(raw) : String(n);
+};
+
+// ── Component ────────────────────────────────────────────────────────────────
 export default function WorldMap() {
   const navigate = useNavigate();
-  const [sectionRef, sectionInView] = useInView({ threshold: 0.1 });
-  const [activeId, setActiveId] = useState(null);
-  const [tooltip, setTooltip] = useState(null); // { name, x, y }
 
-  const getConfig = useCallback((geoId) => {
-    if (FEATURED[geoId]) return { ...FEATURED[geoId], group: geoId };
-    if (EU_CODES.has(geoId)) return { name: 'Europe', flag: '🇪🇺', path: '/countries/europe', group: 'EU' };
+  const [geos, setGeos]       = useState([]);
+  const [hovered, setHovered] = useState(null);   // country-id string OR 'EU'
+  const [tooltip, setTooltip] = useState(null);   // { name, x, y }
+
+  // Fetch TopoJSON from /public (bundled locally — no CDN dependency)
+  useEffect(() => {
+    fetch('/countries-110m.json')
+      .then(r => r.json())
+      .then(world => {
+        const features = topojson.feature(world, world.objects.countries).features;
+        setGeos(features);
+      })
+      .catch(err => console.error('WorldMap: failed to load geography', err));
+  }, []);
+
+  // Return destination info for a raw TopoJSON id, or null for non-destinations
+  const getInfo = useCallback((rawId) => {
+    const sid = toId(rawId);
+    if (FEATURED[sid]) return { ...FEATURED[sid], group: sid };
+    if (EU_CODES.has(sid)) return { ...EU_MARKER, group: 'EU' };
     return null;
   }, []);
 
-  const getFill = useCallback((geoId) => {
-    const config = getConfig(geoId);
-    if (!config) return '#dde6f0'; // non-featured — soft ocean gray
+  // Fill colour — driven by `hovered` group key
+  const getFill = useCallback((rawId) => {
+    const info = getInfo(rawId);
+    if (!info) return C_DEFAULT;
+    return hovered === info.group ? C_HOVER : C_FEATURED;
+  }, [hovered, getInfo]);
 
-    const isActive =
-      activeId === geoId ||
-      (config.group === 'EU' && getConfig(activeId)?.group === 'EU');
+  // ── Mouse handlers (country paths) ────────────────────────────────────────
+  const onPathEnter = (e, rawId) => {
+    const info = getInfo(rawId);
+    if (!info) return;                              // ignore non-destinations
+    setHovered(info.group);
+    setTooltip({ name: info.name, x: e.clientX, y: e.clientY });
+  };
 
-    if (FEATURED[geoId]) return isActive ? '#1d4ed8' : '#3b82f6';
-    return isActive ? '#1d4ed8' : '#3b82f6'; // EU same colour
-  }, [activeId, getConfig]);
-
-  const handleEnter = useCallback((geoId, x, y) => {
-    const config = getConfig(geoId);
-    if (!config) return;
-    setActiveId(geoId);
-    setTooltip({ name: config.name, x, y });
-  }, [getConfig]);
-
-  const handleMove = useCallback((x, y) => {
-    if (tooltip) setTooltip(p => ({ ...p, x, y }));
-  }, [tooltip]);
-
-  const handleLeave = useCallback(() => {
-    setActiveId(null);
+  const onPathLeave = () => {
+    setHovered(null);
     setTooltip(null);
-  }, []);
+  };
 
-  const handleClick = useCallback((geoId) => {
-    const config = getConfig(geoId);
-    if (config) navigate(config.path);
-  }, [getConfig, navigate]);
+  const onSvgMove = (e) => {
+    if (tooltip) setTooltip(t => ({ ...t, x: e.clientX, y: e.clientY }));
+  };
+
+  const onPathClick = (rawId) => {
+    const info = getInfo(rawId);
+    if (info) navigate(info.path);
+  };
+
+  // ── Mouse handlers (markers) ──────────────────────────────────────────────
+  const onMarkerEnter = (e, markerId, name) => {
+    setHovered(markerId);
+    setTooltip({ name, x: e.clientX, y: e.clientY });
+  };
+
+  // All markers: featured countries + Europe
+  const allMarkers = [
+    ...Object.entries(FEATURED).map(([id, data]) => ({ ...data, markerId: id })),
+    { ...EU_MARKER, markerId: 'EU' },
+  ];
 
   return (
     <section className="bg-gradient-to-b from-white to-gray-50 py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
 
-      {/* Tooltip — fixed so it follows cursor across scroll */}
+      {/* Floating tooltip — only renders when hovering a destination */}
       {tooltip && (
         <div
-          className="fixed z-[9999] pointer-events-none flex items-center gap-1.5 bg-gray-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-xl"
+          className="fixed z-[9999] pointer-events-none bg-gray-900/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-xl whitespace-nowrap"
           style={{ left: tooltip.x + 14, top: tooltip.y - 42 }}
         >
           {tooltip.name}
-          {/* Arrow */}
-          <span className="absolute left-3 -bottom-[5px] w-2.5 h-2.5 bg-gray-900 rotate-45 rounded-sm" />
+          <span className="absolute left-4 -bottom-[5px] w-2.5 h-2.5 bg-gray-900/90 rotate-45 rounded-sm" />
         </div>
       )}
 
       <div className="container-custom">
-        {/* Header */}
+
+        {/* Section header */}
         <AnimateIn animation="fadeUp">
           <div className="text-center mb-10">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-[11px] font-bold uppercase tracking-widest mb-4">
@@ -110,109 +150,94 @@ export default function WorldMap() {
 
         {/* Map container */}
         <AnimateIn animation="fadeUp" delay={150}>
-          <div
-            ref={sectionRef}
-            className={`relative bg-gradient-to-b from-[#e8f4fd] to-[#d4eaf7] rounded-3xl border border-blue-100 shadow-xl shadow-blue-100/40 overflow-hidden transition-all duration-700 ${sectionInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-          >
-            {/* Subtle grid lines for ocean */}
-            <div className="absolute inset-0 pointer-events-none"
+          <div className="relative bg-gradient-to-b from-[#e8f4fd] to-[#d4eaf7] rounded-3xl border border-blue-100 shadow-xl shadow-blue-100/40 overflow-hidden">
+
+            {/* Ocean grid */}
+            <div
+              className="absolute inset-0 pointer-events-none"
               style={{
-                backgroundImage: 'linear-gradient(rgba(99,155,210,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,155,210,0.1) 1px, transparent 1px)',
+                backgroundImage:
+                  'linear-gradient(rgba(99,155,210,0.1) 1px, transparent 1px),' +
+                  'linear-gradient(90deg, rgba(99,155,210,0.1) 1px, transparent 1px)',
                 backgroundSize: '40px 40px',
               }}
             />
 
-            <ComposableMap
-              projectionConfig={{ scale: 155, center: [15, 5] }}
-              width={900}
-              height={440}
-              style={{ width: '100%', height: 'auto', display: 'block' }}
+            <svg
+              viewBox={`0 0 ${W} ${H}`}
+              width="100%"
+              style={{ display: 'block' }}
+              onMouseMove={onSvgMove}
             >
-              <Geographies geography={GEO_URL}>
-                {({ geographies }) =>
-                  geographies.map((geo) => {
-                    const config = getConfig(geo.id);
-                    const fill = getFill(geo.id);
-                    const featured = !!config;
-                    return (
-                      <Geography
-                        key={geo.rsmKey}
-                        geography={geo}
-                        onMouseEnter={(evt) => handleEnter(geo.id, evt.clientX, evt.clientY)}
-                        onMouseMove={(evt) => handleMove(evt.clientX, evt.clientY)}
-                        onMouseLeave={handleLeave}
-                        onClick={() => handleClick(geo.id)}
-                        style={{
-                          default: {
-                            fill,
-                            stroke: '#ffffff',
-                            strokeWidth: 0.5,
-                            outline: 'none',
-                            cursor: featured ? 'pointer' : 'default',
-                            transition: 'fill 0.2s ease',
-                          },
-                          hover: {
-                            fill,          // state-driven — don't override
-                            stroke: '#ffffff',
-                            strokeWidth: 0.5,
-                            outline: 'none',
-                            cursor: featured ? 'pointer' : 'default',
-                          },
-                          pressed: {
-                            fill: '#1e40af',
-                            outline: 'none',
-                          },
-                        }}
-                      />
-                    );
-                  })
-                }
-              </Geographies>
-
-              {/* Markers — featured countries */}
-              {Object.entries(FEATURED).map(([id, { name, coords, path }]) => (
-                <Marker key={id} coordinates={coords}>
-                  {/* Pulse ring */}
-                  <circle r={10} fill="#3b82f6" opacity={0.15} />
-                  {/* Main dot */}
-                  <circle
-                    r={5}
-                    fill="#ffffff"
-                    stroke="#2563eb"
-                    strokeWidth={2.5}
-                    className="cursor-pointer drop-shadow-md"
-                    onClick={() => navigate(path)}
-                    onMouseEnter={(evt) => setTooltip({ name, x: evt.clientX, y: evt.clientY })}
-                    onMouseLeave={() => setTooltip(null)}
+              {/* ── Country fills ─────────────────────────────────────── */}
+              {geos.map((geo) => {
+                const info      = getInfo(geo.id);
+                const fill      = getFill(geo.id);
+                const clickable = !!info;
+                return (
+                  <path
+                    key={`geo-${geo.id}`}
+                    d={pathGen(geo)}
+                    fill={fill}
+                    stroke="#ffffff"
+                    strokeWidth={0.5}
+                    style={{
+                      cursor: clickable ? 'pointer' : 'default',
+                      transition: 'fill 0.18s ease',
+                    }}
+                    onMouseEnter={e => onPathEnter(e, geo.id)}
+                    onMouseLeave={onPathLeave}
+                    onClick={() => onPathClick(geo.id)}
                   />
-                </Marker>
-              ))}
+                );
+              })}
 
-              {/* Europe marker */}
-              <Marker coordinates={EU_MARKER}>
-                <circle r={10} fill="#3b82f6" opacity={0.15} />
-                <circle
-                  r={5}
-                  fill="#ffffff"
-                  stroke="#2563eb"
-                  strokeWidth={2.5}
-                  className="cursor-pointer drop-shadow-md"
-                  onClick={() => navigate('/countries/europe')}
-                  onMouseEnter={(evt) => setTooltip({ name: 'Europe', x: evt.clientX, y: evt.clientY })}
-                  onMouseLeave={() => setTooltip(null)}
-                />
-              </Marker>
-            </ComposableMap>
+              {/* ── Destination markers (rendered on top of fills) ─────── */}
+              {geos.length > 0 && allMarkers.map(({ markerId, name, path: navPath, coords }) => {
+                const projected = projection(coords);
+                if (!projected) return null;
+                const [x, y]  = projected;
+                const isHov   = hovered === markerId;
 
-            {/* Map legend overlay — bottom left */}
+                return (
+                  <g
+                    key={`marker-${markerId}`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => navigate(navPath)}
+                    onMouseEnter={e => onMarkerEnter(e, markerId, name)}
+                    onMouseLeave={onPathLeave}
+                  >
+                    {/* Outer pulse ring */}
+                    <circle
+                      cx={x} cy={y}
+                      r={isHov ? 14 : 10}
+                      fill="#3b82f6"
+                      opacity={isHov ? 0.28 : 0.15}
+                      style={{ transition: 'all 0.2s ease' }}
+                    />
+                    {/* Inner filled dot */}
+                    <circle
+                      cx={x} cy={y}
+                      r={isHov ? 6.5 : 5}
+                      fill="#ffffff"
+                      stroke={isHov ? '#1d4ed8' : '#2563eb'}
+                      strokeWidth={isHov ? 3 : 2.5}
+                      style={{ transition: 'all 0.2s ease' }}
+                    />
+                  </g>
+                );
+              })}
+            </svg>
+
+            {/* Map legend */}
             <div className="absolute bottom-3 left-4 flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-white/60">
               <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-primary-500" />
+                <div className="w-3 h-3 rounded-full bg-blue-500" />
                 <span className="text-[10px] text-gray-600 font-medium">Destinations</span>
               </div>
               <div className="w-px h-3 bg-gray-200" />
               <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#dde6f0]" />
+                <div className="w-3 h-3 rounded-full" style={{ background: C_DEFAULT }} />
                 <span className="text-[10px] text-gray-400 font-medium">Other countries</span>
               </div>
             </div>
@@ -226,13 +251,14 @@ export default function WorldMap() {
               <button
                 key={name}
                 onClick={() => navigate(path)}
-                className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700 hover:shadow-md text-gray-700 text-sm font-medium transition-all duration-200 shadow-sm"
+                className="px-4 py-2 rounded-full border border-gray-200 bg-white hover:border-primary-400 hover:bg-primary-50 hover:text-primary-700 hover:shadow-md text-gray-700 text-sm font-medium transition-all duration-200 shadow-sm"
               >
-                <span>{name}</span>
+                {name}
               </button>
             ))}
           </div>
         </AnimateIn>
+
       </div>
     </section>
   );
