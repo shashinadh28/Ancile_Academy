@@ -4,7 +4,7 @@ import { ComposableMap, Geographies, Geography, Marker } from '@vnedyalk0v/react
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
 
-const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
+const GEO_URL = '/countries-110m.json';
 
 // ISO 3166-1 numeric codes (no leading zeros — TopoJSON stores as numbers)
 const FEATURED = {
