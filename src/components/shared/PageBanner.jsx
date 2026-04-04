@@ -10,7 +10,7 @@ export default function PageBanner({ title, subtitle, breadcrumbs = [] }) {
         <div className="absolute bottom-10 left-10 w-96 h-96 border border-white/10 rounded-full" />
         <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-primary-400/10 rounded-full blur-2xl" />
       </div>
-      <div className="container-custom relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 pt-28 md:pt-36">
+      <div className="container-custom relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 pt-32 md:pt-40">
         {breadcrumbs.length > 0 && (
           <AnimateIn animation="fadeRight">
             <nav className="flex items-center gap-1 text-sm text-white/60 mb-4">

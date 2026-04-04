@@ -1,32 +1,26 @@
-import { Shield, Target, HeartHandshake, TrendingUp } from 'lucide-react';
+import { Award, Globe, TrendingUp } from 'lucide-react';
 import SectionWrapper, { SectionHeader } from '../shared/SectionWrapper';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
 
 const features = [
   {
-    icon: Shield,
-    title: '98% Visa Success Rate',
-    description: 'Expert documentation and interview prep ensure near-perfect visa approvals across all destinations.',
+    icon: Award,
+    title: 'Experience',
+    description: '15+ years of expertise in guiding students to success.',
     color: 'bg-primary-100 text-primary-700',
   },
   {
-    icon: Target,
-    title: 'Personalized Roadmaps',
-    description: 'Custom academic plans based on your profile, budget, and career goals — no generic advice.',
+    icon: Globe,
+    title: 'Global Network',
+    description: 'Partnerships with 200+ top universities worldwide.',
     color: 'bg-amber-100 text-amber-700',
   },
   {
-    icon: HeartHandshake,
-    title: '1,500+ Partner Universities',
-    description: 'Direct partnerships give access to exclusive programs, fee waivers, and priority admissions.',
-    color: 'bg-sky-100 text-sky-700',
-  },
-  {
     icon: TrendingUp,
-    title: 'End-to-End Support',
-    description: 'From first counseling to post-arrival help — test prep, applications, visa, accommodation.',
-    color: 'bg-rose-100 text-rose-700',
+    title: 'High Success Rate',
+    description: '98% visa approval rate for our students.',
+    color: 'bg-sky-100 text-sky-700',
   },
 ];
 
@@ -37,17 +31,17 @@ export default function WhyChooseUs() {
     <SectionWrapper className="bg-gray-50">
       <AnimateIn animation="fadeUp">
         <SectionHeader
-          title="Why Students Choose Ancile Academy"
+          title="Why Choose Ancile Academy?"
           subtitle="We combine deep expertise, genuine care, and proven processes to make your study abroad journey smooth and successful."
           align="center"
         />
       </AnimateIn>
-      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
         {features.map(({ icon: Icon, title, description, color }, i) => (
           <div
             key={title}
             className={`transition-all duration-700 ease-out ${gridInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-            style={{ transitionDelay: `${i * 120}ms` }}
+            style={{ transitionDelay: `${i * 100}ms` }}
           >
             <div className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full group">
               <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>

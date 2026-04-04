@@ -1,7 +1,7 @@
 import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from 'lucide-react';
 import PageBanner from '../components/shared/PageBanner';
 import SectionWrapper from '../components/shared/SectionWrapper';
-import { Input, Select, Textarea } from '../components/shared/FormInput';
+import { Input, Textarea } from '../components/shared/FormInput';
 import Button from '../components/shared/Button';
 import Card, { IconBox } from '../components/shared/Card';
 import AnimateIn from '../components/shared/AnimateIn';
@@ -18,7 +18,7 @@ export default function Contact() {
   const [cardsRef, cardsInView] = useInView({ threshold: 0.1 });
   const [formRef, formInView] = useInView({ threshold: 0.1 });
 
-  const handleSubmit = (e) => { e.preventDefault(); alert('Thank you for reaching out! Our team will contact you within 24 hours.'); };
+  const handleSubmit = (e) => { e.preventDefault(); alert('Thank you for reaching out! Our team will contact you within 2 hours.'); };
 
   return (
     <>
@@ -28,30 +28,27 @@ export default function Contact() {
         <div className="grid lg:grid-cols-5 gap-10">
           <div className="lg:col-span-3">
             <AnimateIn animation="fadeRight">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Let's Start a <span className="text-primary-600">Conversation</span></h2>
-              <p className="text-gray-500 mb-8">Fill in the form below and our counselors will get back to you within 24 hours.</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Contact <span className="text-primary-600">Us</span></h2>
+              <p className="text-gray-500 mb-8">We're here to help! Whether you have questions or are ready to start your journey, reach out to us.</p>
             </AnimateIn>
             <div ref={formRef}>
               <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {[<Input key="fn" label="First Name" name="firstName" placeholder="John" required />, <Input key="ln" label="Last Name" name="lastName" placeholder="Doe" required />].map((f, i) => (
-                    <div key={i} className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: `${i * 100}ms` }}>{f}</div>
-                  ))}
+                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '0ms' }}>
+                  <Input label="Name" name="name" placeholder="Your name" required />
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {[<Input key="e" label="Email" name="email" type="email" placeholder="john@example.com" required />, <Input key="p" label="Phone" name="phone" type="tel" placeholder="+91 98765 43210" required />].map((f, i) => (
-                    <div key={i} className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: `${200 + i * 100}ms` }}>{f}</div>
-                  ))}
+                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '100ms' }}>
+                  <Input label="Email" name="email" type="email" placeholder="your@email.com" required />
                 </div>
-                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '400ms' }}>
-                  <Select label="Subject" name="subject" placeholder="What can we help you with?" options={['University Admission','Visa Assistance','Test Preparation','Scholarship Guidance','General Inquiry']} required />
+                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '200ms' }}>
+                  <Input label="Phone" name="phone" type="tel" placeholder="+91 98765 43210" required />
                 </div>
-                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '500ms' }}>
-                  <Textarea label="Your Message" name="message" placeholder="Tell us about your study abroad plans..." rows={5} required />
+                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '300ms' }}>
+                  <Textarea label="Message" name="message" placeholder="Your message..." rows={5} required />
                 </div>
-                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`} style={{ transitionDelay: '600ms' }}>
-                  <Button type="submit" size="lg"><Send size={16} />Send Message</Button>
+                <div className={`transition-all duration-700 ease-out ${formInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`} style={{ transitionDelay: '400ms' }}>
+                  <Button type="submit" size="lg"><Send size={16} />Submit</Button>
                 </div>
+                <p className="text-sm text-gray-400">Our team will get back to you within 2 hours.</p>
               </form>
             </div>
           </div>

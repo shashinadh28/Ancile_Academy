@@ -28,13 +28,11 @@ export default function About() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <AnimateIn animation="fadeRight">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Transforming Lives Through <span className="text-primary-600">International Education</span></h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">About <span className="text-primary-600">Ancile Academy</span></h2>
             </AnimateIn>
             <AnimateIn animation="fadeRight" delay={100}>
               <div className="space-y-4 text-gray-500 leading-relaxed">
-                <p>Founded in 2010, Ancile Academy was born from a simple belief: every student deserves access to world-class education. What started as a small counseling center has grown into one of India's most trusted study abroad consultancies.</p>
-                <p>Over 14 years, we've helped more than 50,000 students secure admissions at top universities across 15+ countries. Our 100+ certified counselors bring decades of collective experience.</p>
-                <p>Our 98% visa success rate and thousands of scholarship successes stand testament to our commitment to excellence.</p>
+                <p>At Ancile Academy, our mission is to empower students to achieve their educational aspirations abroad. Founded in [Year], we have successfully guided over [Number] students to prestigious institutions worldwide.</p>
               </div>
             </AnimateIn>
           </div>
@@ -92,7 +90,7 @@ export default function About() {
       </SectionWrapper>
 
       <SectionWrapper className="bg-gray-50">
-        <AnimateIn animation="fadeUp"><SectionHeader title="Meet the Experts Behind Your Success" align="center" /></AnimateIn>
+        <AnimateIn animation="fadeUp"><SectionHeader title="Meet Our Expert Team" align="center" /></AnimateIn>
         <div ref={teamRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {TEAM_MEMBERS.map((member, i) => (
             <div key={member.name} className={`transition-all duration-700 ease-out ${teamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${i * 120}ms` }}>
@@ -110,7 +108,7 @@ export default function About() {
       </SectionWrapper>
 
       <SectionWrapper>
-        <AnimateIn animation="fadeUp"><SectionHeader title="Milestones That Define Us" align="center" /></AnimateIn>
+        <AnimateIn animation="fadeUp"><SectionHeader title="Our Journey" align="center" /></AnimateIn>
         <div ref={timelineRef} className="max-w-3xl mx-auto">
           {TIMELINE.map((item, i) => (
             <div key={item.year} className={`flex gap-6 mb-8 last:mb-0 transition-all duration-700 ease-out ${timelineInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} style={{ transitionDelay: `${i * 180}ms` }}>

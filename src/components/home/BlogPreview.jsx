@@ -53,7 +53,7 @@ export default function BlogPreview() {
       </div>
       <AnimateIn animation="scaleIn" delay={300}>
         <div className="text-center mt-10">
-          <Button to="/blog" variant="outline-blue">View All Articles <ArrowRight size={16} /></Button>
+          <Button to="/blog" variant="outline-blue">Read More on Our Blog <ArrowRight size={16} /></Button>
         </div>
       </AnimateIn>
     </SectionWrapper>

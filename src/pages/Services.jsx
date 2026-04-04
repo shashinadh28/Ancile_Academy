@@ -8,7 +8,7 @@ import ContactCTA from '../components/home/ContactCTA';
 import { SERVICES } from '../data/constants';
 
 const iconMap = { Compass, GraduationCap, FileText, Stamp, BookOpen, Award, Plane, MapPin };
-const colors = ['bg-primary-100 text-primary-700','bg-sky-100 text-sky-700','bg-emerald-100 text-emerald-700','bg-amber-100 text-amber-700','bg-rose-100 text-rose-700','bg-cyan-100 text-cyan-700','bg-indigo-100 text-indigo-700','bg-orange-100 text-orange-700'];
+const colors = ['bg-primary-100 text-primary-700','bg-sky-100 text-sky-700','bg-emerald-100 text-emerald-700','bg-amber-100 text-amber-700'];
 
 const processSteps = [
   { step: '01', title: 'Initial Consultation', description: 'Free 30-minute session to understand your goals, assess your profile, and outline a personalized plan.' },
@@ -22,30 +22,44 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageBanner title="Our Services" subtitle="Comprehensive support at every stage of your study abroad journey." breadcrumbs={[{ label: 'Services' }]} />
+      <PageBanner
+        title="Our Services"
+        subtitle="Comprehensive support at every stage of your study abroad journey."
+        breadcrumbs={[{ label: 'Services' }]}
+      />
 
+      {/* ── Services alternating layout ── */}
       <SectionWrapper>
-        <AnimateIn animation="fadeUp"><SectionHeader title="End-to-End Study Abroad Solutions" subtitle="From initial counseling to post-arrival assistance, we provide everything you need." align="center" /></AnimateIn>
+        <AnimateIn animation="fadeUp">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <p className="text-gray-500 leading-relaxed">
+              Our comprehensive services are designed to provide personalized guidance at every step of your journey to study abroad.
+            </p>
+          </div>
+        </AnimateIn>
         <div className="space-y-20">
-          {SERVICES.map(({ title, description, icon }, i) => {
+          {SERVICES.slice(0, 4).map(({ title, headline, fullDescription, icon, image }, i) => {
             const Icon = iconMap[icon];
             const isReverse = i % 2 !== 0;
             return (
               <AnimateIn key={title} animation={isReverse ? 'fadeLeft' : 'fadeRight'} duration="slow">
                 <div className={`flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-14`}>
                   <div className="flex-1">
-                    <div className={`w-12 h-12 rounded-xl ${colors[i]} flex items-center justify-center mb-5`}><Icon size={22} /></div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{title}</h3>
-                    <p className="text-gray-500 leading-relaxed mb-4">{description}</p>
+                    <div className={`w-12 h-12 rounded-xl ${colors[i]} flex items-center justify-center mb-4`}><Icon size={22} /></div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary-500 mb-1">{title}</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{headline}</h3>
+                    <p className="text-gray-500 leading-relaxed mb-4">{fullDescription}</p>
                     <ul className="space-y-2">
                       {['Personalized guidance', 'Expert consultants', 'Proven track record'].map((item) => (
-                        <li key={item} className="flex items-center gap-2 text-sm text-gray-500"><CheckCircle size={16} className="text-primary-500 shrink-0" />{item}</li>
+                        <li key={item} className="flex items-center gap-2 text-sm text-gray-500">
+                          <CheckCircle size={16} className="text-primary-500 shrink-0" />{item}
+                        </li>
                       ))}
                     </ul>
                   </div>
                   <div className="flex-1 w-full">
-                    <div className="bg-gradient-to-br from-primary-50 to-gray-50 rounded-2xl border border-gray-100 p-10 md:p-14 flex items-center justify-center min-h-[200px]">
-                      <Icon size={80} className="text-primary-200" />
+                    <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                      <img src={image} alt={title} className="w-full h-64 md:h-80 object-cover" />
                     </div>
                   </div>
                 </div>
@@ -55,22 +69,40 @@ export default function ServicesPage() {
         </div>
       </SectionWrapper>
 
+      {/* ── How We Work ── */}
       <SectionWrapper className="bg-gray-50">
-        <AnimateIn animation="fadeUp"><SectionHeader title="How We Work" subtitle="A simple, transparent 4-step process." align="center" /></AnimateIn>
+        <AnimateIn animation="fadeUp">
+          <SectionHeader title="How We Work" subtitle="A simple, transparent 4-step process." align="center" />
+        </AnimateIn>
         <div ref={processRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {processSteps.map(({ step, title, description }, i) => (
-            <div key={step} className={`transition-all duration-700 ease-out ${processInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${i * 150}ms` }}>
-              <div className="relative bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
-                <span className="text-5xl font-bold text-primary-100 absolute top-4 right-4">{step}</span>
-                <div className="relative z-10"><h3 className="text-base font-bold text-gray-900 mb-2 mt-8">{title}</h3><p className="text-sm text-gray-500 leading-relaxed">{description}</p></div>
+            <div
+              key={step}
+              className={`transition-all duration-700 ease-out ${processInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${i * 150}ms` }}
+            >
+              <div className="group relative bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-xl hover:-translate-y-1 hover:border-primary-100 transition-all duration-300 h-full overflow-hidden">
+                {/* Big ghost number */}
+                <span className="text-6xl font-black text-primary-50 group-hover:text-primary-100 absolute -top-1 right-3 leading-none select-none transition-colors duration-300">
+                  {step}
+                </span>
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full bg-primary-500 transition-all duration-500 rounded-b-2xl" />
+                <div className="relative z-10 mt-10">
+                  <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-primary-700 transition-colors duration-300">{title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </SectionWrapper>
 
+      {/* ── FAQ ── */}
       <SectionWrapper>
-        <AnimateIn animation="fadeUp"><SectionHeader title="Frequently Asked Questions" align="center" /></AnimateIn>
+        <AnimateIn animation="fadeUp">
+          <SectionHeader title="Frequently Asked Questions" align="center" />
+        </AnimateIn>
         <FAQAccordion />
       </SectionWrapper>
 

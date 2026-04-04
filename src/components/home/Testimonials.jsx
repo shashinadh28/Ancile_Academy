@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote, BookOpen } from 'lucide-react';
 import SectionWrapper, { SectionHeader } from '../shared/SectionWrapper';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
@@ -24,8 +24,7 @@ export default function Testimonials() {
       <div className="container-custom relative z-10">
         <AnimateIn animation="fadeUp">
           <SectionHeader
-            title="Hear From Our Students"
-            subtitle="Thousands of students have trusted Ancile Academy on their study abroad journey. Their success stories inspire us every day."
+            title="See what our students have to say..."
             light
           />
         </AnimateIn>
@@ -67,6 +66,18 @@ export default function Testimonials() {
             </div>
           </AnimateIn>
         )}
+
+        <AnimateIn animation="fadeUp" delay={500}>
+          <div className="mt-10 bg-white/10 border border-white/20 rounded-2xl px-6 py-5 flex items-center gap-4 max-w-xl mx-auto">
+            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+              <BookOpen size={22} className="text-white" />
+            </div>
+            <div>
+              <p className="text-white/60 text-xs font-semibold uppercase tracking-wider mb-1">Case Study</p>
+              <p className="text-white font-semibold text-sm leading-relaxed">How We Helped [Student Name] Secure a Scholarship in Canada.</p>
+            </div>
+          </div>
+        </AnimateIn>
       </div>
     </section>
   );

@@ -12,6 +12,7 @@ export default function Countries() {
     <>
       <PageBanner title="Study Destinations" subtitle="Explore the world's best countries for international education and find your perfect fit." breadcrumbs={[{ label: 'Countries' }]} />
       <SectionWrapper>
+        <p className="text-gray-500 text-center max-w-2xl mx-auto mb-10">Explore your study options in different countries, each offering unique opportunities and experiences.</p>
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {COUNTRIES.map((country, i) => (
             <div key={country.slug} className={`transition-all duration-700 ease-out ${gridInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${i * 100}ms` }}>
@@ -19,8 +20,7 @@ export default function Countries() {
                 <div className="relative h-48 overflow-hidden">
                   <img src={country.image} alt={country.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                    <span className="text-2xl">{country.flag}</span>
+                  <div className="absolute bottom-4 left-4">
                     <h3 className="text-xl font-bold text-white">{country.name}</h3>
                   </div>
                 </div>

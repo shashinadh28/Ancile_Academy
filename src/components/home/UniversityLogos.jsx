@@ -9,8 +9,8 @@ export default function UniversityLogos() {
   return (
     <SectionWrapper className="bg-gray-50 !py-12 md:!py-16">
       <AnimateIn animation="fadeUp">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center">Our Industry Partnerships</h2>
-        <p className="text-gray-500 text-center mb-10 text-sm">Recognized and partnered with leading education bodies worldwide</p>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center">Our Trusted University Partners</h2>
+        <p className="text-gray-500 text-center mb-10 text-sm">Explore options at 1250+ academic institutes across the world.</p>
       </AnimateIn>
       <div ref={gridRef} className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
         {UNIVERSITY_LOGOS.map(({ name, initials }, i) => (

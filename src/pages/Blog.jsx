@@ -10,7 +10,7 @@ export default function Blog() {
 
   return (
     <>
-      <PageBanner title="Blog & Resources" subtitle="Expert insights, guides, and tips to help you navigate your study abroad journey." breadcrumbs={[{ label: 'Blog' }]} />
+      <PageBanner title="Blog & Resources" subtitle="Stay informed with the latest news, tips, and insights on studying abroad from Ancile Academy." breadcrumbs={[{ label: 'Blog' }]} />
       <SectionWrapper>
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {BLOG_POSTS.map((post, i) => (
@@ -24,7 +24,7 @@ export default function Blog() {
                   <div className="flex items-center gap-3 text-xs text-gray-400 mb-3"><span>{post.date}</span><span>•</span><span className="flex items-center gap-1"><Clock size={12} />{post.readTime}</span></div>
                   <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">{post.title}</h3>
                   <p className="text-sm text-gray-500 line-clamp-3 mb-4">{post.excerpt}</p>
-                  <div className="flex items-center justify-between"><span className="text-xs text-gray-400">By {post.author}</span><span className="inline-flex items-center gap-1 text-sm font-semibold text-primary-600">Read <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" /></span></div>
+                  <div className="flex items-center justify-between"><span className="text-xs text-gray-400">By {post.author}</span><span className="inline-flex items-center gap-1 text-sm font-semibold text-primary-600">Read More <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" /></span></div>
                 </div>
               </Link>
             </div>

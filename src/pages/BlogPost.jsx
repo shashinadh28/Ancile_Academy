@@ -17,7 +17,7 @@ export default function BlogPost() {
     <>
       <section className="gradient-hero relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"><div className="absolute top-10 right-20 w-72 h-72 border border-white/10 rounded-full" /></div>
-        <div className="container-custom relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 pt-28 md:pt-36">
+        <div className="container-custom relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 pt-32 md:pt-40">
           <AnimateIn animation="fadeRight"><Link to="/blog" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors mb-6"><ArrowLeft size={16} />Back to Blog</Link></AnimateIn>
           <AnimateIn animation="fadeUp" delay={100}><span className="inline-block px-3 py-1 rounded-full bg-white/15 text-white/90 text-xs font-semibold mb-4">{post.category}</span></AnimateIn>
           <AnimateIn animation="fadeUp" delay={200}><h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 max-w-4xl leading-tight">{post.title}</h1></AnimateIn>
