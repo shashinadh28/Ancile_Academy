@@ -96,8 +96,10 @@ export default function WorldMap() {
     setTooltip(null);
   };
 
+  // Use functional update — avoids stale closure where tooltip appears null
+  // even though it was just set by a previous render cycle
   const onSvgMove = (e) => {
-    if (tooltip) setTooltip(t => ({ ...t, x: e.clientX, y: e.clientY }));
+    setTooltip(t => t ? { ...t, x: e.clientX, y: e.clientY } : null);
   };
 
   const onPathClick = (rawId) => {
@@ -168,6 +170,7 @@ export default function WorldMap() {
               width="100%"
               style={{ display: 'block' }}
               onMouseMove={onSvgMove}
+              onMouseLeave={onPathLeave}
             >
               {/* ── Country fills ─────────────────────────────────────── */}
               {geos.map((geo) => {
