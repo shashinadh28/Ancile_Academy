@@ -61,17 +61,17 @@ export default function ExamPage({ title, breadcrumbs, subtitle, sections, image
         <div className="max-w-5xl mx-auto">
           {/* Hero row: subtitle + first section on left, image on right */}
           {image ? (
-            <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 mb-10">
-              <div className="lg:col-span-3">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-10">
+              <div>
                 {subtitle && (
                   <AnimateIn animation="fadeUp">
-                    <p className="text-xl text-primary-600 font-semibold mb-6">{subtitle}</p>
+                    <p className="text-2xl text-gray-900 font-extrabold mb-6">{subtitle}</p>
                   </AnimateIn>
                 )}
                 {firstSection && (
                   <AnimateIn animation="fadeUp" delay={60}>
                     <div>
-                      {firstSection.heading && <h2 className="text-2xl font-bold text-gray-900 mt-2 mb-4">{firstSection.heading}</h2>}
+                      {firstSection.heading && <h2 className="text-xl font-bold text-gray-900 mt-2 mb-4">{firstSection.heading}</h2>}
                       {firstSection.paragraphs && firstSection.paragraphs.map((p, j) => (
                         <p key={j} className="text-gray-600 leading-[1.85] mb-4">{p}</p>
                       ))}
@@ -82,10 +82,10 @@ export default function ExamPage({ title, breadcrumbs, subtitle, sections, image
                   </AnimateIn>
                 )}
               </div>
-              <div className="lg:col-span-2">
+              <div>
                 <AnimateIn animation="fadeLeft" delay={100}>
-                  <div className="relative rounded-2xl overflow-hidden shadow-lg sticky top-28">
-                    <img src={image} alt={title} className="w-full h-56 lg:h-72 object-cover" />
+                  <div className="relative rounded-2xl overflow-hidden shadow-xl sticky top-28">
+                    <img src={image} alt={title} className="w-full h-64 md:h-80 lg:h-96 object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                   </div>
                 </AnimateIn>

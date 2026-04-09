@@ -1,5 +1,5 @@
 import { Target, Eye, Heart, Users, Globe, ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import PageBanner from '../components/shared/PageBanner';
 import SectionWrapper, { SectionHeader } from '../components/shared/SectionWrapper';
 import AnimateIn from '../components/shared/AnimateIn';
