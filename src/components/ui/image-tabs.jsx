@@ -1,12 +1,15 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const TabsContext = createContext();
 
 export function TabsProvider({ children, defaultValue, className }) {
   const [activeTab, setActiveTab] = useState(defaultValue);
+  const hasMounted = useRef(false);
+  useEffect(() => { hasMounted.current = true; }, []);
+
   return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
+    <TabsContext.Provider value={{ activeTab, setActiveTab, hasMounted }}>
       <div className={className}>{children}</div>
     </TabsContext.Provider>
   );
@@ -64,21 +67,18 @@ export function TabDes({ children, value }) {
   const { activeTab } = useContext(TabsContext);
   const isActive = activeTab === value;
 
+  if (!isActive) return null;
+
   return (
-    <AnimatePresence mode="wait">
-      {isActive && (
-        <motion.div
-          key={value}
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="overflow-hidden"
-        >
-          <div className="pt-2">{children}</div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <motion.div
+      key={value}
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: 'auto', opacity: 1 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      className="overflow-hidden"
+    >
+      <div className="pt-2">{children}</div>
+    </motion.div>
   );
 }
 
@@ -96,20 +96,17 @@ export function TabImage({ children, value }) {
   const { activeTab } = useContext(TabsContext);
   const isActive = activeTab === value;
 
+  if (!isActive) return null;
+
   return (
-    <AnimatePresence mode="wait">
-      {isActive && (
-        <motion.div
-          key={value}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="absolute inset-0"
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <motion.div
+      key={value}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="absolute inset-0"
+    >
+      {children}
+    </motion.div>
   );
 }

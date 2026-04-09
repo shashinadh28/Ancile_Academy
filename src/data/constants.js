@@ -92,9 +92,9 @@ export const COUNTRIES = [
     visaInfo: 'Study Permit, including acceptance letter and proof of funds.',
     scholarships: ['Vanier Canada Graduate Scholarships', 'University-specific scholarships'],
     whyStudy: [
-      { icon: 'DollarSign', title: 'Affordable Education', description: 'Canada offers world-class education at competitive tuition rates compared to the USA or UK.' },
-      { icon: 'Briefcase', title: 'Post-Study Work Permit', description: 'The PGWP allows graduates to work in Canada for up to 3 years after completing their degree.' },
-      { icon: 'Users', title: 'Safe & Welcoming', description: 'Canada is ranked among the safest countries, with a warm, multicultural, and inclusive society.' },
+      { icon: 'DollarSign', title: 'Affordable Education', description: 'Canada offers world-class education at competitive tuition rates compared to the USA or UK.', image: '/Key-Highlights/Affordable-Education.webp', tags: ['Cost-Effective', 'Value for Money', 'Scholarships'] },
+      { icon: 'Briefcase', title: 'Post-Study Work Permit', description: 'The PGWP allows graduates to work in Canada for up to 3 years after completing their degree.', image: '/Key-Highlights/Post-Study-Work-Permit.webp', tags: ['PGWP', 'Career Growth', 'Immigration'] },
+      { icon: 'Users', title: 'Safe & Welcoming', description: 'Canada is ranked among the safest countries, with a warm, multicultural, and inclusive society.', image: '/Key-Highlights/Safe-Welcoming.webp', tags: ['Safety', 'Multicultural', 'Inclusive'] },
     ],
     popularCourses: [
       { icon: 'Settings2', name: 'Engineering', students: '55k+', image: '/popular_courses_canada/Engineering.webp' },
@@ -123,9 +123,9 @@ export const COUNTRIES = [
     visaInfo: 'Student visa (subclass 500). Requirements include a Confirmation of Enrolment (CoE), genuine temporary entrant criteria, English proficiency, financial capacity, and health insurance (OSHC).',
     scholarships: ['Australia Awards', 'Destination Australia', 'Research Training Program', 'Endeavour Leadership Program', 'University-specific scholarships'],
     whyStudy: [
-      { icon: 'Sun', title: 'High Quality of Life', description: 'Australia consistently ranks among the world\'s most liveable countries with a vibrant student lifestyle.' },
-      { icon: 'Briefcase', title: 'Work While You Study', description: 'International students can work up to 48 hours per fortnight during their study period.' },
-      { icon: 'TrendingUp', title: 'Post-Study Opportunities', description: 'The Temporary Graduate Visa lets you live and work in Australia for up to 4 years after graduation.' },
+      { icon: 'Sun', title: 'High Quality of Life', description: 'Australia consistently ranks among the world\'s most liveable countries with a vibrant student lifestyle.', image: '/Key-Highlights/High-Quality-of-Life.webp', tags: ['Liveable Cities', 'Student Life', 'Modern Infrastructure'] },
+      { icon: 'Briefcase', title: 'Work While You Study', description: 'International students can work up to 48 hours per fortnight during their study period.', image: '/Key-Highlights/Work-While-You-Study.webp', tags: ['Part-time Work', 'Income Support', 'Experience'] },
+      { icon: 'TrendingUp', title: 'Post-Study Opportunities', description: 'The Temporary Graduate Visa lets you live and work in Australia for up to 4 years after graduation.', image: '/Key-Highlights/Post-Study-Opportunities.webp', tags: ['Graduate Visa', 'Career Growth', 'Stay Back'] },
     ],
     popularCourses: [
       { icon: 'Briefcase', name: 'Business & Commerce', students: '145k+', image: '/UK_popular_Courses/Business_Management.webp' },
@@ -155,9 +155,9 @@ export const COUNTRIES = [
     visaInfo: 'Fee Paying Student Visa for courses longer than 3 months. Requirements include an offer of place, proof of funds (NZD 20,000/year for living costs), medical and travel insurance, and a valid passport.',
     scholarships: ['New Zealand Excellence Awards', 'New Zealand International Doctoral Research Scholarships', 'University of Auckland Scholarships', 'MFAT Scholarships', 'University-specific scholarships'],
     whyStudy: [
-      { icon: 'Shield', title: 'Safe & Peaceful', description: 'New Zealand is one of the safest countries in the world, offering a secure environment for students.' },
-      { icon: 'Briefcase', title: 'Work Rights During Study', description: 'Students can work up to 20 hours per week while studying, supporting their living expenses.' },
-      { icon: 'TreePine', title: 'Stunning Environment', description: 'Study amidst breathtaking landscapes — mountains, fjords, and beaches right on your doorstep.' },
+      { icon: 'Shield', title: 'Safe & Peaceful', description: 'New Zealand is one of the safest countries in the world, offering a secure environment for students.', image: '/Key-Highlights/Safe_Peaceful.webp', tags: ['Safety', 'Low Crime', 'Welcoming'] },
+      { icon: 'Briefcase', title: 'Work Rights During Study', description: 'Students can work up to 20 hours per week while studying, supporting their living expenses.', image: '/Key-Highlights/Work-Rights-During-Study.webp', tags: ['Part-time Work', 'Income', 'Experience'] },
+      { icon: 'TreePine', title: 'Stunning Environment', description: 'Study amidst breathtaking landscapes — mountains, fjords, and beaches right on your doorstep.', image: '/Key-Highlights/Stunning-Environment.webp', tags: ['Nature', 'Adventure', 'Landscapes'] },
     ],
     popularCourses: [
       { icon: 'Briefcase', name: 'Management and Commerce', students: '12k', image: '/UK_popular_Courses/Business_Management.webp' },
@@ -186,9 +186,9 @@ export const COUNTRIES = [
     visaInfo: 'Non-EU students need a study visa. Requirements include a letter of acceptance, proof of fees payment, evidence of funds (€10,000 minimum), health insurance, and a valid passport.',
     scholarships: ['Government of Ireland Scholarships', 'Walsh Fellowships', 'Trinity College Scholarships', 'UCD Global Excellence Scholarship', 'NUI Travelling Studentships'],
     whyStudy: [
-      { icon: 'Globe', title: 'English-Speaking Country', description: 'Ireland is the only English-speaking country in the EU, making it ideal for international students.' },
-      { icon: 'Monitor', title: 'Thriving Tech Hub', description: 'Home to Google, Meta, Apple, and Amazon European HQs — offering unmatched industry exposure.' },
-      { icon: 'Map', title: 'Gateway to Europe', description: 'An Irish degree and Schengen access lets you explore career opportunities across all of Europe.' },
+      { icon: 'Globe', title: 'English-Speaking Country', description: 'Ireland is the only English-speaking country in the EU, making it ideal for international students.', image: '/Key-Highlights/English-Speaking-Country.webp', tags: ['English', 'EU Access', 'Global Degree'] },
+      { icon: 'Monitor', title: 'Thriving Tech Hub', description: 'Home to Google, Meta, Apple, and Amazon European HQs — offering unmatched industry exposure.', image: '/Key-Highlights/Thriving-Tech-Hub.webp', tags: ['Tech Giants', 'Silicon Docks', 'Innovation'] },
+      { icon: 'Map', title: 'Gateway to Europe', description: 'An Irish degree and Schengen access lets you explore career opportunities across all of Europe.', image: '/Key-Highlights/Gateway-to-Europe.webp', tags: ['EU Mobility', 'Travel', 'Career Reach'] },
     ],
     popularCourses: [
       { icon: 'HeartPulse', name: 'Health and Welfare', students: '7K+', image: '/popular_courses_canada/Healthcare.webp' },
@@ -216,9 +216,9 @@ export const COUNTRIES = [
     visaInfo: 'Non-EU students typically need a national student visa for their specific country. A Schengen visa allows travel across 26 European countries. Requirements vary by country but generally include acceptance letter, financial proof, and health insurance.',
     scholarships: ['Erasmus Mundus', 'DAAD Scholarships (Germany)', 'Eiffel Scholarships (France)', 'Holland Scholarship', 'Swiss Government Excellence Scholarships'],
     whyStudy: [
-      { icon: 'DollarSign', title: 'Tuition-Free Options', description: 'Countries like Germany and Norway offer free or heavily subsidised education even for international students.' },
-      { icon: 'Globe', title: 'Multicultural Experience', description: 'Immerse yourself in 40+ cultures and languages, building a truly global mindset.' },
-      { icon: 'Map', title: 'Schengen Area Access', description: 'Travel freely across 26 European countries during your studies — unmatched cultural exposure.' },
+      { icon: 'DollarSign', title: 'Tuition-Free Options', description: 'Countries like Germany and Norway offer free or heavily subsidised education even for international students.', image: '/Key-Highlights/Tuition-Free-Options.webp', tags: ['Free Tuition', 'Affordable', 'Subsidised'] },
+      { icon: 'Globe', title: 'Multicultural Experience', description: 'Immerse yourself in 40+ cultures and languages, building a truly global mindset.', image: '/Key-Highlights/Multicultural-Experience.webp', tags: ['40+ Cultures', 'Diversity', 'Global Mindset'] },
+      { icon: 'Map', title: 'Schengen Area Access', description: 'Travel freely across 26 European countries during your studies — unmatched cultural exposure.', image: '/Key-Highlights/Schengen-Area-Access.webp', tags: ['26 Countries', 'Free Travel', 'Cultural Exposure'] },
     ],
     popularCourses: [
       { icon: 'Settings2', name: 'Engineering', students: '350k+', image: '/UK_popular_Courses/Engineering.webp' },
