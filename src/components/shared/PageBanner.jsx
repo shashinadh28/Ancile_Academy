@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimateIn from './AnimateIn';
+import TextAnimation from '../ui/scroll-text';
 
 export default function PageBanner({ title, subtitle, breadcrumbs = [] }) {
   return (
@@ -28,9 +29,12 @@ export default function PageBanner({ title, subtitle, breadcrumbs = [] }) {
             </nav>
           </AnimateIn>
         )}
-        <AnimateIn animation="fadeUp" delay={100} duration="slow">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">{title}</h1>
-        </AnimateIn>
+        <TextAnimation
+          as="h1"
+          text={title}
+          letterAnime={true}
+          classname="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
+        />
         {subtitle && (
           <AnimateIn animation="fadeUp" delay={250}>
             <p className="text-lg md:text-xl text-white/70 max-w-2xl">{subtitle}</p>

@@ -13,6 +13,8 @@ export default function SectionWrapper({
   );
 }
 
+import TextAnimation from '../ui/scroll-text';
+
 export function SectionHeader({ badge, title, subtitle, light = false, align = 'left' }) {
   return (
     <div className={`max-w-3xl mb-12 md:mb-16 ${align === 'center' ? 'mx-auto text-center' : ''}`}>
@@ -21,9 +23,12 @@ export function SectionHeader({ badge, title, subtitle, light = false, align = '
           {badge}
         </span>
       )}
-      <h2 className={`text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 ${light ? 'text-white' : 'text-gray-900'}`}>
-        {title}
-      </h2>
+      <TextAnimation
+        as="h2"
+        text={title}
+        lineAnime={true}
+        classname={`text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 ${light ? 'text-white' : 'text-gray-900'}`}
+      />
       {subtitle && (
         <p className={`text-base md:text-lg leading-relaxed ${light ? 'text-white/70' : 'text-gray-500'}`}>
           {subtitle}

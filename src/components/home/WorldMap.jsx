@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { geoNaturalEarth1, geoPath } from 'd3-geo';
 import * as topojson from 'topojson-client';
 import AnimateIn from '../shared/AnimateIn';
+import TextAnimation from '../ui/scroll-text';
 
 // ── Destination config ───────────────────────────────────────────────────────
 // coords = [lng, lat] — used to place the marker pin
@@ -141,9 +142,12 @@ export default function WorldMap() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-[11px] font-bold uppercase tracking-widest mb-4">
               Interactive Map
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">
-              Explore Study Destinations Worldwide
-            </h2>
+            <TextAnimation
+              as="h2"
+              text="Explore Study Destinations Worldwide"
+              lineAnime={true}
+              classname="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight"
+            />
             <p className="text-gray-500 max-w-lg mx-auto text-sm md:text-base">
               Click on any highlighted country to discover universities, scholarships, and visa information.
             </p>

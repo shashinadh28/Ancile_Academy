@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import TextAnimation from '../ui/scroll-text';
 
 /**
  * ProcessSteps — accordion/expand gallery layout.
@@ -107,11 +108,14 @@ export default function ProcessSteps() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary-50 text-primary-700 text-xs font-semibold tracking-wider uppercase mb-4">
               Step by step process
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 text-gray-900">
-              We&apos;re with you at{' '}
-              <span className="text-primary-600">every step</span>{' '}
-              of your study abroad journey.
-            </h2>
+            <TextAnimation
+              as="h2"
+              text="We're with you at every step of your study abroad journey."
+              lineAnime={true}
+              classname="text-3xl md:text-4xl lg:text-[42px] font-bold leading-tight mb-4 text-gray-900"
+              highlightWords={['every', 'step']}
+              highlightClass="text-primary-600"
+            />
             <p className="text-base md:text-lg leading-relaxed text-gray-500">
               A clear, guided path from profile to post-arrival — structured support at every milestone.
             </p>

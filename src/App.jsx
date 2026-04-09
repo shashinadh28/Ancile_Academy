@@ -14,6 +14,14 @@ const Contact = lazy(() => import('./pages/Contact'));
 const GetStarted = lazy(() => import('./pages/GetStarted'));
 const EnglishCoaching = lazy(() => import('./pages/EnglishCoaching'));
 const Resources = lazy(() => import('./pages/Resources'));
+const IELTS = lazy(() => import('./pages/exams/IELTS'));
+const TOEFL = lazy(() => import('./pages/exams/TOEFL'));
+const PTE = lazy(() => import('./pages/exams/PTE'));
+const Duolingo = lazy(() => import('./pages/exams/Duolingo'));
+const OET = lazy(() => import('./pages/exams/OET'));
+const SAT = lazy(() => import('./pages/exams/SAT'));
+const GRE = lazy(() => import('./pages/exams/GRE'));
+const GMAT = lazy(() => import('./pages/exams/GMAT'));
 
 function PageLoader() {
   return (
@@ -98,6 +106,70 @@ export default function App() {
             element={
               <Suspense fallback={<PageLoader />}>
                 <EnglishCoaching />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/ielts"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <IELTS />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/toefl"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <TOEFL />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/pte"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <PTE />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/duolingo"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <Duolingo />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/oet"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <OET />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/sat"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <SAT />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/gre"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <GRE />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/exams/gmat"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <GMAT />
               </Suspense>
             }
           />

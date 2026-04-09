@@ -1,35 +1,17 @@
 import { useState } from 'react';
-import { ArrowRight, CheckCircle, BookOpen, Building, FileText, Coins, Stamp } from 'lucide-react';
+import { ArrowRight, BookOpen, Building, FileText, Coins, Stamp, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
 
 const steps = [
-  {
-    icon: BookOpen,
-    title: 'Choose Your Programme',
-    description: 'Select the course that inspires you and shapes your future.',
-  },
-  {
-    icon: Building,
-    title: 'Find Your University',
-    description: 'Discover and shortlist top universities with expert guidance.',
-  },
-  {
-    icon: FileText,
-    title: 'Prepare for Tests & Applications',
-    description: 'Get support to ace your English language test and craft a strong Statement of Purpose.',
-  },
-  {
-    icon: Coins,
-    title: 'Secure Funding',
-    description: 'Apply for scholarships and manage your finances for a smooth visa process.',
-  },
-  {
-    icon: Stamp,
-    title: 'Visa & Beyond',
-    description: 'Prepare confidently for your visa interview and take the first step towards your international future.',
-  },
+  { icon: BookOpen, title: 'Choose Your Programme', description: 'Select the course that inspires you and shapes your future.' },
+  { icon: Building, title: 'Find Your University', description: 'Discover and shortlist top universities with expert guidance.' },
+  { icon: FileText, title: 'Prepare for Tests & Applications', description: 'Get support to ace your English language test and craft a strong Statement of Purpose.' },
+  { icon: Coins, title: 'Secure Funding', description: 'Apply for scholarships and manage your finances for a smooth visa process.' },
+  { icon: Stamp, title: 'Visa & Beyond', description: 'Prepare confidently for your visa interview and take the first step towards your international future.' },
 ];
+
 
 export default function NextStepsCTA() {
   const [stepsRef, stepsInView] = useInView({ threshold: 0.1 });
@@ -47,141 +29,123 @@ export default function NextStepsCTA() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-primary-800 via-primary-700 to-primary-900 overflow-hidden py-14 md:py-20 px-4 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden py-16 md:py-24 px-4 sm:px-6 lg:px-8"
+      style={{ background: 'linear-gradient(135deg, #172554 0%, #1e3a8a 40%, #1d4ed8 70%, #2563eb 100%)' }}>
 
-      {/* Ambient decorative rings */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-80 h-80 border border-white/8 rounded-full" />
-        <div className="absolute -bottom-20 left-1/3 w-56 h-56 border border-white/6 rounded-full" />
-        <div className="absolute top-10 right-1/4 w-32 h-32 border border-white/6 rounded-full" />
-      </div>
+      {/* grid pattern */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+      {/* glow orbs */}
+      <div className="absolute pointer-events-none" style={{ top: -80, right: -80, width: 360, height: 360, borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,.25) 0%, transparent 70%)' }} />
+      <div className="absolute pointer-events-none" style={{ bottom: -100, left: -60, width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(56,189,248,.18) 0%, transparent 70%)' }} />
 
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-          {/* ── Left: steps ── */}
+          {/* ── Left: headline, steps, checklist ── */}
           <div>
             <AnimateIn animation="fadeRight">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                Your Next Steps to<br />
-                <span className="text-sky-300">Studying Abroad</span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-6"
+                style={{ background: 'rgba(255,255,255,.10)', border: '1px solid rgba(255,255,255,.20)', color: '#bfdbfe' }}>
+                <Star size={10} /> Free Consultation
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+                Better futures begin<br className="hidden md:block" />
+                with{' '}<span style={{ background: 'linear-gradient(90deg, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Ancile Academy</span>
               </h2>
-              <p className="text-primary-200/80 text-sm md:text-base leading-relaxed mb-10 max-w-md">
-                Unlock a world of global opportunities, personal growth, and career success with a study experience beyond borders. The investment you make today pays off tomorrow with job prospects and extended visa options.
+              <p className="leading-[1.9] mb-8 max-w-sm text-[15px]" style={{ color: 'rgba(191,219,254,.85)' }}>
+                With expert counsellors and a strong global presence, we're always ready to support your study abroad needs.
               </p>
             </AnimateIn>
 
-            <div ref={stepsRef} className="space-y-5">
+            <div ref={stepsRef} className="space-y-4 mb-8">
               {steps.map(({ icon: Icon, title, description }, i) => (
                 <div
                   key={title}
                   className={`flex items-start gap-4 transition-all duration-700 ease-out ${stepsInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
-                  style={{ transitionDelay: `${i * 110}ms` }}
+                  style={{ transitionDelay: `${i * 100}ms` }}
                 >
-                  {/* Icon box */}
-                  <div className="shrink-0 w-11 h-11 rounded-xl bg-white/10 border border-white/15 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors duration-300">
-                    <Icon size={18} className="text-sky-300" />
+                  <div className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{ background: 'rgba(255,255,255,.10)', border: '1px solid rgba(255,255,255,.15)' }}>
+                    <Icon size={17} className="text-sky-300" />
                   </div>
-                  {/* Text */}
                   <div className="pt-0.5">
-                    <h4 className="text-white font-bold text-sm md:text-base mb-0.5">{title}</h4>
-                    <p className="text-primary-200/70 text-sm leading-relaxed">{description}</p>
+                    <h4 className="text-white font-bold text-sm mb-0.5">{title}</h4>
+                    <p className="text-sm leading-relaxed" style={{ color: 'rgba(191,219,254,.65)' }}>{description}</p>
                   </div>
                 </div>
               ))}
             </div>
+
+            <AnimateIn animation="fadeUp" delay={300}>
+              <Link to="/get-started" className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-bold text-sm text-white"
+                style={{ background: 'rgba(255,255,255,.12)', border: '1.5px solid rgba(255,255,255,.30)', backdropFilter: 'blur(8px)', transition: 'all .2s' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,.22)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.50)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,.12)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.30)'; }}
+              >Get Started <ArrowRight size={15} /></Link>
+            </AnimateIn>
           </div>
 
-          {/* ── Right: floating white consultation card ── */}
+          {/* ── Right: consultation form card ── */}
           <AnimateIn animation="fadeLeft" delay={150}>
-            <div className="bg-white rounded-3xl shadow-2xl shadow-primary-950/50 p-7 md:p-9">
-
+            <div style={{ background: '#fff', borderRadius: 28, padding: '36px 32px', boxShadow: '0 24px 64px rgba(0,0,0,.22), 0 4px 16px rgba(0,0,0,.10)' }}>
               {submitted ? (
                 <div className="py-10 text-center">
-                  <div className="w-14 h-14 rounded-full bg-sky-50 flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle size={28} className="text-sky-500" />
+                  <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #dbeafe, #ede9fe)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+                    <CheckCircle size={30} style={{ color: '#2563eb' }} />
                   </div>
-                  <p className="text-gray-900 font-bold text-lg mb-2">Booking Confirmed!</p>
+                  <p className="text-gray-900 font-bold text-xl mb-2">Booking Confirmed!</p>
                   <p className="text-gray-500 text-sm">Our counsellor will reach you within 2 hours.</p>
                 </div>
               ) : (
                 <>
-                  <h3 className="text-lg md:text-xl font-bold text-gray-900 text-center mb-1 leading-snug">
-                    Book Your{' '}
-                    <span className="text-sky-500">FREE Consultation</span>{' '}
-                    Call with Our Certified Counsellors
-                  </h3>
-                  <div className="w-10 h-0.5 bg-sky-400 mx-auto mb-7 rounded-full" />
-
-                  <form onSubmit={handleSubmit} className="space-y-3.5">
-                    <input
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      type="text"
-                      placeholder="Full Name *"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30 focus:border-sky-400 transition-all"
+                  <div className="text-center mb-6">
+                    <h3 className="text-xl font-bold text-gray-900 leading-snug mb-1">
+                      Book your{' '}<span style={{ background: 'linear-gradient(135deg, #2563eb, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FREE consultation</span>
+                    </h3>
+                    <p className="text-sm text-gray-400">Speak with a certified study abroad counsellor</p>
+                    <div style={{ width: 48, height: 3, background: 'linear-gradient(90deg, #3b82f6, #6366f1)', borderRadius: 999, margin: '14px auto 0' }} />
+                  </div>
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                    <input name="name" value={form.name} onChange={handleChange} placeholder="Full Name *" required
+                      className="w-full px-4 py-3 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 transition-all"
+                      style={{ border: '1.5px solid #e5e7eb' }}
                     />
                     <div className="flex gap-2">
-                      <span className="flex items-center justify-center px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-500 bg-gray-50 shrink-0 font-medium">
-                        +91
-                      </span>
-                      <input
-                        name="phone"
-                        value={form.phone}
-                        onChange={handleChange}
-                        type="tel"
-                        placeholder="Mobile Number *"
-                        required
-                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30 focus:border-sky-400 transition-all"
+                      <span className="flex items-center justify-center px-4 py-3 rounded-xl text-sm font-bold shrink-0"
+                        style={{ border: '1.5px solid #e5e7eb', background: '#f9fafb', color: '#374151' }}>+91</span>
+                      <input name="phone" value={form.phone} onChange={handleChange} type="tel" placeholder="Mobile Number *" required
+                        className="flex-1 px-4 py-3 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 transition-all"
+                        style={{ border: '1.5px solid #e5e7eb' }}
                       />
                     </div>
-                    <input
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      type="email"
-                      placeholder="Email ID *"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30 focus:border-sky-400 transition-all"
+                    <input name="email" value={form.email} onChange={handleChange} type="email" placeholder="Email ID *" required
+                      className="w-full px-4 py-3 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 transition-all"
+                      style={{ border: '1.5px solid #e5e7eb' }}
                     />
                     <div className="relative">
-                      <select
-                        name="destination"
-                        value={form.destination}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400/30 focus:border-sky-400 transition-all bg-white appearance-none pr-9 text-gray-500"
-                      >
+                      <select name="destination" value={form.destination} onChange={handleChange} required
+                        className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 transition-all bg-white appearance-none pr-10"
+                        style={{ border: '1.5px solid #e5e7eb', color: form.destination ? '#111827' : '#9ca3af' }}>
                         <option value="">Destination *</option>
-                        <option>United States</option>
-                        <option>United Kingdom</option>
-                        <option>Canada</option>
-                        <option>Australia</option>
-                        <option>New Zealand</option>
-                        <option>Ireland</option>
-                        <option>Europe</option>
+                        <option>United States</option><option>United Kingdom</option><option>Canada</option>
+                        <option>Australia</option><option>New Zealand</option><option>Ireland</option><option>Europe</option>
                       </select>
                       <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                          <path d="M6 8L1 3h10L6 8z" />
-                        </svg>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 8L1 3h10L6 8z" /></svg>
                       </div>
                     </div>
 
-                    {/* Privacy checkbox */}
-                    <label className="flex items-start gap-3 cursor-pointer">
+                    <label className="flex items-start gap-2.5 cursor-pointer mt-1">
                       <div className="relative mt-0.5 shrink-0">
-                        <input
-                          type="checkbox"
-                          checked={agreed}
-                          onChange={(e) => setAgreed(e.target.checked)}
-                          className="sr-only"
-                        />
+                        <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="sr-only" />
                         <div
                           onClick={() => setAgreed(!agreed)}
-                          className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${agreed ? 'bg-sky-500 border-sky-500' : 'bg-white border-gray-300'}`}
+                          className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 cursor-pointer ${agreed ? 'bg-blue-600 border-blue-600' : 'bg-white border-gray-300'}`}
                         >
                           {agreed && (
                             <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 12 12" stroke="currentColor" strokeWidth="2.5">
@@ -192,26 +156,24 @@ export default function NextStepsCTA() {
                       </div>
                       <span className="text-xs text-gray-500 leading-relaxed">
                         I agree to Ancile Academy's{' '}
-                        <a href="/contact" className="text-sky-500 hover:underline font-semibold">Privacy Policy</a>
+                        <a href="/contact" className="text-blue-600 hover:underline font-semibold">Privacy Policy</a>
                         {' '}and{' '}
-                        <a href="/contact" className="text-sky-500 hover:underline font-semibold">Terms and Conditions</a>
-                        {' '}*
+                        <a href="/contact" className="text-blue-600 hover:underline font-semibold">Terms and Conditions</a> *
                       </span>
                     </label>
 
-                    <button
-                      type="submit"
-                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-sky-500 text-white font-bold text-sm hover:bg-sky-400 active:scale-[0.98] transition-all shadow-lg shadow-sky-500/30 cursor-pointer"
-                    >
-                      Book a FREE Consultation
-                      <ArrowRight size={15} />
-                    </button>
+                    <button type="submit"
+                      className="w-full flex items-center justify-center gap-2 py-4 rounded-xl text-white font-bold text-sm active:scale-[0.98] transition-all duration-200 cursor-pointer mt-1"
+                      style={{ background: 'linear-gradient(135deg, #2563eb, #6366f1)', boxShadow: '0 8px 24px rgba(37,99,235,.35)' }}
+                      onMouseEnter={e => e.currentTarget.style.boxShadow = '0 12px 32px rgba(37,99,235,.50)'}
+                      onMouseLeave={e => e.currentTarget.style.boxShadow = '0 8px 24px rgba(37,99,235,.35)'}
+                    >Book a FREE Consultation <ArrowRight size={16} /></button>
+                    <p className="text-center text-xs text-gray-400 mt-1">Your data is 100% secure & never shared</p>
                   </form>
                 </>
               )}
             </div>
           </AnimateIn>
-
         </div>
       </div>
     </section>

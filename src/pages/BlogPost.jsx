@@ -32,16 +32,31 @@ export default function BlogPost() {
       </section>
 
       <SectionWrapper>
-        <div className="max-w-4xl mx-auto">
-          <AnimateIn animation="scaleIn" duration="slow"><div className="rounded-2xl overflow-hidden mb-10"><img src={post.image} alt={post.title} className="w-full h-64 md:h-96 object-cover" /></div></AnimateIn>
-          <article>
-            {post.content.split('\n\n').map((block, i) => {
+        <div className="max-w-5xl mx-auto">
+          {(() => {
+            const blocks = post.content.split('\n\n');
+            const firstBlocks = blocks.slice(0, 3);
+            const restBlocks = blocks.slice(3);
+            const renderBlock = (block, i) => {
               if (block.startsWith('## ')) return <AnimateIn key={i} animation="fadeUp"><h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">{block.replace('## ', '')}</h2></AnimateIn>;
               if (block.startsWith('### ')) return <AnimateIn key={i} animation="fadeUp"><h3 className="text-xl font-bold text-gray-900 mt-8 mb-3">{block.replace('### ', '')}</h3></AnimateIn>;
               if (block.startsWith('- ')) return <AnimateIn key={i} animation="fadeUp"><ul className="space-y-2 my-4">{block.split('\n').map((item, j) => <li key={j} className="flex items-start gap-2 text-gray-500"><span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2.5 shrink-0" />{item.replace('- ', '')}</li>)}</ul></AnimateIn>;
               return <AnimateIn key={i} animation="fadeUp"><p className="text-gray-500 leading-relaxed mb-4">{block}</p></AnimateIn>;
-            })}
-          </article>
+            };
+            return (
+              <article>
+                <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 mb-6">
+                  <div className="lg:col-span-3">{firstBlocks.map((b, i) => renderBlock(b, i))}</div>
+                  <div className="lg:col-span-2">
+                    <AnimateIn animation="fadeLeft" delay={100}>
+                      <div className="rounded-2xl overflow-hidden shadow-lg sticky top-28"><img src={post.image} alt={post.title} className="w-full h-56 lg:h-72 object-cover" /></div>
+                    </AnimateIn>
+                  </div>
+                </div>
+                {restBlocks.map((b, i) => renderBlock(b, i + firstBlocks.length))}
+              </article>
+            );
+          })()}
           {relatedPosts.length > 0 && (
             <div className="mt-16 pt-10 border-t border-gray-200">
               <AnimateIn animation="fadeUp"><h3 className="text-2xl font-bold text-gray-900 mb-6">Related Articles</h3></AnimateIn>

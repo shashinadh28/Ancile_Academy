@@ -42,7 +42,6 @@
   --color-navy-800: #1e2a5e;
   --color-navy-900: #0f1b3d;
   --color-navy-950: #0a1128;
-
 }
 
 @layer base {
@@ -66,20 +65,310 @@
     @apply bg-gradient-to-br from-primary-950 via-primary-900 to-primary-800;
   }
   .section-padding {
-    @apply py-16 md:py-24 px-4 sm:px-6 lg:px-8;
+    @apply py-20 md:py-28 px-4 sm:px-6 lg:px-8;
   }
   .container-custom {
     @apply max-w-7xl mx-auto;
   }
+
+  /* ── STAT CARD ─────────────────────────────────────────── */
+  .stat-card {
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 60%, #e0f2fe 100%);
+    border: 1.5px solid #bfdbfe;
+    box-shadow: 0 2px 8px rgba(37,99,235,.08), 0 0 0 0 #93c5fd;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    cursor: default;
+  }
+  .stat-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(37,99,235,.18), 0 2px 8px rgba(0,0,0,.06);
+    border-color: #60a5fa;
+  }
+
+  /* ── WHY-STUDY CARD ─────────────────────────────────────── */
+  .why-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 28px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04);
+    transition: transform .3s cubic-bezier(.34,1.2,.64,1), box-shadow .3s ease, border-color .3s ease;
+    cursor: pointer;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #6366f1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+    border-radius: 0 0 2px 2px;
+  }
+  .why-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 48px rgba(37,99,235,.14), 0 4px 12px rgba(0,0,0,.06);
+    border-color: #bfdbfe;
+  }
+  .why-card:hover::after {
+    transform: scaleX(1);
+  }
+  .why-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    transition: transform .3s cubic-bezier(.34,1.5,.64,1), box-shadow .3s ease;
+  }
+  .why-card:hover .why-icon {
+    transform: scale(1.15) rotate(-4deg);
+    box-shadow: 0 8px 20px rgba(37,99,235,.2);
+  }
+
+  /* ── INFO CARD (Edu/Visa) ───────────────────────────────── */
+  .info-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 36px 32px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.04);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    height: 100%;
+  }
+  .info-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 44px rgba(37,99,235,.11), 0 4px 12px rgba(0,0,0,.06);
+    border-color: #bfdbfe;
+  }
+  .info-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    transition: transform .3s cubic-bezier(.34,1.5,.64,1);
+  }
+  .info-card:hover .info-icon {
+    transform: scale(1.12) rotate(-3deg);
+  }
+
+  /* ── COURSE CARD ────────────────────────────────────────── */
+  .course-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.04);
+    transition: transform .3s cubic-bezier(.34,1.2,.64,1), box-shadow .3s ease, border-color .3s ease;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+  }
+  .course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 48px rgba(37,99,235,.14), 0 4px 12px rgba(0,0,0,.07);
+    border-color: #bfdbfe;
+  }
+  .course-img-wrap {
+    width: 100%;
+    height: 148px;
+    overflow: hidden;
+    position: relative;
+  }
+  .course-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+  .course-card:hover .course-img-wrap img {
+    transform: scale(1.08);
+  }
+  .course-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(30,58,138,.40) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .course-card:hover .course-img-overlay {
+    opacity: 1;
+  }
+
+  /* ── UNIVERSITY CARD ────────────────────────────────────── */
+  .uni-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease;
+    cursor: pointer;
+  }
+  .uni-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #3b82f6 0%, #6366f1 100%);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform .35s cubic-bezier(.34,1.2,.64,1);
+    border-radius: 2px 0 0 2px;
+  }
+  .uni-card:hover::before {
+    transform: scaleY(1);
+  }
+  .uni-card:hover {
+    transform: translateX(6px) translateY(-2px);
+    box-shadow: 0 10px 28px rgba(37,99,235,.12), 0 2px 8px rgba(0,0,0,.05);
+    background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+    border-color: #bfdbfe;
+  }
+
+  /* ── SCHOLARSHIP ITEM ───────────────────────────────────── */
+  .schol-item {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1.5px solid #e5e7eb;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease, padding-left .3s ease;
+    cursor: pointer;
+  }
+  .schol-item:hover {
+    transform: translateX(6px);
+    padding-left: 24px;
+    background: linear-gradient(90deg, #eff6ff 0%, #ffffff 80%);
+    border-color: #93c5fd;
+    box-shadow: 0 6px 20px rgba(37,99,235,.12), 0 2px 6px rgba(0,0,0,.04);
+  }
+
+  /* ── INQUIRY CARD ───────────────────────────────────────── */
+  .inquiry-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px 28px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 4px 16px rgba(37,99,235,.08), 0 1px 4px rgba(0,0,0,.04);
+    transition: box-shadow .3s ease;
+  }
+  .inquiry-card:hover {
+    box-shadow: 0 12px 36px rgba(37,99,235,.13), 0 2px 8px rgba(0,0,0,.05);
+  }
+  .inquiry-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1.5px solid #e5e7eb;
+    background: #f9fafb;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .inquiry-input:focus {
+    border-color: #3b82f6;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59,130,246,.12);
+  }
+
+  /* ── SECTION BG VARIANTS ────────────────────────────────── */
+  .section-white  { background: #ffffff; }
+  .section-tinted { background: linear-gradient(180deg, #f8faff 0%, #f1f5f9 100%); }
+  .section-dots {
+    background-color: #f8faff;
+    background-image: radial-gradient(#dbeafe 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .section-mesh {
+    background-color: #ffffff;
+    background-image:
+      linear-gradient(135deg, #eff6ff 25%, transparent 25%),
+      linear-gradient(225deg, #eff6ff 25%, transparent 25%),
+      linear-gradient(45deg,  #eff6ff 25%, transparent 25%),
+      linear-gradient(315deg, #eff6ff 25%, #ffffff 25%);
+    background-size: 40px 40px;
+    background-position: 10px 0, 10px 0, 0 0, 0 0;
+  }
+
+  /* ── BADGE / PILL ───────────────────────────────────────── */
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+    border: 1px solid #bfdbfe;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1d4ed8;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* ── PREMIUM CARD BASE ──────────────────────────────────── */
+  .card-premium {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05), 0 8px 24px rgba(0,0,0,.04);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    cursor: pointer;
+  }
+  .card-premium:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 44px rgba(37,99,235,.12), 0 4px 12px rgba(0,0,0,.06);
+    border-color: #bfdbfe;
+  }
+}
+
+/* ── KEYFRAMES ──────────────────────────────────────────────── */
+@keyframes cell-ripple {
+  0%   { opacity: 0.4; }
+  50%  { opacity: 0.8; background-color: rgba(37, 99, 235, 0.15); }
+  100% { opacity: 0.4; }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+  50%       { transform: translateY(-12px); }
 }
 @keyframes float-slow {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(3deg); }
+  50%       { transform: translateY(-8px) rotate(3deg); }
 }
-.animate-float { animation: float 6s ease-in-out infinite; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-float      { animation: float 6s ease-in-out infinite; }
 .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+.animate-fade-in-up { animation: fadeInUp .6s ease-out both; }
+.animate-hero-pulse      { animation: hero-pulse 3s ease-in-out infinite; }
+.animate-hero-pulse-slow { animation: hero-pulse 5s ease-in-out infinite; }
+
+@keyframes hero-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.15); opacity: 0.6; }
+}

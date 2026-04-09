@@ -1,6 +1,7 @@
 import { ArrowRight, GraduationCap, Stamp, Award, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimateIn from '../shared/AnimateIn';
+import TextAnimation from '../ui/scroll-text';
 import Button from '../shared/Button';
 import useInView from '../../hooks/useInView';
 import { SERVICES } from '../../data/constants';
@@ -53,9 +54,12 @@ export default function ServicesOverview() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary-400 text-[11px] font-bold uppercase tracking-widest mb-5">
               What We Offer
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-              Featured Services
-            </h2>
+            <TextAnimation
+              as="h2"
+              text="Featured Services"
+              lineAnime={true}
+              classname="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
+            />
             <p className="text-gray-400 max-w-lg mx-auto leading-relaxed text-sm md:text-base">
               From your first consultation to settling in your dream university — we handle every detail of your journey.
             </p>

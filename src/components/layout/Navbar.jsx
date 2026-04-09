@@ -20,34 +20,90 @@ const DROPDOWNS = {
     { label: 'Ireland', path: '/countries/ireland' },
     { label: 'Europe', path: '/countries/europe' },
   ],
-  'English Coaching': [
-    { label: 'IELTS Preparation', path: '/english-coaching' },
-    { label: 'TOEFL Preparation', path: '/english-coaching' },
-    { label: 'PTE Academic', path: '/english-coaching' },
-    { label: 'GRE / GMAT', path: '/english-coaching' },
-    { label: 'Duolingo English Test', path: '/english-coaching' },
+  'Exams': [
+    {
+      label: 'English Language Proficiency',
+      type: 'nested',
+      items: [
+        { label: 'IELTS', path: '/exams/ielts' },
+        { label: 'TOEFL', path: '/exams/toefl' },
+        { label: 'PTE', path: '/exams/pte' },
+        { label: 'Duolingo', path: '/exams/duolingo' },
+        { label: 'OET', path: '/exams/oet' },
+      ],
+    },
+    {
+      label: 'Undergraduate',
+      type: 'nested',
+      items: [
+        { label: 'SAT', path: '/exams/sat' },
+      ],
+    },
+    {
+      label: 'Standard Exams',
+      type: 'nested',
+      items: [
+        { label: 'GRE', path: '/exams/gre' },
+        { label: 'GMAT', path: '/exams/gmat' },
+      ],
+    },
   ],
 };
 
 function DropdownMenu({ items, isOpen }) {
+  const [hoveredNested, setHoveredNested] = useState(null);
+
   return (
     <div
-      className={`absolute top-full left-0 pt-2 w-52 z-50 transition-all duration-200 origin-top ${isOpen
+      className={`absolute top-full left-0 pt-2 w-56 z-50 transition-all duration-200 origin-top ${isOpen
         ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto'
         : 'opacity-0 scale-y-95 -translate-y-1 pointer-events-none'
         }`}
       style={{ transformOrigin: 'top center' }}
     >
-      <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
-        {items.map((item) => (
-          <Link
-            key={item.path + item.label}
-            to={item.path}
-            className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-          >
-            {item.label}
-          </Link>
-        ))}
+      <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-visible relative">
+        {items.map((item, index) => {
+          if (item.type === 'nested') {
+            return (
+              <div
+                key={item.label + index}
+                className="relative"
+                onMouseEnter={() => setHoveredNested(item.label)}
+                onMouseLeave={() => setHoveredNested(null)}
+              >
+                <div className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors cursor-pointer">
+                  {item.label}
+                  <ChevronDown size={14} className="-rotate-90 opacity-60" />
+                </div>
+                {hoveredNested === item.label && (
+                  <div className="absolute top-0 left-full pl-1 w-52">
+                    <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+                      {item.items.map((nestedItem) => (
+                        <Link
+                          key={nestedItem.path + nestedItem.label}
+                          to={nestedItem.path}
+                          className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                        >
+                          {nestedItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          return (
+            <Link
+              key={item.path + item.label}
+              to={item.path}
+              className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
@@ -61,6 +117,9 @@ export default function Navbar() {
   const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
   const navRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const [openNestedMobileDropdown, setOpenNestedMobileDropdown] = useState(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -77,6 +136,7 @@ export default function Navbar() {
     setIsOpen(false);
     setOpenDropdown(null);
     setOpenMobileDropdown(null);
+    setOpenNestedMobileDropdown(null);
   }, [location]);
 
   /* Close desktop dropdown when clicking outside */
@@ -99,6 +159,9 @@ export default function Navbar() {
 
   const toggleMobileDropdown = (label) =>
     setOpenMobileDropdown((prev) => (prev === label ? null : label));
+
+  const toggleNestedMobileDropdown = (label) =>
+    setOpenNestedMobileDropdown((prev) => (prev === label ? null : label));
 
   return (
     <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 bg-white">
@@ -130,15 +193,15 @@ export default function Navbar() {
             <div className="w-px h-4 bg-gray-200 mx-1" />
 
             <a
-              href="tel:+911234567890"
+              href="tel:+918897057333"
               className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-gray-200 text-[13px] font-semibold text-gray-700 hover:border-primary-300 hover:text-primary-600 transition-all"
             >
               <Phone size={12} />
-              +91 123 456 7890
+              +91 89770 57333
             </a>
 
             <a
-              href="https://wa.me/911234567890"
+              href="https://wa.me/918897057333"
               className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-gray-200 text-[13px] font-semibold text-gray-700 hover:border-green-400 hover:text-green-600 transition-all"
             >
               <MessageSquare size={12} />
@@ -192,6 +255,13 @@ export default function Navbar() {
                           className={`opacity-60 transition-transform duration-200 ${isDropOpen ? 'rotate-180' : ''}`}
                         />
                       </button>
+                    ) : link.path.includes('#') ? (
+                      <Link
+                        to={link.path}
+                        className={`flex items-center gap-1 px-3 xl:px-4 py-2 text-[13px] xl:text-[14px] font-medium transition-colors duration-200 rounded-lg text-gray-700 hover:text-primary-600 hover:bg-primary-50`}
+                      >
+                        {link.label}
+                      </Link>
                     ) : (
                       <Link
                         to={link.path}
@@ -253,18 +323,58 @@ export default function Navbar() {
                       </button>
                       {isMobDropOpen && (
                         <div className="ml-4 mt-1 mb-2 border-l-2 border-primary-100 pl-3 space-y-0.5">
-                          {DROPDOWNS[link.label].map((item) => (
-                            <Link
-                              key={item.path + item.label}
-                              to={item.path}
-                              className="block py-2 px-3 rounded-lg text-sm text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors"
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
+                          {DROPDOWNS[link.label].map((item, idx) => {
+                            if (item.type === 'nested') {
+                              const isNestedOpen = openNestedMobileDropdown === item.label;
+                              return (
+                                <div key={item.label + idx}>
+                                  <button
+                                    onClick={() => toggleNestedMobileDropdown(item.label)}
+                                    className="w-full flex items-center justify-between py-2 px-3 rounded-lg text-sm text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors font-medium"
+                                  >
+                                    {item.label}
+                                    <ChevronDown
+                                      size={14}
+                                      className={`opacity-50 transition-transform duration-200 ${isNestedOpen ? 'rotate-180' : ''}`}
+                                    />
+                                  </button>
+                                  {isNestedOpen && (
+                                    <div className="ml-3 mt-1 border-l-2 border-primary-100 pl-3 space-y-0.5">
+                                      {item.items.map((nestedItem) => (
+                                        <Link
+                                          key={nestedItem.path + nestedItem.label}
+                                          to={nestedItem.path}
+                                          className="block py-2 px-3 rounded-lg text-sm text-gray-500 hover:text-primary-600 hover:bg-primary-50 transition-colors"
+                                        >
+                                          {nestedItem.label}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            }
+                            return (
+                              <Link
+                                key={item.path + item.label}
+                                to={item.path}
+                                className="block py-2 px-3 rounded-lg text-sm text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors"
+                              >
+                                {item.label}
+                              </Link>
+                            );
+                          })}
                         </div>
                       )}
                     </>
+                  ) : link.path.includes('#') ? (
+                    <Link
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className="block w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors"
+                    >
+                      {link.label}
+                    </Link>
                   ) : (
                     <Link
                       to={link.path}
@@ -283,13 +393,13 @@ export default function Navbar() {
             <div className="pt-3 space-y-2">
               <Button to="/get-started" className="w-full">Get Started</Button>
               <a
-                href="tel:+911234567890"
+                href="tel:+918897057333"
                 className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-gray-200 text-sm font-semibold text-gray-700"
               >
-                <Phone size={14} /> +91 123 456 7890
+                <Phone size={14} /> +91 89770 57333
               </a>
               <a
-                href="https://wa.me/911234567890"
+                href="https://wa.me/918897057333"
                 className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-green-50 border border-green-200 text-sm font-semibold text-green-700"
               >
                 <MessageSquare size={14} /> Chat on WhatsApp
