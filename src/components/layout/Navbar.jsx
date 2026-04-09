@@ -117,7 +117,6 @@ export default function Navbar() {
   const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
   const navRef = useRef(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
   const [openNestedMobileDropdown, setOpenNestedMobileDropdown] = useState(null);
 
