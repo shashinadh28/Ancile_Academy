@@ -107,6 +107,37 @@ export const COUNTRIES = [
     ],
   },
   {
+    slug: 'dubai',
+    name: 'Dubai',
+    flag: '🇦🇪',
+    image: '/countries/Dubai.webp',
+    tagline: 'Study in Dubai: Fees, Intakes, Universities, Jobs - Apply Now',
+    description: 'Fulfil your dream of studying in Dubai. Experience top-notch education, diverse programmes, a multicultural environment, and a world of opportunities.',
+    stats: { universities: '41+', intlStudents: '35K+', scholarships: 'AED 100M+' },
+    topUniversities: [
+      { name: 'Khalifa University', image: '/UK_Universities/University_of_Oxford.jpg', description: 'A leading research-intensive university in the UAE, offering world-class programs in engineering, science, and technology with state-of-the-art facilities.' },
+      { name: 'United Arab Emirates University', image: '/UK_Universities/University_of_Cambridge.jpg', description: 'The oldest and largest university in the UAE, recognized for its comprehensive academic programs and research excellence across multiple disciplines.' },
+      { name: 'American University of Sharjah', image: '/UK_Universities/Imperial_College_London.jpg', description: 'An independent, not-for-profit coeducational institution offering American-style higher education accredited in both the US and UAE.' },
+    ],
+    educationSystem: 'Dubai offers world-class education with internationally recognized degrees from top global universities with branch campuses in the emirate.',
+    visaInfo: 'Student visa sponsored by the university, including medical fitness test, Emirates ID registration, and valid passport.',
+    scholarships: ['Al Qasimi Foundation\'s Doctoral Research Grants', 'Khalifa University Scholarship', 'Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)'],
+    whyStudy: [
+      { icon: 'BookOpen', title: 'Top-Tier Universities', description: 'Dubai is home to many top-ranked universities that offer excellent academic programmes.', image: '/Key-Highlights/Affordable-Education.webp', tags: ['Top Rankings', 'Academic Excellence', 'Global Recognition'] },
+      { icon: 'Globe', title: 'Cultural Diversity', description: 'Dubai offers a rich blend of culture and tradition that enhance your global perspective.', image: '/Key-Highlights/Safe-Welcoming.webp', tags: ['Multicultural', '127+ Nationalities', 'Student Life'] },
+      { icon: 'Briefcase', title: 'Career Opportunities', description: 'Dubai\'s growing economy and job market offer many post-study work opportunities.', image: '/Key-Highlights/Post-Study-Work-Permit.webp', tags: ['Golden Visa', 'Career Growth', 'Tax Free'] },
+    ],
+    popularCourses: [
+      { icon: 'Briefcase', name: 'Business Management', students: '12k+', image: '/popular_courses_canada/Business-Administration.webp' },
+      { icon: 'Settings2', name: 'Aerospace Engineering', students: '8k+', image: '/popular_courses_canada/Engineering.webp' },
+      { icon: 'Utensils', name: 'Hospitality & Tourism', students: '10k+', image: '/UK_popular_Courses/Business_Management.webp' },
+      { icon: 'BarChart2', name: 'Finance & Accounting', students: '9k+', image: '/popular_courses_canada/maths-Computer_Science_IT.webp' },
+      { icon: 'HeartPulse', name: 'Health Sciences', students: '6k+', image: '/popular_courses_canada/Healthcare.webp' },
+      { icon: 'Film', name: 'Media & Communications', students: '5k+', image: '/UK_popular_Courses/Design-Creative-Performing Arts.webp' },
+      { icon: 'Building2', name: 'Design & Architecture', students: '7k+', image: '/UK_popular_Courses/Architecture_Building_Planning.webp' },
+    ],
+  },
+  {
     slug: 'australia',
     name: 'Australia',
     flag: '🇦🇺',
@@ -270,30 +301,48 @@ export const SERVICES = [
 
 export const TESTIMONIALS = [
   {
-    name: 'Priya Sharma',
-    headline: 'From Dream to Reality in the USA',
-    university: 'Dream University, USA',
-    country: 'USA',
+    name: 'Shiva Reddy',
+    headline: 'Fantastic Support for USA Applications',
+    university: 'United States',
+    country: 'United States',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80',
-    quote: 'Thanks to Ancile Academy, I got into my dream university in the USA!',
+    quote: `I had a fantastic experience with Ancile Academy while applying to universities in the USA. The team was incredibly supportive and made the entire process so much easier. They guided me through every step, from choosing the right universities to preparing all the paperwork. Their advice and encouragement were invaluable, and I felt confident and well-prepared throughout. I’m really grateful for their help and would definitely recommend Ancile Academy to anyone looking to study abroad.`,
     rating: 5,
   },
   {
-    name: 'Rahul Patel',
-    headline: 'Visa Success for the UK',
-    university: 'Imperial College London',
-    country: 'UK',
+    name: 'Hemanth B',
+    headline: 'Arizona State University Journey',
+    university: 'Arizona State University',
+    country: 'United States',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80',
-    quote: 'Their visa guidance made the process so easy!',
+    quote: `My Experience with Ancile Academy I am very thankful to Ancile Academy and especially to Durga Bhavani ma'am, who helped me throughout the admission and visa process for my Master's in Computer Science at Arizona State University. The whole team at Ancile Academy is very cooperative and experienced. I cleared my visa interview with Jay Sir's and Durga Bhavani Madam's guidance and the team's support with visa mock interviews. I highly recommend Ancile Academy to every student who wants to start their journey for studies abroad.`,
     rating: 5,
   },
   {
-    name: 'Ananya Reddy',
-    headline: 'Scholarship Success in Canada',
-    university: 'University of Toronto',
-    country: 'Canada',
+    name: 'G. Bheemeshwar',
+    headline: 'Smooth University of East London Process',
+    university: 'University of East London',
+    country: 'United Kingdom',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80',
-    quote: 'Thanks to Ancile Academy, I secured a place at my dream university in the USA. Their team was with me every step of the way.',
+    quote: `I had a great experience with Ancile Academy while applying to the University of East London. The team was incredibly helpful and made the whole process straightforward. They assisted me with every detail, from selecting the right program to handling the application paperwork. Their support and expertise made a big difference, and I felt well-prepared and confident throughout. I’m really appreciative of their guidance and would highly recommend Ancile Academy to anyone looking to study in the UK.`,
+    rating: 5,
+  },
+  {
+    name: 'A. Divya',
+    headline: 'Outstanding USA Application Support',
+    university: 'United States',
+    country: 'United States',
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80',
+    quote: `My experience with Ancile Academy has been outstanding. They provided exceptional support throughout my application process for studying in the USA. From helping me choose the right universities to assisting with my application and documentation, their team was always there to guide me. Their professionalism and dedication made everything so much easier. Thanks to their help, I feel confident and excited about my studies in the USA. I highly recommend Ancile Academy to anyone planning to study abroad!`,
+    rating: 5,
+  },
+  {
+    name: 'O. Nithish',
+    headline: 'Stress-Free Study Abroad Guidance',
+    university: 'United States',
+    country: 'United States',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80',
+    quote: `Working with Ancile Academy was a fantastic experience. Their team provided incredible support throughout my application process for studying abroad. They helped me navigate every step, from choosing the right program to preparing my application materials. Their expertise and personalized approach made the process smooth and stress-free. I’m really grateful for their assistance and would definitely recommend Ancile Academy to anyone looking to pursue higher education abroad.`,
     rating: 5,
   },
 ];
@@ -368,12 +417,11 @@ export const BLOG_POSTS = [
 ];
 
 export const TEAM_MEMBERS = [
-  { name: 'Nrupen Mandava', role: 'President', image: '/TEAM/nrupen.webp' },
-  { name: 'Phani Kumar', role: 'Chief Operating Officer', image: '/TEAM/phani.webp' },
-  { name: 'Ram', role: 'Director of Operations', image: '/TEAM/Ram.webp' },
-  { name: 'Aditi', role: 'Senior Counsellor', image: '/TEAM/aditi.webp' },
-  { name: 'Richie George', role: 'Digital Marketing Specialist', image: '/TEAM/richie.webp' },
-  { name: 'Selena Averson', role: 'Talent Acquisition Manager', image: '/TEAM/Selena.webp' },
+  { name: 'L John Krishna Rao', role: 'Marketing Manager', image: '/TEAM/L_John_Krishna_rao_Marketing_Manager.webp' },
+  { name: 'V Victoria', role: 'Senior Counsellor', image: '/TEAM/V_Victoria_Senior_Counsellor.webp' },
+  { name: 'Anthony Snajay', role: 'Communication Specialist', image: '/TEAM/Anthony_Snajay_Communication_Specialist.webp' },
+  { name: 'R Charan', role: 'Senior Manager, Operations & Business Development', image: '/TEAM/R_Charan_Senior_Manager_Operations_Business_Developmet.webp' },
+ 
 ];
 
 export const UNIVERSITY_LOGOS = [
@@ -420,6 +468,6 @@ export const FAQS = [
 
 export const TIMELINE = [
   { year: 'Year 1', title: 'Founded', description: 'Founded and opened our first office.', image: '/Our-Journey/Founded-our-first-office.webp' },
-  { year: 'Year 3', title: 'University Partnerships', description: 'Partnered with top universities in the UK and Canada.', image: '/Our-Journey/University-Partnerships.webp' },
+  { year: 'Year 3', title: 'University Partnerships', description: 'Partnered with top universities.', image: '/Our-Journey/University-Partnerships.webp' },
   { year: 'Year 5', title: 'Visa Milestone', description: 'Achieved 1,000 student visa approvals.', image: '/Our-Journey/Visa-milestone.webp' },
 ];
