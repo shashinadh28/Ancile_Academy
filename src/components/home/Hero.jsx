@@ -25,12 +25,57 @@ export default function Hero() {
   return (
     <>
       <section
-        className="relative overflow-hidden pt-[104px] md:pt-[108px]"
+        className="relative overflow-hidden pt-[72px] lg:pt-[108px]"
         style={{ height: 'calc(100vh - 0px)', maxHeight: 720, minHeight: 480 }}
       >
 
         {/* ── left bg panel ── */}
         <div className="absolute inset-0 bg-[#f4f6f8]" />
+
+        {/* ── mobile-only pulsing circles ── */}
+        <div className="absolute pointer-events-none animate-hero-pulse md:hidden" style={{ top: '12%', left: '5%' }}>
+          <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+            <circle cx="30" cy="30" r="28" stroke="#2563eb" strokeWidth="1.2" opacity="0.18" />
+            <circle cx="30" cy="30" r="18" stroke="#2563eb" strokeWidth="1" opacity="0.12" />
+            <circle cx="30" cy="30" r="9" stroke="#2563eb" strokeWidth="0.8" opacity="0.08" />
+          </svg>
+        </div>
+
+        <div className="absolute pointer-events-none animate-hero-pulse-slow md:hidden" style={{ top: '55%', right: '8%' }}>
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+            <circle cx="25" cy="25" r="23" stroke="#3b82f6" strokeWidth="1" opacity="0.16" />
+            <circle cx="25" cy="25" r="13" stroke="#3b82f6" strokeWidth="0.8" opacity="0.10" />
+          </svg>
+        </div>
+
+        <div className="absolute pointer-events-none animate-hero-pulse md:hidden" style={{ bottom: '18%', left: '10%' }}>
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <circle cx="18" cy="18" r="16" stroke="#3b82f6" strokeWidth="1.2" opacity="0.20" />
+          </svg>
+        </div>
+
+        {/* ── mobile-only pulsing hexagons ── */}
+        <img
+          src="/hexagon.svg"
+          alt=""
+          aria-hidden="true"
+          className="absolute pointer-events-none animate-hero-pulse-slow md:hidden"
+          style={{ top: '8%', right: '10%', width: 70, opacity: 0.35 }}
+        />
+        <img
+          src="/hexagon.svg"
+          alt=""
+          aria-hidden="true"
+          className="absolute pointer-events-none animate-hero-pulse md:hidden"
+          style={{ bottom: '25%', right: '5%', width: 50, opacity: 0.25 }}
+        />
+        <img
+          src="/hexagon.svg"
+          alt=""
+          aria-hidden="true"
+          className="absolute pointer-events-none animate-hero-pulse md:hidden"
+          style={{ top: '40%', left: '2%', width: 45, opacity: 0.2 }}
+        />
 
         {/* ── right blue panel — narrower (38%) so image overlaps both ── */}
         <div
@@ -251,7 +296,7 @@ export default function Hero() {
                 <img
                   src="/landing_page/HomePage.webp"
                   alt="Happy student ready to study abroad"
-                  className="w-full max-w-sm lg:max-w-md xl:max-w-lg object-contain relative z-10 hidden sm:block"
+                  className="w-full max-w-[260px] sm:max-w-sm lg:max-w-md xl:max-w-lg object-contain relative z-10"
                 />
 
                 {/* pulsing rings — top-right of image */}

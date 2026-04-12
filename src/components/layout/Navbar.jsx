@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, ChevronDown, Globe, MapPin, MessageSquare } from 'lucide-react';
+import { Menu, X, Phone, ChevronDown, MapPin, MessageSquare } from 'lucide-react';
 import { NAV_LINKS } from '../../data/constants';
 import Button from '../shared/Button';
 
@@ -167,7 +167,7 @@ export default function Navbar() {
     <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 bg-white">
       {/* Top bar */}
       <div
-        className={`border-b border-gray-100 transition-all duration-300 overflow-hidden ${topBarVisible ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
+        className={`border-b border-gray-100 transition-all duration-300 overflow-hidden hidden lg:block ${topBarVisible ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
           }`}
       >
         <div className="container-custom px-4 sm:px-6 lg:px-8">
@@ -208,13 +208,7 @@ export default function Navbar() {
               WhatsApp
             </a>
 
-            <div className="w-px h-4 bg-gray-200 mx-1" />
 
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 text-[13px] text-gray-600 hover:text-primary-600 transition-colors cursor-pointer font-medium">
-              <Globe size={13} />
-              <span>Global</span>
-              <ChevronDown size={12} />
-            </div>
           </div>
         </div>
       </div>
@@ -389,6 +383,31 @@ export default function Navbar() {
                 </div>
               );
             })}
+
+            {/* Divider */}
+            <div className="my-3 border-t border-gray-100" />
+
+            {/* Quick links: Resources, Blog, Find us */}
+            <div className="space-y-1">
+              <Link
+                to="/resources"
+                className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors"
+              >
+                Resources
+              </Link>
+              <Link
+                to="/blog"
+                className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors"
+              >
+                Blog
+              </Link>
+              <Link
+                to="/contact"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors"
+              >
+                <MapPin size={14} /> Find us
+              </Link>
+            </div>
 
             <div className="pt-3 space-y-2">
               <Button to="/get-started" className="w-full">Get Started</Button>

@@ -9,11 +9,26 @@ const transition = {
   duration: 0.3,
 };
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth < breakpoint : false
+  );
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    const handler = (e) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    setIsMobile(mql.matches);
+    return () => mql.removeEventListener('change', handler);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 export default function LinearCardDialog({ items, renderTags }) {
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [carouselWidth, setCarouselWidth] = useState(0);
   const carousel = useRef(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (isOpen) {
@@ -35,82 +50,94 @@ export default function LinearCardDialog({ items, renderTags }) {
     if (carousel.current) {
       setCarouselWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
     }
-  }, [items]);
+  }, [items, isMobile]);
 
   const current = items[index];
 
+  const renderCard = (item, i) => (
+    <motion.div
+      key={item.id}
+      className={isMobile
+        ? "w-full flex relative flex-col overflow-hidden bg-white cursor-pointer"
+        : "shrink-0 flex relative flex-col overflow-hidden bg-white cursor-pointer"
+      }
+      layoutId={`lc-dialog-${item.id}`}
+      style={{
+        ...(isMobile ? { maxWidth: 400 } : { width: 280 }),
+        borderRadius: 18,
+        border: '1.5px solid #e5e7eb',
+        boxShadow: '0 4px 16px rgba(0,0,0,.06), 0 8px 28px rgba(0,0,0,.04)',
+        transition: 'box-shadow .3s, border-color .3s',
+      }}
+      whileHover={{
+        boxShadow: '0 16px 44px rgba(37,99,235,.14), 0 4px 12px rgba(0,0,0,.06)',
+        borderColor: '#93c5fd',
+      }}
+      tabIndex={i}
+      onClick={() => { setIndex(i); setIsOpen(true); }}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIndex(i); setIsOpen(true); } }}
+      role="button"
+      aria-label={`Open ${item.title} details`}
+    >
+      <motion.div layoutId={`lc-img-${item.id}`}>
+        <img
+          src={item.image}
+          alt={item.title}
+          className="w-full object-cover"
+          style={{ height: 180 }}
+          loading="lazy"
+        />
+      </motion.div>
+      <div className="flex grow flex-row items-end justify-between p-4">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          {item.iconNode && (
+            <div style={{
+              width: 40, height: 40, borderRadius: 12,
+              background: item.iconBg || '#dbeafe',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}>
+              {item.iconNode}
+            </div>
+          )}
+          <motion.h3
+            layoutId={`lc-title-${item.id}`}
+            className="font-bold text-gray-900 text-sm truncate"
+          >
+            {item.title}
+          </motion.h3>
+        </div>
+        <button
+          className="absolute bottom-3 right-3 p-2 rounded-xl"
+          style={{ background: '#f1f5f9', border: '1px solid #e2e8f0' }}
+          tabIndex={-1}
+          aria-label={`Open ${item.title}`}
+        >
+          <Plus size={16} style={{ color: '#64748b' }} />
+        </button>
+      </div>
+    </motion.div>
+  );
+
   return (
     <MotionConfig transition={transition}>
-      {/* Draggable card row */}
-      <motion.div
-        ref={carousel}
-        drag="x"
-        dragElastic={0.2}
-        dragConstraints={{ right: 0, left: -carouselWidth }}
-        dragTransition={{ bounceDamping: 30 }}
-        className="flex w-full gap-5 py-2 cursor-grab active:cursor-grabbing justify-center"
-      >
-        {items.map((item, i) => (
-          <motion.div
-            key={item.id}
-            className="shrink-0 flex relative flex-col overflow-hidden bg-white cursor-pointer"
-            layoutId={`lc-dialog-${item.id}`}
-            style={{
-              width: 280,
-              borderRadius: 18,
-              border: '1.5px solid #e5e7eb',
-              boxShadow: '0 4px 16px rgba(0,0,0,.06), 0 8px 28px rgba(0,0,0,.04)',
-              transition: 'box-shadow .3s, border-color .3s',
-            }}
-            whileHover={{
-              boxShadow: '0 16px 44px rgba(37,99,235,.14), 0 4px 12px rgba(0,0,0,.06)',
-              borderColor: '#93c5fd',
-            }}
-            tabIndex={i}
-            onClick={() => { setIndex(i); setIsOpen(true); }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIndex(i); setIsOpen(true); } }}
-            role="button"
-            aria-label={`Open ${item.title} details`}
-          >
-            <motion.div layoutId={`lc-img-${item.id}`}>
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full object-cover"
-                style={{ height: 180 }}
-                loading="lazy"
-              />
-            </motion.div>
-            <div className="flex grow flex-row items-end justify-between p-4">
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                {item.iconNode && (
-                  <div style={{
-                    width: 40, height: 40, borderRadius: 12,
-                    background: item.iconBg || '#dbeafe',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                  }}>
-                    {item.iconNode}
-                  </div>
-                )}
-                <motion.h3
-                  layoutId={`lc-title-${item.id}`}
-                  className="font-bold text-gray-900 text-sm truncate"
-                >
-                  {item.title}
-                </motion.h3>
-              </div>
-              <button
-                className="absolute bottom-3 right-3 p-2 rounded-xl"
-                style={{ background: '#f1f5f9', border: '1px solid #e2e8f0' }}
-                tabIndex={-1}
-                aria-label={`Open ${item.title}`}
-              >
-                <Plus size={16} style={{ color: '#64748b' }} />
-              </button>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+      {/* Mobile: stacked column */}
+      {isMobile ? (
+        <div className="flex flex-col items-center gap-5 py-2">
+          {items.map((item, i) => renderCard(item, i))}
+        </div>
+      ) : (
+        /* Desktop: draggable carousel */
+        <motion.div
+          ref={carousel}
+          drag="x"
+          dragElastic={0.2}
+          dragConstraints={{ right: 0, left: -carouselWidth }}
+          dragTransition={{ bounceDamping: 30 }}
+          className="flex w-full gap-5 py-2 cursor-grab active:cursor-grabbing justify-center"
+        >
+          {items.map((item, i) => renderCard(item, i))}
+        </motion.div>
+      )}
 
       {/* Portal modal */}
       {isOpen && current && createPortal(
