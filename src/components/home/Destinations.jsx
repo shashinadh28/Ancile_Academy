@@ -8,7 +8,7 @@ export default function Destinations() {
   const [gridRef, gridInView] = useInView({ threshold: 0.05 });
 
   return (
-    <SectionWrapper>
+    <SectionWrapper className="pt-12 md:pt-16">
       <AnimateIn animation="fadeUp">
         <SectionHeader
           title="Countries We Serve"

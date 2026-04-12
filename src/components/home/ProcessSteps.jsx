@@ -47,7 +47,7 @@ const steps = [
   },
   {
     id: 6,
-    image: '/Our_Process/pre_departure_briefing.webp',
+    image: '/Our_Process/Pre-Departure-Briefing.webp',
     title: 'Pre-Departure Briefing',
     description:
       'Travel, housing essentials, and cultural tips so you arrive in your new country fully prepared.',

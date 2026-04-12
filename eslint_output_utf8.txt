@@ -1,0 +1,67 @@
+﻿
+C:\Users\durga\ancile_academy\src\components\home\LeadForm.jsx
+  43:33  error  'Icon' is defined but never used  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\components\home\NextStepsCTA.jsx
+  66:35  error  'Icon' is defined but never used  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\components\home\ProcessSteps.jsx
+  2:27  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\components\home\WhyChooseUs.jsx
+  43:34  error  'Icon' is defined but never used  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\components\layout\Navbar.jsx
+  136:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  134 |   /* Close on route change */
+  135 |   useEffect(() => {
+> 136 |     setIsOpen(false);
+      |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  137 |     setOpenDropdown(null);
+  138 |     setOpenMobileDropdown(null);
+  139 |     setOpenNestedMobileDropdown(null);  react-hooks/set-state-in-effect
+
+C:\Users\durga\ancile_academy\src\components\shared\AnimateIn.jsx
+  44:7  error  'Tag' is assigned a value but never used  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\components\ui\image-tabs.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\components\ui\linear-card-dialog.jsx
+   1:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  12:51  error  'renderTags' is defined but never used                                         no-unused-vars
+
+C:\Users\durga\ancile_academy\src\components\ui\linear-modal.jsx
+  2:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\pages\About.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\pages\Contact.jsx
+  110:34  error  'Icon' is defined but never used  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\pages\CountryDetail.jsx
+  49:10  error  'whyRef' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u     no-unused-vars
+  49:18  error  'whyInView' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\pages\EnglishCoaching.jsx
+  103:31  error  'Icon' is defined but never used  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\pages\GetStarted.jsx
+  16:19  error  'formInView' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\pages\Resources.jsx
+  72:44  error  'Icon' is defined but never used  no-unused-vars
+
+C:\Users\durga\ancile_academy\src\pages\Services.jsx
+  13:7  error  'colors' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+Γ£û 18 problems (18 errors, 0 warnings)
+

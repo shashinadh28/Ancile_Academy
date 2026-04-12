@@ -15,6 +15,7 @@ const DROPDOWNS = {
     { label: 'United States', path: '/countries/usa' },
     { label: 'United Kingdom', path: '/countries/uk' },
     { label: 'Canada', path: '/countries/canada' },
+    { label: 'Dubai', path: '/countries/dubai' },
     { label: 'Australia', path: '/countries/australia' },
     { label: 'New Zealand', path: '/countries/new-zealand' },
     { label: 'Ireland', path: '/countries/ireland' },

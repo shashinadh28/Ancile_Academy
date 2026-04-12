@@ -526,7 +526,7 @@ export default function CountryDetail() {
                       <div className="relative">
                         <select name="intake" value={form.intake} onChange={handleChange} required className="inquiry-input appearance-none pr-10" style={{ color: form.intake ? '#111827' : '#9ca3af' }}>
                           <option value="">Destination *</option>
-                          <option>United States</option><option>United Kingdom</option><option>Canada</option>
+                          <option>United States</option><option>United Kingdom</option><option>Canada</option><option>Dubai</option>
                           <option>Australia</option><option>New Zealand</option><option>Ireland</option><option>Europe</option>
                         </select>
                         <div style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#9ca3af' }}>

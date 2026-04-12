@@ -11,6 +11,7 @@ const FEATURED = {
   '840': { name: 'United States',  path: '/countries/usa',         coords: [-100, 38]  },
   '826': { name: 'United Kingdom', path: '/countries/uk',          coords: [  -2, 54]  },
   '124': { name: 'Canada',         path: '/countries/canada',      coords: [ -96, 60]  },
+  '784': { name: 'Dubai',          path: '/countries/dubai',       coords: [  55.27, 25.20] },
   '36':  { name: 'Australia',      path: '/countries/australia',   coords: [ 134, -25] },
   '372': { name: 'Ireland',        path: '/countries/ireland',     coords: [  -8, 53]  },
   '554': { name: 'New Zealand',    path: '/countries/new-zealand', coords: [ 172, -40] },

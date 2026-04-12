@@ -132,7 +132,7 @@ export default function NextStepsCTA() {
                         className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-400 transition-all bg-white appearance-none pr-10"
                         style={{ border: '1.5px solid #e5e7eb', color: form.destination ? '#111827' : '#9ca3af' }}>
                         <option value="">Destination *</option>
-                        <option>United States</option><option>United Kingdom</option><option>Canada</option>
+                        <option>United States</option><option>United Kingdom</option><option>Canada</option><option>Dubai</option>
                         <option>Australia</option><option>New Zealand</option><option>Ireland</option><option>Europe</option>
                       </select>
                       <div className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400">

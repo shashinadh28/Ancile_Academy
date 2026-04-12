@@ -141,21 +141,18 @@ export default function About() {
       {/* Team */}
       <SectionWrapper id="our-team" className="bg-gray-50">
         <AnimateIn animation="fadeUp"><SectionHeader title="Meet Our Expert Team" align="center" /></AnimateIn>
-        <div ref={teamRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={teamRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {TEAM_MEMBERS.map((member, i) => (
             <div key={member.name} className={`transition-all duration-700 ease-out ${teamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${i * 120}ms` }}>
-              <div className='w-full relative mt-4 h-[430px] group mx-auto bg-white border rounded-md text-black flex flex-col'>
-                <div className='w-full rounded-t-md h-[350px] group-hover:h-[410px] overflow-hidden transition-all duration-300'>
-                  <img src={member.image} alt={member.name} className='h-full w-full scale-105 group-hover:scale-100 grayscale group-hover:grayscale-0 object-cover transition-all duration-300' />
+              <div className='w-full relative mt-4 group mx-auto bg-white border border-gray-200 rounded-2xl text-black flex flex-col overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300'>
+                <div className='w-full aspect-[4/5] overflow-hidden bg-gray-100'>
+                  <img src={member.image} alt={member.name} className='h-full w-full object-cover object-top scale-105 grayscale group-hover:grayscale-0 group-hover:scale-100 transition-all duration-500' />
                 </div>
-                <article className='relative overflow-hidden grow'>
-                  <div className='info p-2 translate-y-0 group-hover:-translate-y-20 transition-all duration-300 text-center'>
-                    <p className='md:text-2xl font-semibold'>{member.name}</p>
-                    <p className='sm:text-base text-sm'>{member.role}</p>
+                <article className='relative p-5 text-center'>
+                  <div className='info transition-all duration-300'>
+                    <p className='text-lg md:text-xl font-semibold text-gray-900'>{member.name}</p>
+                    <p className='text-sm text-gray-500 mt-1 leading-relaxed min-h-[44px]'>{member.role}</p>
                   </div>
-                  <button className='absolute h-10 -bottom-8 opacity-0 group-hover:opacity-100 cursor-pointer group-hover:bottom-3 text-[1.15rem] font-bold group-hover:scale-105 transition-all duration-300 w-full text-center'>
-                    {member.role}
-                  </button>
                 </article>
               </div>
             </div>

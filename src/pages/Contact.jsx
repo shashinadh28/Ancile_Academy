@@ -8,19 +8,61 @@ import useInView from '../hooks/useInView';
 const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 
 const MAP_OFFICES = [
-  { id: 'denton', coordinates: [-97.1331, 33.2148], label: 'Corporate HQ', sub: 'Denton, TX' },
-  { id: 'leander', coordinates: [-97.8531, 30.5788], label: 'Austin Branch', sub: 'Leander, TX' },
-  { id: 'milpitas', coordinates: [-121.8996, 37.4323], label: 'Milpitas Branch', sub: 'CA' },
-  { id: 'fortmill', coordinates: [-80.9423, 35.0071], label: 'SC Branch', sub: 'Fort Mill' },
-  { id: 'vijayawada', coordinates: [80.648, 16.5062], label: 'India Office', sub: 'Vijayawada' },
+  { id: 'denton', coordinates: [-97.1331, 33.2148], label: 'Headquarter', sub: 'Denton, TX' },
+  { id: 'milpitas', coordinates: [-121.8996, 37.4323], label: 'Milpitas-Branch', sub: 'California' },
+  { id: 'fortmill', coordinates: [-80.9423, 35.0071], label: 'South Carolina-Branch', sub: 'Fort Mill, SC' },
+  { id: 'vijayawada', coordinates: [80.648, 16.5062], label: 'Vijayawada, India', sub: 'Andhra Pradesh' },
+  { id: 'calgary', coordinates: [-114.0719, 51.0447], label: 'Canada, Calgary', sub: 'Alberta' },
+  { id: 'hyderabad-kphb', coordinates: [78.3924, 17.4948], label: 'Hyderabad, India', sub: 'KPHB' },
+  { id: 'hyderabad-gachibowli', coordinates: [78.3489, 17.4401], label: 'Hyderabad, India', sub: 'Gachibowli' },
 ];
 
 const OFFICE_CARDS = [
-  { title: 'Denton — Corporate HQ', address: '300 N Carroll Blvd, Suite 103, Denton, TX 76201', phone: '919.607.2143', tel: '+19196072143' },
-  { title: 'Austin — Branch Office', address: '2006 S Bagdad Rd, Suite 180, Leander, TX 78641', phone: '913.804.7687', tel: '+19138047687' },
-  { title: 'Milpitas — Branch Office', address: '329 Odyssey Lane, Milpitas, CA 95035', phone: '669.437.1139', tel: '+16694371139' },
-  { title: 'South Carolina — Branch', address: '148 Ravensara Ave, Fort Mill, SC 29715', phone: '424.242.4567', tel: '+14242424567' },
-  { title: 'Vijayawada — India Office', address: 'D No: 5-141, Koudinya Nagar, Penamaluru, Krishna District, AP 521139', phone: '+91 89770 57333', tel: '+918977057333' },
+  {
+    title: 'Headquarter',
+    address: '300 N Carroll Blvd, Suite 103, Denton, TX 76201',
+    phones: [
+      { display: '919.607.2143', tel: '+19196072143' },
+      { display: '913.804.7687', tel: '+19138047687' },
+    ],
+    email: 'support@ancileacademy.com',
+  },
+  {
+    title: 'Milpitas-Branch',
+    address: '329 Odyssey Lane, Milpitas, CA 95035',
+    phones: [{ display: '669.437.1139', tel: '+16694371139' }],
+    email: 'support@ancileacademy.com',
+  },
+  {
+    title: 'South Carolina-Branch',
+    address: '148 Ravensara Ave, Fort Mill, SC 29715',
+    phones: [{ display: '424.242.4567', tel: '+14242424567' }],
+    email: 'support@ancileacademy.com',
+  },
+  {
+    title: 'Vijayawada, India',
+    address: 'D No: 5-141, Koudinya Nagar, Penamaluru (MD), (PO), Krishna District, Andhra Pradesh 521139',
+    phones: [{ display: '+91 8885555474', tel: '+918885555474' }],
+    email: 'support@ancileacademy.com',
+  },
+  {
+    title: 'Canada, Calgary (Regus)',
+    address: '8 Floor Bankers Hall West, 888, 5th Street SW, Suite 1000, Calgary, AB T2P 5C5',
+    phones: [{ display: '(+91) 9177330029', tel: '+919177330029' }],
+    email: 'support@ancileacademy.com',
+  },
+  {
+    title: 'Hyderabad, India',
+    address: 'My Co Office, Lift Lobby 4, 2nd Floor, 5th Phase, KPHB, Kukatpally, Hyderabad 500072',
+    phones: [{ display: '+918977057333', tel: '+918977057333' }],
+    email: 'support@ancileacademy.com',
+  },
+  {
+    title: 'Hyderabad, India',
+    address: 'Unit 8, 2nd floor, Vasavi sky city, Gachibowli Cir, Telecom Nagar, Gachibowli, Hyderabad, Telangana 500081',
+    phones: [{ display: '+918977057333', tel: '+918977057333' }],
+    email: 'support@ancileacademy.com',
+  },
 ];
 
 export default function Contact() {
@@ -61,7 +103,7 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   {[
-                    { icon: Mail, label: 'Email', value: 'Info@ancileinc.com', href: 'mailto:Info@ancileinc.com', color: 'bg-blue-50 text-blue-600' },
+                    { icon: Mail, label: 'Email', value: 'info@ancileacademy.com', href: 'mailto:info@ancileacademy.com', color: 'bg-blue-50 text-blue-600' },
                     { icon: Phone, label: 'Phone', value: '+91 89770 57333', href: 'tel:+918977057333', color: 'bg-emerald-50 text-emerald-600' },
                     { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918977057333', color: 'bg-green-50 text-green-600' },
                     { icon: Clock, label: 'Hours', value: 'Mon–Sat, 9 AM – 7 PM', href: null, color: 'bg-amber-50 text-amber-600' },
@@ -202,9 +244,9 @@ export default function Contact() {
             </div>
           </AnimateIn>
 
-          <div ref={cardsRef} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div ref={cardsRef} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {OFFICE_CARDS.map((office, i) => (
-              <div key={office.title}
+              <div key={`${office.title}-${office.address}`}
                 className={`transition-all duration-700 ease-out ${cardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
@@ -214,9 +256,16 @@ export default function Contact() {
                     <h4 className="font-bold text-gray-900 text-sm leading-snug">{office.title}</h4>
                   </div>
                   <p className="text-xs text-gray-500 leading-relaxed mb-3">{office.address}</p>
-                  <a href={`tel:${office.tel}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-600 hover:text-primary-700 transition-colors">
-                    <Phone size={12} /> {office.phone}
-                  </a>
+                  <div className="flex flex-col gap-2">
+                    {office.phones.map((phone) => (
+                      <a key={phone.tel} href={`tel:${phone.tel}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+                        <Phone size={12} /> {phone.display}
+                      </a>
+                    ))}
+                    <a href={`mailto:${office.email}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-600 hover:text-primary-700 transition-colors break-all">
+                      <Mail size={12} /> {office.email}
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
