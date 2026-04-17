@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Search, ArrowRight, Play } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import AnimateIn from '../shared/AnimateIn';
@@ -47,8 +48,10 @@ export default function Hero() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [mounted, setMounted] = useState(false);
+  const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0, width: 0 });
   const searchWrapperRef = useRef(null);
   const searchListRef = useRef(null);
+  const inputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,6 +64,13 @@ export default function Hero() {
         item.label.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : [];
+
+  const updateDropdownPos = useCallback(() => {
+    if (inputRef.current) {
+      const rect = inputRef.current.getBoundingClientRect();
+      setDropdownPos({ top: rect.bottom + 8, left: rect.left, width: rect.width });
+    }
+  }, []);
 
   const closeSearch = useCallback(() => {
     setSearchOpen(false);
@@ -76,6 +86,19 @@ export default function Hero() {
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, [closeSearch]);
+
+  useEffect(() => {
+    if (searchOpen) {
+      updateDropdownPos();
+      const onResize = () => updateDropdownPos();
+      window.addEventListener('resize', onResize);
+      window.addEventListener('scroll', onResize, true);
+      return () => {
+        window.removeEventListener('resize', onResize);
+        window.removeEventListener('scroll', onResize, true);
+      };
+    }
+  }, [searchOpen, updateDropdownPos]);
 
   const handleSearchKeyDown = (e) => {
     if (!searchOpen || filtered.length === 0) {
@@ -334,65 +357,45 @@ export default function Hero() {
               </div>
 
               <div className={`transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '650ms' }}>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (activeIndex >= 0 && filtered[activeIndex]) {
-                      navigate(filtered[activeIndex].path);
-                      setSearchQuery('');
-                      closeSearch();
-                    }
-                  }}
-                  className="relative flex items-center bg-white rounded-xl overflow-hidden"
-                  style={{ boxShadow: '0 8px 32px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04)' }}
-                >
-                  <div ref={searchWrapperRef} className="relative flex-1">
-                    <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(true); setActiveIndex(-1); }}
-                      onFocus={() => { if (searchQuery.trim()) setSearchOpen(true); }}
-                      onKeyDown={handleSearchKeyDown}
-                      placeholder="What do you want to learn..."
-                      className="w-full pl-11 pr-3 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none bg-transparent relative z-10"
-                    />
-                    {/* Search dropdown */}
-                    {searchOpen && filtered.length > 0 && (
-                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-[60]" role="listbox">
-                        <ul ref={searchListRef} className="max-h-56 overflow-y-auto py-1">
-                          {filtered.map((item, i) => (
-                            <li key={item.path + item.label}>
-                              <Link
-                                to={item.path}
-                                onClick={() => { setSearchQuery(''); closeSearch(); }}
-                                className={`flex items-center justify-between gap-2 px-3 py-2.5 text-sm transition-colors cursor-pointer ${i === activeIndex ? 'bg-primary-50 text-primary-700' : 'text-gray-700 hover:bg-gray-50'}`}
-                                role="option"
-                                aria-selected={i === activeIndex}
-                                onMouseEnter={() => setActiveIndex(i)}
-                              >
-                                <span className="truncate">{item.label}</span>
-                                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${typeColors[item.type] || typeColors.Page}`}>{item.type}</span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {searchOpen && searchQuery.trim() && filtered.length === 0 && (
-                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 p-4 text-center z-[60]">
-                        <p className="text-sm text-gray-400">No results found for &ldquo;{searchQuery}&rdquo;</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="px-6 py-3.5 bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap rounded-r-xl"
+                <div ref={searchWrapperRef} className="relative">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (activeIndex >= 0 && filtered[activeIndex]) {
+                        navigate(filtered[activeIndex].path);
+                        setSearchQuery('');
+                        closeSearch();
+                      }
+                    }}
+                    className="flex items-center bg-white rounded-xl"
+                    style={{ boxShadow: '0 8px 32px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04)' }}
                   >
-                    Search
-                  </button>
-                </form>
+                    <div className="relative flex-1">
+                      <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(true); setActiveIndex(-1); updateDropdownPos(); }}
+                        onFocus={() => { if (searchQuery.trim()) { setSearchOpen(true); updateDropdownPos(); } }}
+                        onKeyDown={handleSearchKeyDown}
+                        placeholder="What do you want to learn..."
+                        className="w-full pl-11 pr-3 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none bg-transparent"
+                        aria-label="Search site"
+                        aria-expanded={searchOpen}
+                        aria-autocomplete="list"
+                        role="combobox"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="px-6 py-3.5 bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap rounded-r-xl"
+                    >
+                      Search
+                    </button>
+                  </form>
+                </div>
               </div>
 
               {/* CTA buttons */}
@@ -473,6 +476,43 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Search dropdown rendered via Portal to body — escapes all parent overflow clipping */}
+      {searchOpen && filtered.length > 0 && createPortal(
+        <div
+          className="fixed bg-white rounded-xl shadow-2xl border border-gray-100 z-[9999]"
+          style={{ top: dropdownPos.top, left: dropdownPos.left, width: dropdownPos.width }}
+          role="listbox"
+        >
+          <ul ref={searchListRef} className="max-h-64 overflow-y-auto py-1">
+            {filtered.map((item, i) => (
+              <li key={item.path + item.label}>
+                <Link
+                  to={item.path}
+                  onClick={() => { setSearchQuery(''); closeSearch(); }}
+                  className={`flex items-center justify-between gap-2 px-4 py-2.5 text-sm transition-colors cursor-pointer ${i === activeIndex ? 'bg-primary-50 text-primary-700' : 'text-gray-700 hover:bg-gray-50'}`}
+                  role="option"
+                  aria-selected={i === activeIndex}
+                  onMouseEnter={() => setActiveIndex(i)}
+                >
+                  <span className="truncate">{item.label}</span>
+                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${typeColors[item.type] || typeColors.Page}`}>{item.type}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>,
+        document.body
+      )}
+      {searchOpen && searchQuery.trim() && filtered.length === 0 && createPortal(
+        <div
+          className="fixed bg-white rounded-xl shadow-2xl border border-gray-100 p-4 text-center z-[9999]"
+          style={{ top: dropdownPos.top, left: dropdownPos.left, width: dropdownPos.width }}
+        >
+          <p className="text-sm text-gray-400">No results found for &ldquo;{searchQuery}&rdquo;</p>
+        </div>,
+        document.body
+      )}
     </>
   );
 }
