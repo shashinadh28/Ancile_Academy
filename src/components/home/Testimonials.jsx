@@ -1,9 +1,15 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Quote, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import SectionWrapper, { SectionHeader } from '../shared/SectionWrapper';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
 import { TESTIMONIALS } from '../../data/constants';
+
+const cardBgColors = [
+  'bg-blue-50',
+  'bg-violet-50',
+  'bg-sky-50',
+];
 
 export default function Testimonials() {
   const [page, setPage] = useState(0);
@@ -36,19 +42,27 @@ export default function Testimonials() {
               className={`transition-all duration-700 ease-out ${cardsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${i * 150}ms` }}
             >
-              <div className="bg-white rounded-2xl p-6 md:p-7 h-full flex flex-col shadow-xl shadow-primary-900/10">
-                <Quote size={32} className="text-primary-500 mb-4 shrink-0" />
-                <p className="text-gray-600 leading-relaxed mb-6 flex-1 text-sm md:text-base">
-                  {t.quote}
-                </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <h4 className="text-gray-900 font-semibold text-sm">{t.name}</h4>
-                    <p className="text-gray-400 text-xs">{t.country}</p>
+              <div className={`${cardBgColors[i % cardBgColors.length]} rounded-2xl p-6 md:p-7 h-full flex flex-col relative overflow-hidden`}>
+                  {/* Box grid background at 70% opacity */}
+                  <div className="absolute inset-0 pointer-events-none" style={{
+                    backgroundImage: 'linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px)',
+                    backgroundSize: '24px 24px',
+                    opacity: 0.7,
+                  }} />
+                  <div className="relative z-10 flex flex-col h-full">
+                    <Quote size={32} className="text-primary-500 mb-4 shrink-0" />
+                    <p className="text-gray-600 leading-relaxed mb-6 flex-1 text-sm md:text-base">
+                      {t.quote}
+                    </p>
+                    <div className="flex items-center gap-3 pt-4 border-t border-gray-200/60">
+                      <img src={t.image} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                      <div>
+                        <h4 className="text-gray-900 font-semibold text-sm">{t.name}</h4>
+                        <p className="text-gray-500 text-xs">{t.country}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
             </div>
           ))}
         </div>
@@ -66,18 +80,6 @@ export default function Testimonials() {
             </div>
           </AnimateIn>
         )}
-
-        <AnimateIn animation="fadeUp" delay={500}>
-          <div className="mt-10 bg-white/10 border border-white/20 rounded-2xl px-6 py-5 flex items-center gap-4 max-w-xl mx-auto">
-            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-              <BookOpen size={22} className="text-white" />
-            </div>
-            <div>
-              <p className="text-white/60 text-xs font-semibold uppercase tracking-wider mb-1">Case Study</p>
-              <p className="text-white font-semibold text-sm leading-relaxed">How We Helped [Student Name] Secure a Scholarship in Canada.</p>
-            </div>
-          </div>
-        </AnimateIn>
       </div>
     </section>
   );

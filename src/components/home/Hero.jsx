@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { Search, ChevronDown, GraduationCap } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Search, ArrowRight, Play } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import AnimateIn from '../shared/AnimateIn';
 import useInView from '../../hooks/useInView';
+import { COUNTRIES } from '../../data/constants';
 
 const stats = [
   { value: '15+', label: 'Years of Expertise' },
@@ -10,22 +12,109 @@ const stats = [
   { value: '50,000+', label: 'Students Guided' },
 ];
 
-const categories = ['All Programs', 'Undergraduate', 'Postgraduate', 'MBA', 'Foundation'];
+const SEARCH_ITEMS = [
+  ...COUNTRIES.map((c) => ({ label: `Study in ${c.name}`, path: `/countries/${c.slug}`, type: 'Country' })),
+  { label: 'IELTS', path: '/exams/ielts', type: 'Exam' },
+  { label: 'TOEFL', path: '/exams/toefl', type: 'Exam' },
+  { label: 'PTE', path: '/exams/pte', type: 'Exam' },
+  { label: 'Duolingo', path: '/exams/duolingo', type: 'Exam' },
+  { label: 'OET', path: '/exams/oet', type: 'Exam' },
+  { label: 'SAT', path: '/exams/sat', type: 'Exam' },
+  { label: 'GRE', path: '/exams/gre', type: 'Exam' },
+  { label: 'GMAT', path: '/exams/gmat', type: 'Exam' },
+  { label: 'University Selection', path: '/services', type: 'Service' },
+  { label: 'Visa Guidance', path: '/services', type: 'Service' },
+  { label: 'Scholarship Assistance', path: '/services', type: 'Service' },
+  { label: 'Test Preparation', path: '/services', type: 'Service' },
+  { label: 'English Coaching', path: '/english-coaching', type: 'Service' },
+  { label: 'About Us', path: '/about', type: 'Page' },
+  { label: 'Contact Us', path: '/contact', type: 'Page' },
+  { label: 'Blog', path: '/blog', type: 'Page' },
+  { label: 'Resources', path: '/resources', type: 'Page' },
+  { label: 'Get Started', path: '/get-started', type: 'Page' },
+];
+
+const typeColors = {
+  Country: 'bg-blue-50 text-blue-700',
+  Exam: 'bg-amber-50 text-amber-700',
+  Service: 'bg-emerald-50 text-emerald-700',
+  Page: 'bg-gray-100 text-gray-600',
+};
 
 export default function Hero() {
   const [statsRef, statsInView] = useInView({ threshold: 0.3 });
   const [searchQuery, setSearchQuery] = useState('');
-  const [categoryOpen, setCategoryOpen] = useState(false);
-  const [category, setCategory] = useState('Category');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [mounted, setMounted] = useState(false);
+  const searchWrapperRef = useRef(null);
+  const searchListRef = useRef(null);
+  const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  const filtered = searchQuery.trim()
+    ? SEARCH_ITEMS.filter((item) =>
+        item.label.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
+
+  const closeSearch = useCallback(() => {
+    setSearchOpen(false);
+    setActiveIndex(-1);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target)) {
+        closeSearch();
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [closeSearch]);
+
+  const handleSearchKeyDown = (e) => {
+    if (!searchOpen || filtered.length === 0) {
+      if (e.key === 'ArrowDown' && searchQuery.trim()) setSearchOpen(true);
+      return;
+    }
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActiveIndex((prev) => Math.min(prev + 1, filtered.length - 1));
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveIndex((prev) => Math.max(prev - 1, 0));
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (activeIndex >= 0 && filtered[activeIndex]) {
+          navigate(filtered[activeIndex].path);
+          setSearchQuery('');
+          closeSearch();
+        }
+        break;
+      case 'Escape':
+        closeSearch();
+        break;
+    }
   };
+
+  useEffect(() => {
+    if (activeIndex >= 0 && searchListRef.current) {
+      searchListRef.current.children[activeIndex]?.scrollIntoView({ block: 'nearest' });
+    }
+  }, [activeIndex]);
 
   return (
     <>
       <section
-        className="relative overflow-hidden pt-[72px] lg:pt-[108px]"
+        className="relative overflow-hidden pt-[60px] lg:pt-[80px]"
         style={{ height: 'calc(100vh - 0px)', maxHeight: 720, minHeight: 480 }}
       >
 
@@ -221,78 +310,112 @@ export default function Hero() {
 
             {/* ── left: text content ── */}
             <div className="max-w-xl">
-              <AnimateIn animation="fadeUp">
+              {/* Badge */}
+              <div
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 transition-all duration-700 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                style={{ background: 'linear-gradient(135deg, #dbeafe, #ede9fe)', border: '1px solid #bfdbfe', color: '#1d4ed8', transitionDelay: '200ms' }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
+                Trusted by 50,000+ Students
+              </div>
+
+              <div className={`transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
                 <h1 className="text-4xl sm:text-5xl md:text-[56px] font-bold text-gray-900 leading-[1.10] mb-5">
                   Your Journey to{' '}
                   <span className="text-primary-600">Global Education</span>{' '}
                   Begins Here.
                 </h1>
-              </AnimateIn>
+              </div>
 
-              <AnimateIn animation="fadeRight" delay={150}>
+              <div className={`transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '500ms' }}>
                 <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-7 max-w-md">
                   Our mission is to help students find the best programs and universities abroad, with expert guidance anytime, anywhere.
                 </p>
-              </AnimateIn>
+              </div>
 
-              <AnimateIn animation="fadeUp" delay={300}>
+              <div className={`transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '650ms' }}>
                 <form
-                  onSubmit={handleSearch}
-                  className="flex items-center bg-white rounded-xl overflow-hidden"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (activeIndex >= 0 && filtered[activeIndex]) {
+                      navigate(filtered[activeIndex].path);
+                      setSearchQuery('');
+                      closeSearch();
+                    }
+                  }}
+                  className="relative flex items-center bg-white rounded-xl overflow-hidden"
                   style={{ boxShadow: '0 8px 32px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04)' }}
                 >
-                  <div className="relative flex-1">
-                    <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                  <div ref={searchWrapperRef} className="relative flex-1">
+                    <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10" />
                     <input
                       type="text"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(true); setActiveIndex(-1); }}
+                      onFocus={() => { if (searchQuery.trim()) setSearchOpen(true); }}
+                      onKeyDown={handleSearchKeyDown}
                       placeholder="What do you want to learn..."
-                      className="w-full pl-11 pr-3 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none bg-transparent"
+                      className="w-full pl-11 pr-3 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none bg-transparent relative z-10"
                     />
-                  </div>
-
-                  <div className="hidden sm:block w-px h-7 bg-gray-200" />
-
-                  <div className="hidden sm:block relative">
-                    <button
-                      type="button"
-                      onClick={() => setCategoryOpen(!categoryOpen)}
-                      className="flex items-center gap-1.5 px-4 py-3 text-sm text-gray-600 hover:text-gray-800 transition-colors cursor-pointer whitespace-nowrap"
-                    >
-                      <GraduationCap size={15} className="text-gray-400" />
-                      {category}
-                      <ChevronDown size={14} className={`text-gray-400 transition-transform duration-200 ${categoryOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    {categoryOpen && (
-                      <div className="absolute top-full right-0 mt-1 w-44 bg-white rounded-lg shadow-xl border border-gray-100 py-1 z-50">
-                        {categories.map((cat) => (
-                          <button
-                            key={cat}
-                            type="button"
-                            className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-primary-50 hover:text-primary-700 transition-colors cursor-pointer"
-                            onClick={() => { setCategory(cat); setCategoryOpen(false); }}
-                          >
-                            {cat}
-                          </button>
-                        ))}
+                    {/* Search dropdown */}
+                    {searchOpen && filtered.length > 0 && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-[60]" role="listbox">
+                        <ul ref={searchListRef} className="max-h-56 overflow-y-auto py-1">
+                          {filtered.map((item, i) => (
+                            <li key={item.path + item.label}>
+                              <Link
+                                to={item.path}
+                                onClick={() => { setSearchQuery(''); closeSearch(); }}
+                                className={`flex items-center justify-between gap-2 px-3 py-2.5 text-sm transition-colors cursor-pointer ${i === activeIndex ? 'bg-primary-50 text-primary-700' : 'text-gray-700 hover:bg-gray-50'}`}
+                                role="option"
+                                aria-selected={i === activeIndex}
+                                onMouseEnter={() => setActiveIndex(i)}
+                              >
+                                <span className="truncate">{item.label}</span>
+                                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${typeColors[item.type] || typeColors.Page}`}>{item.type}</span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {searchOpen && searchQuery.trim() && filtered.length === 0 && (
+                      <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 p-4 text-center z-[60]">
+                        <p className="text-sm text-gray-400">No results found for &ldquo;{searchQuery}&rdquo;</p>
                       </div>
                     )}
                   </div>
 
                   <button
                     type="submit"
-                    className="px-5 py-3 bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap"
+                    className="px-6 py-3.5 bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors cursor-pointer whitespace-nowrap rounded-r-xl"
                   >
                     Search
                   </button>
                 </form>
-              </AnimateIn>
+              </div>
+
+              {/* CTA buttons */}
+              <div className={`flex items-center gap-4 mt-6 transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '800ms' }}>
+                <Link
+                  to="/get-started"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white cursor-pointer"
+                  style={{ background: 'linear-gradient(135deg, #1d4ed8, #2563eb)', boxShadow: '0 8px 24px rgba(37,99,235,.25)' }}
+                >
+                  Get Free Counselling <ArrowRight size={16} />
+                </Link>
+                <Link
+                  to="/countries"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-gray-700 bg-white border border-gray-200 hover:border-primary-300 hover:text-primary-600 transition-all cursor-pointer"
+                >
+                  <Play size={14} /> Explore Destinations
+                </Link>
+              </div>
             </div>
 
-            {/* ── right: person image — smaller, overlaps both panels ── */}
-            <AnimateIn animation="fadeLeft" delay={250} duration="slow">
-              <div className="relative flex justify-center lg:justify-center lg:-ml-8 xl:-ml-12">
+            {/* ── right: person image — overlaps both panels ── */}
+            <div className={`relative flex justify-center lg:justify-center lg:-ml-8 xl:-ml-12 transition-all duration-1200 ease-out ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`} style={{ transitionDelay: '400ms' }}>
+              <div className="relative">
                 <img
                   src="/landing_page/HomePage.webp"
                   alt="Happy student ready to study abroad"
@@ -326,7 +449,7 @@ export default function Hero() {
                   <div className="w-2.5 h-2.5 rounded-full bg-primary-300 opacity-50" />
                 </div>
               </div>
-            </AnimateIn>
+            </div>
           </div>
         </div>
       </section>

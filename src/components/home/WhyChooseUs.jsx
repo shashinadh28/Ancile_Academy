@@ -29,7 +29,7 @@ export default function WhyChooseUs() {
   const [gridRef, gridInView] = useInView({ threshold: 0.1 });
 
   return (
-    <section className="relative overflow-hidden py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="relative overflow-hidden py-8 md:py-14 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <BackgroundRippleEffect rows={10} cols={30} cellSize={52} />
       <div className="container-custom relative z-10">
         <AnimateIn animation="fadeUp">

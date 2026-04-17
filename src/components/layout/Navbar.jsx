@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, ChevronDown, MapPin, MessageSquare } from 'lucide-react';
-import { NAV_LINKS } from '../../data/constants';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, Phone, ChevronDown, MapPin, MessageSquare, Search } from 'lucide-react';
+import { NAV_LINKS, COUNTRIES } from '../../data/constants';
 import Button from '../shared/Button';
 
 const topLinks = [
@@ -50,6 +50,151 @@ const DROPDOWNS = {
     },
   ],
 };
+
+/* ── Search data for navbar search bar ── */
+const SEARCH_ITEMS = [
+  ...COUNTRIES.map((c) => ({ label: `Study in ${c.name}`, path: `/countries/${c.slug}`, type: 'Country' })),
+  { label: 'IELTS', path: '/exams/ielts', type: 'Exam' },
+  { label: 'TOEFL', path: '/exams/toefl', type: 'Exam' },
+  { label: 'PTE', path: '/exams/pte', type: 'Exam' },
+  { label: 'Duolingo', path: '/exams/duolingo', type: 'Exam' },
+  { label: 'OET', path: '/exams/oet', type: 'Exam' },
+  { label: 'SAT', path: '/exams/sat', type: 'Exam' },
+  { label: 'GRE', path: '/exams/gre', type: 'Exam' },
+  { label: 'GMAT', path: '/exams/gmat', type: 'Exam' },
+  { label: 'University Selection', path: '/services', type: 'Service' },
+  { label: 'Visa Guidance', path: '/services', type: 'Service' },
+  { label: 'Scholarship Assistance', path: '/services', type: 'Service' },
+  { label: 'Test Preparation', path: '/services', type: 'Service' },
+  { label: 'English Coaching', path: '/english-coaching', type: 'Service' },
+  { label: 'About Us', path: '/about', type: 'Page' },
+  { label: 'Contact Us', path: '/contact', type: 'Page' },
+  { label: 'Blog', path: '/blog', type: 'Page' },
+  { label: 'Resources', path: '/resources', type: 'Page' },
+  { label: 'Get Started', path: '/get-started', type: 'Page' },
+];
+
+const typeColors = {
+  Country: 'bg-blue-50 text-blue-700',
+  Exam: 'bg-amber-50 text-amber-700',
+  Service: 'bg-emerald-50 text-emerald-700',
+  Page: 'bg-gray-100 text-gray-600',
+};
+
+function NavbarSearchBar() {
+  const [query, setQuery] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const wrapperRef = useRef(null);
+  const inputRef = useRef(null);
+  const listRef = useRef(null);
+  const navigate = useNavigate();
+
+  const filtered = query.trim()
+    ? SEARCH_ITEMS.filter((item) =>
+        item.label.toLowerCase().includes(query.toLowerCase())
+      )
+    : [];
+
+  const closeDropdown = useCallback(() => {
+    setIsOpen(false);
+    setActiveIndex(-1);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        closeDropdown();
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [closeDropdown]);
+
+  const handleKeyDown = (e) => {
+    if (!isOpen || filtered.length === 0) {
+      if (e.key === 'ArrowDown' && query.trim()) { setIsOpen(true); }
+      return;
+    }
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActiveIndex((prev) => Math.min(prev + 1, filtered.length - 1));
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveIndex((prev) => Math.max(prev - 1, 0));
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (activeIndex >= 0 && filtered[activeIndex]) {
+          navigate(filtered[activeIndex].path);
+          setQuery('');
+          closeDropdown();
+        }
+        break;
+      case 'Escape':
+        closeDropdown();
+        inputRef.current?.blur();
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (activeIndex >= 0 && listRef.current) {
+      const activeEl = listRef.current.children[activeIndex];
+      activeEl?.scrollIntoView({ block: 'nearest' });
+    }
+  }, [activeIndex]);
+
+  return (
+    <div ref={wrapperRef} className="relative">
+      <div className="flex items-center bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 gap-2 focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100 transition-all">
+        <Search size={14} className="text-gray-400 shrink-0" />
+        <input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onChange={(e) => { setQuery(e.target.value); setIsOpen(true); setActiveIndex(-1); }}
+          onFocus={() => { if (query.trim()) setIsOpen(true); }}
+          onKeyDown={handleKeyDown}
+          placeholder="Search..."
+          className="bg-transparent text-sm text-gray-700 placeholder-gray-400 focus:outline-none w-28 xl:w-40"
+          aria-label="Search site"
+          aria-expanded={isOpen}
+          aria-autocomplete="list"
+          role="combobox"
+        />
+      </div>
+      {isOpen && filtered.length > 0 && (
+        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-[60]" role="listbox">
+          <ul ref={listRef} className="max-h-64 overflow-y-auto py-1">
+            {filtered.map((item, i) => (
+              <li key={item.path + item.label}>
+                <Link
+                  to={item.path}
+                  onClick={() => { setQuery(''); closeDropdown(); }}
+                  className={`flex items-center justify-between gap-2 px-3 py-2.5 text-sm transition-colors cursor-pointer ${i === activeIndex ? 'bg-primary-50 text-primary-700' : 'text-gray-700 hover:bg-gray-50'}`}
+                  role="option"
+                  aria-selected={i === activeIndex}
+                  onMouseEnter={() => setActiveIndex(i)}
+                >
+                  <span className="truncate">{item.label}</span>
+                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${typeColors[item.type] || typeColors.Page}`}>{item.type}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {isOpen && query.trim() && filtered.length === 0 && (
+        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white rounded-xl shadow-xl border border-gray-100 p-4 text-center z-[60]">
+          <p className="text-sm text-gray-400">No results found for &ldquo;{query}&rdquo;</p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function DropdownMenu({ items, isOpen }) {
   const [hoveredNested, setHoveredNested] = useState(null);
@@ -193,7 +338,7 @@ export default function Navbar() {
             <div className="w-px h-4 bg-gray-200 mx-1" />
 
             <a
-              href="tel:+918897057333"
+              href="tel:+918977057333"
               className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-gray-200 text-[13px] font-semibold text-gray-700 hover:border-primary-300 hover:text-primary-600 transition-all"
             >
               <Phone size={12} />
@@ -201,7 +346,7 @@ export default function Navbar() {
             </a>
 
             <a
-              href="https://wa.me/918897057333"
+              href="https://wa.me/918977057333"
               className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-gray-200 text-[13px] font-semibold text-gray-700 hover:border-green-400 hover:text-green-600 transition-all"
             >
               <MessageSquare size={12} />
@@ -274,7 +419,8 @@ export default function Navbar() {
               })}
             </div>
 
-            <div className="hidden lg:flex items-center">
+            <div className="hidden lg:flex items-center gap-3">
+              <NavbarSearchBar />
               <Button to="/get-started" size="sm">Get Started</Button>
             </div>
 
@@ -412,13 +558,13 @@ export default function Navbar() {
             <div className="pt-3 space-y-2">
               <Button to="/get-started" className="w-full">Get Started</Button>
               <a
-                href="tel:+918897057333"
+                href="tel:+918977057333"
                 className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-gray-200 text-sm font-semibold text-gray-700"
               >
                 <Phone size={14} /> +91 89770 57333
               </a>
               <a
-                href="https://wa.me/918897057333"
+                href="https://wa.me/918977057333"
                 className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-green-50 border border-green-200 text-sm font-semibold text-green-700"
               >
                 <MessageSquare size={14} /> Chat on WhatsApp
