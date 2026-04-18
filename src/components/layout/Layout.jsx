@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import FloatingSearchBar from './FloatingSearchBar';
 import useScrollToTop from '../../hooks/useScrollToTop';
 
 export default function Layout() {
@@ -9,6 +10,7 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
+      <FloatingSearchBar />
       <main className="flex-1">
         <Outlet />
       </main>

@@ -9,13 +9,25 @@ export default function Destinations() {
   const [gridRef, gridInView] = useInView({ threshold: 0.05 });
 
   return (
-    <SectionWrapper className="pt-12 md:pt-16">
-      <AnimateIn animation="fadeUp">
-        <SectionHeader
-          title="Your Destinations Is Just a Click Away"
-          subtitle="Explore study opportunities across the globe. Click on any destination to learn more about universities, scholarships, and visa requirements."
-        />
-      </AnimateIn>
+    <SectionWrapper className="pt-12 md:pt-16 relative overflow-hidden">
+      {/* Box grid background */}
+      <div 
+        className="absolute inset-0 opacity-50 pointer-events-none"
+        style={{ 
+          backgroundImage: 'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)', 
+          backgroundSize: '40px 40px',
+          maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)'
+        }} 
+      />
+      
+      <div className="relative">
+        <AnimateIn animation="fadeUp">
+          <SectionHeader
+            title="Your Destinations Is Just a Click Away"
+            subtitle="Explore study opportunities across the globe. Click on any destination to learn more about universities, scholarships, and visa requirements."
+          />
+        </AnimateIn>
       <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
         {COUNTRIES.map((country, i) => (
           <div
@@ -31,6 +43,7 @@ export default function Destinations() {
             </Link>
           </div>
         ))}
+      </div>
       </div>
     </SectionWrapper>
   );
