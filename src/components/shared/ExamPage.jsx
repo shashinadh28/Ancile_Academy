@@ -1,7 +1,5 @@
 import { ArrowRight, CheckCircle, BookOpen, Clock, Award, Users, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import PageBanner from './PageBanner';
 import AnimateIn from './AnimateIn';
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -198,8 +196,6 @@ export default function ExamPage({ title, breadcrumbs, subtitle, sections, image
 
   return (
     <>
-      <PageBanner title={title} breadcrumbs={breadcrumbs} />
-
       {/* ── Hero section ─────────────────────────────────────── */}
       <div
         className="relative overflow-hidden"
