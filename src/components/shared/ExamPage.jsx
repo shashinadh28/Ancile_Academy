@@ -50,6 +50,63 @@ function BulletList({ items }) {
   );
 }
 
+/* ── Alternating section backgrounds ── */
+const sectionBgs = [
+  // even index: white with subtle dot pattern
+  {
+    bg: '#ffffff',
+    pattern: 'radial-gradient(circle, rgba(37,99,235,0.04) 1px, transparent 1px)',
+    patternSize: '24px 24px',
+    patternOpacity: 1,
+    borderTop: '1px solid #f1f5f9',
+  },
+  // odd index: very light blue-grey grid
+  {
+    bg: '#f8faff',
+    pattern: 'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)',
+    patternSize: '36px 36px',
+    patternOpacity: 0.5,
+    borderTop: '1px solid #e8eef6',
+  },
+];
+
+function SectionBlock({ sec, index }) {
+  const style = sectionBgs[index % 2];
+
+  return (
+    <div className="relative overflow-hidden" style={{ background: style.bg, borderTop: style.borderTop }}>
+      {/* Pattern layer */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: style.pattern,
+          backgroundSize: style.patternSize,
+          opacity: style.patternOpacity,
+          maskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
+        }}
+      />
+      {/* Subtle glow on odd sections */}
+      {index % 2 === 1 && (
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 70% 50%, rgba(37,99,235,0.04) 0%, transparent 60%)' }} />
+      )}
+      <AnimateIn animation="fadeUp" delay={Math.min((index + 1) * 60, 300)}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+          {sec.heading && <h2 className="text-2xl font-bold text-gray-900 mb-4">{sec.heading}</h2>}
+          {sec.subheading && <h3 className="text-lg font-bold text-gray-800 mb-3">{sec.subheading}</h3>}
+          {sec.paragraphs && sec.paragraphs.map((p, j) => (
+            <p key={j} className="text-gray-600 leading-[1.85] mb-4">{p}</p>
+          ))}
+          {sec.bullets && <BulletList items={sec.bullets} />}
+          {sec.table && <Table headers={sec.table.headers} rows={sec.table.rows} />}
+          {sec.cta && <CTABanner text={sec.cta} />}
+        </div>
+      </AnimateIn>
+    </div>
+  );
+}
+
 export default function ExamPage({ title, breadcrumbs, subtitle, sections, image }) {
   const firstSection = sections[0];
   const restSections = sections.slice(1);
@@ -57,11 +114,23 @@ export default function ExamPage({ title, breadcrumbs, subtitle, sections, image
   return (
     <>
       <PageBanner title={title} breadcrumbs={breadcrumbs} />
-      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Hero row: subtitle + first section on left, image on right */}
+
+      {/* ── Hero row: first section + image ── */}
+      <div className="relative overflow-hidden" style={{ background: '#f8faff', borderTop: '1px solid #e8eef6' }}>
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)',
+            backgroundSize: '36px 36px',
+            opacity: 0.45,
+            maskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
+          }}
+        />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           {image ? (
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-10">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
               <div>
                 {subtitle && (
                   <AnimateIn animation="fadeUp">
@@ -100,8 +169,8 @@ export default function ExamPage({ title, breadcrumbs, subtitle, sections, image
               )}
               {firstSection && (
                 <AnimateIn animation="fadeUp" delay={60}>
-                  <div className="mb-10">
-                    {firstSection.heading && <h2 className="text-2xl font-bold text-gray-900 mt-6 mb-4">{firstSection.heading}</h2>}
+                  <div className="max-w-4xl">
+                    {firstSection.heading && <h2 className="text-2xl font-bold text-gray-900 mb-4">{firstSection.heading}</h2>}
                     {firstSection.paragraphs && firstSection.paragraphs.map((p, j) => (
                       <p key={j} className="text-gray-600 leading-[1.85] mb-4">{p}</p>
                     ))}
@@ -113,26 +182,13 @@ export default function ExamPage({ title, breadcrumbs, subtitle, sections, image
               )}
             </>
           )}
-
-          {/* Remaining sections */}
-          <div className="max-w-4xl">
-            {restSections.map((sec, i) => (
-              <AnimateIn key={i} animation="fadeUp" delay={Math.min((i + 1) * 60, 300)}>
-                <div className="mb-10">
-                  {sec.heading && <h2 className="text-2xl font-bold text-gray-900 mt-6 mb-4">{sec.heading}</h2>}
-                  {sec.subheading && <h3 className="text-lg font-bold text-gray-800 mt-4 mb-3">{sec.subheading}</h3>}
-                  {sec.paragraphs && sec.paragraphs.map((p, j) => (
-                    <p key={j} className="text-gray-600 leading-[1.85] mb-4">{p}</p>
-                  ))}
-                  {sec.bullets && <BulletList items={sec.bullets} />}
-                  {sec.table && <Table headers={sec.table.headers} rows={sec.table.rows} />}
-                  {sec.cta && <CTABanner text={sec.cta} />}
-                </div>
-              </AnimateIn>
-            ))}
-          </div>
         </div>
-      </section>
+      </div>
+
+      {/* ── Remaining sections with alternating backgrounds ── */}
+      {restSections.map((sec, i) => (
+        <SectionBlock key={i} sec={sec} index={i + 1} />
+      ))}
     </>
   );
 }

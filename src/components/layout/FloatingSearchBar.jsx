@@ -100,12 +100,15 @@ export default function FloatingSearchBar() {
   const [visible, setVisible]         = useState(true);
   const [mounted, setMounted]         = useState(false);
   const [anchor, setAnchor]           = useState(null);
+  const [pastHero, setPastHero]       = useState(false);
 
   const wrapperRef    = useRef(null);
   const dropdownRef   = useRef(null);
   const inputRef      = useRef(null);
   const lastScrollY   = useRef(window.scrollY);
   const scrollTimer   = useRef(null);
+
+  const isHomePage = location.pathname === '/';
 
   /* mount with a small delay so entry animation plays */
   useEffect(() => {
@@ -120,13 +123,22 @@ export default function FloatingSearchBar() {
     setActiveIndex(-1);
     lastScrollY.current = window.scrollY;
     setVisible(true);
+    // Reset hero detection on route change
+    setPastHero(window.scrollY > 580);
   }, [location.pathname]);
 
-  /* scroll direction + idle detection */
+  /* scroll direction + idle detection + hero detection */
   useEffect(() => {
+    const HERO_THRESHOLD = 580; // px — height of the hero section
+
     const onScroll = () => {
       const currentY = window.scrollY;
       const delta    = currentY - lastScrollY.current;
+
+      // Hero detection: hide bar while inside hero on home page
+      if (isHomePage) {
+        setPastHero(currentY > HERO_THRESHOLD);
+      }
 
       if (delta > 5) {
         // scrolling DOWN → hide
@@ -146,12 +158,19 @@ export default function FloatingSearchBar() {
       }, 500);
     };
 
+    // Set initial state
+    if (isHomePage) {
+      setPastHero(window.scrollY > HERO_THRESHOLD);
+    } else {
+      setPastHero(true);
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
       clearTimeout(scrollTimer.current);
     };
-  }, []);
+  }, [isHomePage]);
 
   /* position the dropdown anchor */
   const updateAnchor = useCallback(() => {
@@ -211,9 +230,12 @@ export default function FloatingSearchBar() {
 
   if (!mounted) return null;
 
+  // On home page, hide bar entirely while inside hero section
+  const shouldShow = isHomePage ? pastHero : true;
+
   /* ── pill visibility class ── */
   const pillClass = `fixed left-1/2 -translate-x-1/2 z-[48] transition-all duration-300 ease-in-out ${
-    visible
+    visible && shouldShow
       ? 'top-[68px] opacity-100 translate-y-0 pointer-events-auto'
       : 'top-[52px] opacity-0 -translate-y-3 pointer-events-none'
   }`;
@@ -226,9 +248,9 @@ export default function FloatingSearchBar() {
           ref={wrapperRef}
           className="flex items-center rounded-full overflow-hidden"
           style={{
-            minWidth: 460,
+            minWidth: 'min(460px, 88vw)',
             maxWidth: 680,
-            width: '90vw',
+            width: '88vw',
             /* Frosted glass: light grey */
             background: 'rgba(243, 244, 246, 0.9)',
             backdropFilter: 'blur(20px)',

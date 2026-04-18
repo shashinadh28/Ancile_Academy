@@ -17,7 +17,7 @@ import TextAnimation from '../ui/scroll-text';
 
 export function SectionHeader({ badge, title, subtitle, light = false, align = 'left' }) {
   return (
-    <div className={`max-w-3xl mb-12 md:mb-16 ${align === 'center' ? 'mx-auto text-center' : ''}`}>
+    <div className={`max-w-3xl mb-12 md:mb-16 text-center md:text-${align} mx-auto ${align === 'center' ? '' : 'md:mx-0'}`}>
       {badge && (
         <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4 ${light ? 'bg-white/10 text-white/80' : 'bg-primary-50 text-primary-700'}`}>
           {badge}

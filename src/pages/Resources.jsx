@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { BookOpen, FileText, Video, Download, ArrowRight, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 import PageBanner from '../components/shared/PageBanner';
 import SectionWrapper, { SectionHeader } from '../components/shared/SectionWrapper';
-import Card, { IconBox } from '../components/shared/Card';
 import Button from '../components/shared/Button';
 import AnimateIn from '../components/shared/AnimateIn';
 import useInView from '../hooks/useInView';
@@ -13,28 +14,32 @@ const resourceCategories = [
     title: 'Study Guides',
     description: 'Comprehensive guides for every step of your study abroad journey — from choosing a country to settling in.',
     items: ['Country-specific education guides', 'University ranking breakdowns', 'Course selection strategies', 'Application timeline planners'],
-    color: 'bg-primary-100 text-primary-700',
+    accent: '#2563eb',
+    border: 'border-blue-200',
   },
   {
     icon: FileText,
     title: 'SOP & LOR Templates',
     description: 'Expert-crafted templates and tips to help you write compelling Statements of Purpose and secure strong recommendation letters.',
     items: ['SOP writing framework', 'Sample SOPs by program', 'LOR request templates', 'Resume/CV formats for applications'],
-    color: 'bg-amber-100 text-amber-700',
+    accent: '#d97706',
+    border: 'border-amber-200',
   },
   {
     icon: Video,
     title: 'Webinars & Workshops',
     description: 'Free recorded sessions and live workshops covering test prep, visa interviews, scholarship applications, and more.',
     items: ['IELTS/TOEFL strategy sessions', 'Visa interview mock prep', 'Scholarship application workshops', 'Pre-departure orientation'],
-    color: 'bg-sky-100 text-sky-700',
+    accent: '#0ea5e9',
+    border: 'border-sky-200',
   },
   {
     icon: Download,
     title: 'Checklists & Tools',
     description: 'Downloadable checklists, budget calculators, and planning tools to keep your study abroad journey organized.',
     items: ['Visa document checklists by country', 'Budget & cost-of-living calculator', 'Application tracker spreadsheet', 'Pre-departure packing checklist'],
-    color: 'bg-emerald-100 text-emerald-700',
+    accent: '#059669',
+    border: 'border-emerald-200',
   },
 ];
 
@@ -48,8 +53,8 @@ const quickLinks = [
 ];
 
 export default function Resources() {
-  const [gridRef, gridInView] = useInView({ threshold: 0.05 });
   const [linksRef, linksInView] = useInView({ threshold: 0.1 });
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   return (
     <>
@@ -59,39 +64,95 @@ export default function Resources() {
         breadcrumbs={[{ label: 'Resources' }]}
       />
 
-      <SectionWrapper>
-        <AnimateIn animation="fadeUp">
-          <SectionHeader
-            title="Everything You Need to Prepare"
-            subtitle="Access our curated collection of study abroad resources, guides, and tools — all designed to make your journey smoother."
-            align="center"
-          />
-        </AnimateIn>
+      {/* ── "Everything You Need to Prepare" section with box grid bg ── */}
+      <section className="relative overflow-hidden section-padding">
+        {/* Box grid background at 50% opacity */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+            opacity: 0.5,
+            maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+          }}
+        />
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(37,99,235,0.04) 0%, transparent 65%)' }} />
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {resourceCategories.map(({ icon: Icon, title, description, items, color }, i) => (
-            <div
-              key={title}
-              className={`transition-all duration-700 ease-out ${gridInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${i * 120}ms` }}
-            >
-              <Card className="h-full" hover={false}>
-                <IconBox className={`mb-5 ${color}`}><Icon size={22} /></IconBox>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-4">{description}</p>
-                <ul className="space-y-2">
-                  {items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-gray-600">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary-500 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            </div>
-          ))}
+        <div className="container-custom relative z-10">
+          <AnimateIn animation="fadeUp">
+            <SectionHeader
+              title="Everything You Need to Prepare"
+              subtitle="Access our curated collection of study abroad resources, guides, and tools — all designed to make your journey smoother."
+              align="center"
+            />
+          </AnimateIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {resourceCategories.map(({ icon: Icon, title, description, items, accent, border }, i) => {
+              const isHovered = hoveredCard === i;
+              return (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.12 }}
+                  whileHover={{ y: -8 }}
+                  onMouseEnter={() => setHoveredCard(i)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  className={`relative p-7 rounded-2xl border cursor-pointer transition-all duration-300 overflow-hidden ${border}`}
+                  style={{
+                    background: isHovered ? accent : '#fff',
+                    boxShadow: isHovered ? `0 20px 60px ${accent}30` : '0 2px 20px rgba(0,0,0,0.06)',
+                  }}
+                >
+                  {/* Icon */}
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-all duration-300 shadow-md"
+                    style={{ background: isHovered ? 'rgba(255,255,255,0.2)' : accent }}
+                  >
+                    <Icon size={24} className="text-white" strokeWidth={2} />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className={`font-black text-xl mb-2 transition-colors duration-300 ${isHovered ? 'text-white' : 'text-gray-900'}`}>
+                    {title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className={`text-sm leading-relaxed mb-4 transition-colors duration-300 ${isHovered ? 'text-white/80' : 'text-gray-500'}`}>
+                    {description}
+                  </p>
+
+                  {/* Item list */}
+                  <ul className="space-y-2">
+                    {items.map((item) => (
+                      <li key={item} className="flex items-center gap-2 text-sm">
+                        <div
+                          className="w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-300"
+                          style={{ background: isHovered ? 'rgba(255,255,255,0.7)' : accent }}
+                        />
+                        <span className={`transition-colors duration-300 ${isHovered ? 'text-white/85' : 'text-gray-600'}`}>
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Bottom accent bar */}
+                  <div
+                    className={`absolute bottom-0 left-0 w-full h-1 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+                    style={{ background: 'rgba(255,255,255,0.3)' }}
+                  />
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-      </SectionWrapper>
+      </section>
 
       <SectionWrapper className="bg-gray-50">
         <AnimateIn animation="fadeUp">

@@ -176,7 +176,7 @@ export default function Hero() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-4 items-center w-full">
 
             {/* ── left: text content ── */}
-            <div className="max-w-xl">
+            <div className="max-w-xl text-center lg:text-left pt-20 sm:pt-16 lg:pt-0">
               {/* Badge */}
               <div
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase mb-5 transition-all duration-700 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
@@ -195,7 +195,7 @@ export default function Hero() {
               </div>
 
               <div className={`transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '500ms' }}>
-                <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-7 max-w-md">
+                <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-7 max-w-md mx-auto lg:mx-0">
                   Our mission is to help students find the best programs and universities abroad, with expert guidance anytime, anywhere.
                 </p>
               </div>
@@ -205,19 +205,22 @@ export default function Hero() {
               </div>
 
               {/* CTA buttons */}
-              <div className={`flex items-center gap-4 mt-6 transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '800ms' }}>
+              {/* CTA buttons */}
+              <div className={`grid grid-cols-2 sm:flex items-center lg:justify-start gap-2 sm:gap-4 mt-6 transition-all duration-1000 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '800ms' }}>
                 <Link
                   to="/get-started"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white cursor-pointer"
+                  className="flex items-center justify-center gap-2 px-1.5 py-3 sm:px-6 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold text-white cursor-pointer"
                   style={{ background: 'linear-gradient(135deg, #1d4ed8, #2563eb)', boxShadow: '0 8px 24px rgba(37,99,235,.25)' }}
                 >
-                  Get Free Counselling <ArrowRight size={16} />
+                  <span className="text-center leading-[1.15]">Get Free Counselling</span>
+                  <ArrowRight size={16} className="hidden sm:block shrink-0" />
                 </Link>
                 <Link
                   to="/countries"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-gray-700 bg-white border border-gray-200 hover:border-primary-300 hover:text-primary-600 transition-all cursor-pointer"
+                  className="flex items-center justify-center gap-2 px-1.5 py-3 sm:px-5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-semibold text-gray-700 bg-white border border-gray-200 hover:border-primary-300 hover:text-primary-600 transition-all cursor-pointer"
                 >
-                  <Play size={14} /> Explore Destinations
+                  <Play size={14} className="hidden sm:block shrink-0 text-primary-600" />
+                  <span className="text-center leading-[1.15]">Explore<br className="sm:hidden" /> Destinations</span>
                 </Link>
               </div>
             </div>
@@ -228,7 +231,7 @@ export default function Hero() {
                 <img
                   src="/landing_page/HomePage.webp"
                   alt="Happy student ready to study abroad"
-                  className="w-full max-w-[260px] sm:max-w-sm lg:max-w-md xl:max-w-lg object-contain relative z-10"
+                  className="w-full max-w-[280px] sm:max-w-[340px] lg:max-w-md xl:max-w-[460px] object-contain relative z-10"
                 />
 
                 <div className="absolute hidden md:block animate-hero-pulse z-0" style={{ top: -14, right: 10 }}>

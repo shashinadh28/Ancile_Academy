@@ -112,15 +112,15 @@ export default function Footer() {
       <div className="container-custom px-4 sm:px-6 lg:px-8 pt-14 md:pt-20 pb-8">
 
         {/* Top: Logo + Newsletter + Socials */}
-        <div ref={colsRef} className={`flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10 pb-10 border-b border-gray-800 transition-all duration-700 ease-out ${colsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="flex items-center gap-4">
+        <div ref={colsRef} className={`flex flex-col md:flex-row items-center justify-between gap-6 mb-10 pb-10 border-b border-gray-800 transition-all duration-700 ease-out ${colsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
             <Link to="/" className="inline-block">
               <div className="bg-white rounded-xl p-2.5">
                 <img src="/LOGO/Ancile.png" alt="Ancile Academy" className="h-9 w-auto" />
               </div>
             </Link>
-            <div>
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col items-center sm:items-start">
+              <div className="flex items-center justify-center sm:justify-start gap-2">
                 <span className="text-lg font-bold text-white">4.9</span>
                 <span className="text-xs text-gray-500">of 5</span>
                 <div className="flex gap-0.5 ml-1">{[1, 2, 3, 4, 5].map(n => <Star key={n} size={12} className="fill-amber-400 text-amber-400" />)}</div>
@@ -128,16 +128,16 @@ export default function Footer() {
               <p className="text-xs text-gray-500 mt-0.5">14,348 Reviews on Google</p>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <form onSubmit={handleNewsletter} className="flex gap-2">
+          <div className="flex flex-col sm:flex-row flex-wrap items-center sm:items-start gap-4">
+            <form onSubmit={handleNewsletter} className="flex gap-2 w-full sm:w-auto justify-center">
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email address" required
-                className="w-52 px-4 py-2.5 rounded-lg bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
+                className="w-48 sm:w-52 px-4 py-2.5 rounded-lg bg-gray-800 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all"
               />
               <button type="submit" className="px-4 py-2.5 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors cursor-pointer">
                 <Send size={16} />
               </button>
             </form>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center gap-2 w-full sm:w-auto mt-2 sm:mt-0">
               {socials.map(({ icon, href, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
                   className="w-9 h-9 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary-600 hover:text-white transition-all duration-200">
@@ -150,16 +150,16 @@ export default function Footer() {
 
         {/* Middle: Links + Addresses */}
         <div className={`mb-12 transition-all duration-700 ease-out ${colsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '100ms' }}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-10 text-center sm:text-left">
             {Object.entries(footerLinks).map(([heading, links]) => (
               <div key={heading}>
                 <h4 className="text-white font-semibold text-sm mb-4">{heading}</h4>
                 <ul className="space-y-2.5">
                   {links.map((link) => (
                     <li key={link.label}>
-                      <Link to={link.path} className="text-sm text-gray-500 hover:text-primary-400 transition-colors inline-flex items-center gap-1 group">
+                      <Link to={link.path} className="text-sm text-gray-500 hover:text-primary-400 transition-colors inline-flex justify-center sm:justify-start items-center gap-1 group">
                         {link.label}
-                        <ArrowUpRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <ArrowUpRight size={10} className="opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block" />
                       </Link>
                     </li>
                   ))}
@@ -168,22 +168,22 @@ export default function Footer() {
             ))}
           </div>
 
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+          <div className="text-center sm:text-left">
+            <h4 className="text-white font-semibold text-sm mb-4 flex items-center justify-center sm:justify-start gap-2">
               <MapPin size={14} className="text-primary-400" /> Our Offices
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
               {officeLocations.map((office) => (
-                <div key={`${office.name}-${office.address}`} className="bg-gray-800/50 rounded-xl p-3.5 border border-gray-800 hover:border-gray-700 transition-colors">
+                <div key={`${office.name}-${office.address}`} className="bg-gray-800/50 rounded-xl p-3.5 border border-gray-800 hover:border-gray-700 transition-colors flex flex-col items-center sm:items-start text-center sm:text-left">
                   <p className="text-gray-300 font-semibold text-xs mb-1">{office.name}</p>
                   <p className="text-gray-500 text-xs leading-relaxed mb-1.5">{office.address}</p>
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex flex-col gap-1.5 w-full items-center sm:items-start">
                     {office.phones.map((phone) => (
-                      <a key={phone.tel} href={`tel:${phone.tel}`} className="flex items-center gap-1.5 text-primary-400 hover:text-primary-300 text-xs transition-colors">
+                      <a key={phone.tel} href={`tel:${phone.tel}`} className="flex items-center justify-center sm:justify-start gap-1.5 text-primary-400 hover:text-primary-300 text-xs transition-colors">
                         <Phone size={11} /> {phone.display}
                       </a>
                     ))}
-                    <a href={`mailto:${office.email}`} className="flex items-center gap-1.5 text-primary-400 hover:text-primary-300 text-xs transition-colors break-all">
+                    <a href={`mailto:${office.email}`} className="flex items-center justify-center sm:justify-start gap-1.5 text-primary-400 hover:text-primary-300 text-xs transition-colors break-all">
                       <Mail size={11} /> {office.email}
                     </a>
                   </div>
@@ -194,16 +194,18 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
           <p className="text-xs text-gray-600">&copy; {new Date().getFullYear()} Ancile Academy. All rights reserved.</p>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
             <span className="text-xs text-gray-600 mr-1">Connect with us:</span>
-            {socials.map(({ icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-primary-600 hover:text-white transition-all duration-200">
-                {icon}
-              </a>
-            ))}
+            <div className="flex items-center gap-3">
+              {socials.map(({ icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-primary-600 hover:text-white transition-all duration-200">
+                  {icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
