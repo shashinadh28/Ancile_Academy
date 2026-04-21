@@ -437,11 +437,10 @@ export const BLOG_POSTS = [
 ];
 
 export const TEAM_MEMBERS = [
-  { name: 'L John Krishna Rao', role: 'Marketing Manager', image: '/TEAM/L_John_Krishna_rao_Marketing_Manager.webp' },
+  { name: 'R Charan', role: 'Senior Manager', image: '/TEAM/senior_manager.webp' },
   { name: 'V Victoria', role: 'Senior Counsellor', image: '/TEAM/V_Victoria_Senior_Counsellor.webp' },
+  { name: 'L John Krishna Rao', role: 'Marketing Manager', image: '/TEAM/Marketing_Manager.webp' },
   { name: 'Anthony Snajay', role: 'Communication Specialist', image: '/TEAM/Anthony_Snajay_Communication_Specialist.webp' },
-  { name: 'R Charan', role: 'Senior Manager, Operations & Business Development', image: '/TEAM/R_Charan_Senior_Manager_Operations_Business_Developmet.webp' },
- 
 ];
 
 export const UNIVERSITY_LOGOS = [

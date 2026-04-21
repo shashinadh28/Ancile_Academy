@@ -2,8 +2,8 @@
  * FloatingSearchBar
  * ─────────────────
  * • Fixed pill centered just below the navbar on ALL pages.
- * • On the home page: hidden until user scrolls past the hero section (~600 px),
- *   so it doesn't overlap with the hero search bar.
+ * • On the home page (/): always hidden so it never overlaps the hero search or
+ *   any other home sections (same idea as keeping it off the hero area).
  * • Hides when the user scrolls DOWN, reappears when scrolling UP.
  * • Also reappears 500 ms after the user stops scrolling.
  * • UI: semi-transparent, backdrop-blur, soft border — no heavy shadow.
@@ -100,8 +100,6 @@ export default function FloatingSearchBar() {
   const [visible, setVisible]         = useState(true);
   const [mounted, setMounted]         = useState(false);
   const [anchor, setAnchor]           = useState(null);
-  const [pastHero, setPastHero]       = useState(false);
-
   const wrapperRef    = useRef(null);
   const dropdownRef   = useRef(null);
   const inputRef      = useRef(null);
@@ -123,22 +121,13 @@ export default function FloatingSearchBar() {
     setActiveIndex(-1);
     lastScrollY.current = window.scrollY;
     setVisible(true);
-    // Reset hero detection on route change
-    setPastHero(window.scrollY > 580);
   }, [location.pathname]);
 
-  /* scroll direction + idle detection + hero detection */
+  /* scroll direction + idle detection */
   useEffect(() => {
-    const HERO_THRESHOLD = 580; // px — height of the hero section
-
     const onScroll = () => {
       const currentY = window.scrollY;
       const delta    = currentY - lastScrollY.current;
-
-      // Hero detection: hide bar while inside hero on home page
-      if (isHomePage) {
-        setPastHero(currentY > HERO_THRESHOLD);
-      }
 
       if (delta > 5) {
         // scrolling DOWN → hide
@@ -158,19 +147,12 @@ export default function FloatingSearchBar() {
       }, 500);
     };
 
-    // Set initial state
-    if (isHomePage) {
-      setPastHero(window.scrollY > HERO_THRESHOLD);
-    } else {
-      setPastHero(true);
-    }
-
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
       clearTimeout(scrollTimer.current);
     };
-  }, [isHomePage]);
+  }, []);
 
   /* position the dropdown anchor */
   const updateAnchor = useCallback(() => {
@@ -230,8 +212,8 @@ export default function FloatingSearchBar() {
 
   if (!mounted) return null;
 
-  // On home page, hide bar entirely while inside hero section
-  const shouldShow = isHomePage ? pastHero : true;
+  // Never show on home — hero + all sections use the page layout without a second search pill
+  const shouldShow = !isHomePage;
 
   /* ── pill visibility class ── */
   const pillClass = `fixed left-1/2 -translate-x-1/2 z-[48] transition-all duration-300 ease-in-out ${

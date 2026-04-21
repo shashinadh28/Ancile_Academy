@@ -4,26 +4,17 @@ import SectionWrapper, { SectionHeader } from '../shared/SectionWrapper';
 import AnimateIn from '../shared/AnimateIn';
 import { TESTIMONIALS } from '../../data/constants';
 
-const cardBgColors = [
-  'bg-blue-50',
-  'bg-violet-50',
-  'bg-sky-50',
-  'bg-indigo-50',
-  'bg-cyan-50',
-];
-
-const avatarColors = [
-  'bg-blue-500',
-  'bg-violet-500',
-  'bg-sky-500',
-  'bg-indigo-500',
-  'bg-cyan-500',
-  'bg-emerald-500',
-  'bg-amber-500',
-  'bg-rose-500',
-  'bg-teal-500',
-  'bg-purple-500',
-  'bg-pink-500',
+const avatarGradients = [
+  'from-blue-500 to-indigo-600',
+  'from-violet-500 to-purple-600',
+  'from-sky-500 to-cyan-600',
+  'from-indigo-500 to-blue-600',
+  'from-cyan-500 to-teal-600',
+  'from-emerald-500 to-green-600',
+  'from-amber-500 to-orange-600',
+  'from-rose-500 to-pink-600',
+  'from-teal-500 to-emerald-600',
+  'from-purple-500 to-violet-600',
 ];
 
 function getInitials(name) {
@@ -33,34 +24,68 @@ function getInitials(name) {
 }
 
 function TestimonialCard({ t, i }) {
+  const avatarG = avatarGradients[i % avatarGradients.length];
+
   return (
-    <div className="flex-shrink-0 w-[340px] sm:w-[380px] md:w-[420px] px-2">
-      <div className={`${cardBgColors[i % cardBgColors.length]} rounded-2xl p-6 md:p-7 h-full flex flex-col relative overflow-hidden`}>
-        {/* Box grid background at 70% opacity */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-          opacity: 0.7,
-        }} />
-        <div className="relative z-10 flex flex-col h-full">
-          <div className="flex items-center justify-between mb-3">
-            <Quote size={28} className="text-primary-500 shrink-0" />
-            <div className="flex gap-0.5">
+    <div className="flex-shrink-0 w-[340px] sm:w-[380px] md:w-[420px] px-2 py-1">
+      <div
+        className="group relative h-full flex flex-col rounded-3xl overflow-hidden
+          bg-gradient-to-br from-primary-100/95 via-secondary-50/98 to-primary-50/92 backdrop-blur-xl
+          border border-primary-200/50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_20px_50px_-12px_rgba(30,58,138,0.35)]
+          transition-all duration-300 ease-out
+          hover:shadow-[0_8px_30px_-4px_rgba(59,130,246,0.35),0_24px_60px_-16px_rgba(15,23,42,0.45)]
+          hover:-translate-y-1 hover:border-primary-300/65"
+      >
+        {/* Soft corner glow */}
+        <div
+          className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-gradient-to-br from-primary-300/25 to-transparent blur-2xl pointer-events-none"
+          aria-hidden
+        />
+        <div
+          className="absolute -left-8 bottom-0 h-32 w-32 rounded-full bg-gradient-to-tr from-navy-400/10 to-transparent blur-2xl pointer-events-none"
+          aria-hidden
+        />
+
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.35]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
+          }}
+        />
+
+        <div className="relative z-10 flex flex-col h-full p-6 md:p-7">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <div
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500/12 to-navy-500/10 text-primary-600 shadow-inner ring-1 ring-primary-500/15
+                transition-transform duration-300 group-hover:scale-105 group-hover:from-primary-500/18"
+            >
+              <Quote size={22} className="opacity-90" strokeWidth={2} />
+            </div>
+            <div
+              className="inline-flex items-center gap-0.5 rounded-full bg-amber-50/90 px-2.5 py-1 ring-1 ring-amber-200/60 shadow-sm"
+            >
               {Array.from({ length: t.rating || 5 }).map((_, s) => (
-                <Star key={s} size={14} className="fill-amber-400 text-amber-400" />
+                <Star key={s} size={13} className="fill-amber-400 text-amber-400 drop-shadow-sm" />
               ))}
             </div>
           </div>
-          <p className="text-gray-600 leading-relaxed mb-5 flex-1 text-sm md:text-base line-clamp-6">
+
+          <p className="text-gray-700 leading-relaxed mb-6 flex-1 text-[15px] md:text-base font-medium line-clamp-6 tracking-[0.01em]">
             {t.quote}
           </p>
-          <div className="flex items-center gap-3 pt-4 border-t border-gray-200/60">
-            <div className={`w-10 h-10 rounded-full ${avatarColors[i % avatarColors.length]} flex items-center justify-center shrink-0`}>
-              <span className="text-white text-xs font-bold">{getInitials(t.name)}</span>
+
+          <div className="flex items-center gap-3.5 pt-5 mt-auto border-t border-primary-200/55 bg-gradient-to-b from-transparent to-primary-100/45 -mx-6 -mb-6 px-6 pb-6 md:-mx-7 md:px-7 md:pb-7 rounded-b-3xl">
+            <div
+              className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${avatarG} text-white text-xs font-bold shadow-lg shadow-primary-900/15 ring-[3px] ring-primary-50`}
+            >
+              {getInitials(t.name)}
             </div>
-            <div>
-              <h4 className="text-gray-900 font-semibold text-sm">{t.name}</h4>
-              <p className="text-gray-500 text-xs">{t.country}</p>
+            <div className="min-w-0">
+              <h4 className="text-gray-900 font-semibold text-sm truncate">{t.name}</h4>
+              <p className="text-gray-500 text-xs font-medium tracking-wide">{t.country}</p>
             </div>
           </div>
         </div>
