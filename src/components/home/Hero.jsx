@@ -226,15 +226,23 @@ export default function Hero() {
             </div>
 
             {/* ── right: person image ── */}
-            <div className={`relative flex justify-center lg:justify-center lg:-ml-8 xl:-ml-12 transition-all duration-1200 ease-out ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`} style={{ transitionDelay: '400ms' }}>
-              <div className="relative">
+            <div
+              className={`relative flex justify-center items-end lg:-ml-8 xl:-ml-12 transition-all duration-1200 ease-out ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}
+              style={{ transitionDelay: '400ms', alignSelf: 'stretch' }}
+            >
+              <div className="relative flex items-end justify-center w-full">
                 <img
                   src="/landing_page/HomePage.webp"
                   alt="Happy student ready to study abroad"
-                  className="w-full max-w-[280px] sm:max-w-[340px] lg:max-w-md xl:max-w-[460px] object-contain relative z-10"
+                  className="relative z-10 w-auto object-contain object-bottom"
+                  style={{
+                    height: 'clamp(300px, calc(100vh - 200px), 600px)',
+                    maxWidth: '100%',
+                    display: 'block',
+                  }}
                 />
 
-                <div className="absolute hidden md:block animate-hero-pulse z-0" style={{ top: -14, right: 10 }}>
+                <div className="absolute hidden md:block animate-hero-pulse z-0" style={{ top: '5%', right: '8%' }}>
                   <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
                     <circle cx="40" cy="40" r="38" stroke="#93c5fd" strokeWidth="1.5" opacity="0.55" />
                     <circle cx="40" cy="40" r="26" stroke="#93c5fd" strokeWidth="1" opacity="0.35" />
@@ -242,18 +250,18 @@ export default function Hero() {
                   </svg>
                 </div>
 
-                <div className="absolute hidden md:block animate-hero-pulse-slow z-0" style={{ bottom: 10, left: -20 }}>
+                <div className="absolute hidden md:block animate-hero-pulse-slow z-0" style={{ bottom: '8%', left: '5%' }}>
                   <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
                     <circle cx="32" cy="32" r="30" stroke="#93c5fd" strokeWidth="1.5" opacity="0.45" />
                     <circle cx="32" cy="32" r="18" stroke="#93c5fd" strokeWidth="1" opacity="0.28" />
                   </svg>
                 </div>
 
-                <div className="absolute hidden md:block z-0 animate-hero-pulse" style={{ top: '40%', right: -8 }}>
+                <div className="absolute hidden md:block z-0 animate-hero-pulse" style={{ top: '40%', right: '2%' }}>
                   <div className="w-3.5 h-3.5 rounded-full bg-primary-400 opacity-55" />
                 </div>
 
-                <div className="absolute hidden md:block z-0 animate-hero-pulse-slow" style={{ top: '10%', left: '15%' }}>
+                <div className="absolute hidden md:block z-0 animate-hero-pulse-slow" style={{ top: '12%', left: '18%' }}>
                   <div className="w-2.5 h-2.5 rounded-full bg-primary-300 opacity-50" />
                 </div>
               </div>

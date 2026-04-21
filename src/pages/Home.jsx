@@ -7,10 +7,12 @@ import ServicesOverview from '../components/home/ServicesOverview';
 import Testimonials from '../components/home/Testimonials';
 import BlogPreview from '../components/home/BlogPreview';
 import NextStepsCTA from '../components/home/NextStepsCTA';
+import AssessmentPopup from '../components/home/AssessmentPopup';
 
 export default function Home() {
   return (
     <>
+      <AssessmentPopup />
       <Hero />
       <ProcessSteps />
       <WhyChooseUs />
