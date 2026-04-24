@@ -1,13 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, ChevronDown, MapPin, MessageSquare } from 'lucide-react';
+import { Menu, X, Phone, ChevronDown, MapPin } from 'lucide-react';
 import { NAV_LINKS } from '../../data/constants';
 import Button from '../shared/Button';
-
-const topLinks = [
-  { label: 'Resources', path: '/resources' },
-  { label: 'Blog', path: '/blog' },
-];
 
 /* Dropdown definitions for nav items that need them */
 const DROPDOWNS = {
@@ -49,8 +44,12 @@ const DROPDOWNS = {
       ],
     },
   ],
+  'More': [
+    { label: 'Resources', path: '/resources' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'Find us', path: '/contact', icon: 'map-pin' },
+  ],
 };
-
 
 
 function DropdownMenu({ items, isOpen }) {
@@ -115,7 +114,7 @@ function DropdownMenu({ items, isOpen }) {
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [topBarVisible, setTopBarVisible] = useState(true);
+
   const [openDropdown, setOpenDropdown] = useState(null);
   const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
   const navRef = useRef(null);
@@ -127,7 +126,7 @@ export default function Navbar() {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 10);
-      setTopBarVisible(y <= 60);
+
     };
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
@@ -152,9 +151,14 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const mainLinks = NAV_LINKS.filter(
+  // Build main nav links: exclude blog/resources (they move to "More"), then append "More"
+  const coreLinks = NAV_LINKS.filter(
     (l) => l.path !== '/blog' && l.path !== '/resources'
   );
+  const mainLinks = [
+    ...coreLinks,
+    { label: 'More', path: '#more' },
+  ];
 
   const toggleDropdown = (label) =>
     setOpenDropdown((prev) => (prev === label ? null : label));
@@ -167,53 +171,7 @@ export default function Navbar() {
 
   return (
     <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 bg-white">
-      {/* Top bar */}
-      <div
-        className={`border-b border-gray-100 transition-all duration-300 overflow-hidden hidden lg:block ${topBarVisible ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
-          }`}
-      >
-        <div className="container-custom px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-end h-10 gap-1">
-            {topLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="px-3 py-1 text-[13px] text-gray-600 hover:text-primary-600 transition-colors font-medium"
-              >
-                {link.label}
-              </Link>
-            ))}
 
-            <Link
-              to="/contact"
-              className="flex items-center gap-1.5 px-3 py-1 text-[13px] text-gray-600 hover:text-primary-600 transition-colors font-medium"
-            >
-              <MapPin size={13} />
-              <span>Find us</span>
-            </Link>
-
-            <div className="w-px h-4 bg-gray-200 mx-1" />
-
-            <a
-              href="tel:+918977057333"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-gray-200 text-[13px] font-semibold text-gray-700 hover:border-primary-300 hover:text-primary-600 transition-all"
-            >
-              <Phone size={12} />
-              +91 89770 57333
-            </a>
-
-            <a
-              href="https://wa.me/918977057333"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-gray-200 text-[13px] font-semibold text-gray-700 hover:border-green-400 hover:text-green-600 transition-all"
-            >
-              <MessageSquare size={12} />
-              WhatsApp
-            </a>
-
-
-          </div>
-        </div>
-      </div>
 
       {/* Main nav bar */}
       <div className={`transition-shadow duration-300 ${scrolled ? 'shadow-md shadow-black/5' : ''}`}>
@@ -296,7 +254,7 @@ export default function Navbar() {
       {isOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-xl max-h-[75vh] overflow-y-auto">
           <div className="px-4 py-4 space-y-1">
-            {NAV_LINKS.map((link) => {
+            {mainLinks.map((link) => {
               const hasDropdown = Boolean(DROPDOWNS[link.label]);
               const isMobDropOpen = openMobileDropdown === link.label;
 
@@ -389,41 +347,13 @@ export default function Navbar() {
             {/* Divider */}
             <div className="my-3 border-t border-gray-100" />
 
-            {/* Quick links: Resources, Blog, Find us */}
-            <div className="space-y-1">
-              <Link
-                to="/resources"
-                className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors"
-              >
-                Resources
-              </Link>
-              <Link
-                to="/blog"
-                className="block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors"
-              >
-                Blog
-              </Link>
-              <Link
-                to="/contact"
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors"
-              >
-                <MapPin size={14} /> Find us
-              </Link>
-            </div>
-
-            <div className="pt-3 space-y-2">
+            <div className="pt-2 space-y-2">
               <Button to="/get-started" className="w-full">Get Started</Button>
               <a
                 href="tel:+918977057333"
                 className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-gray-200 text-sm font-semibold text-gray-700"
               >
                 <Phone size={14} /> +91 89770 57333
-              </a>
-              <a
-                href="https://wa.me/918977057333"
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-green-50 border border-green-200 text-sm font-semibold text-green-700"
-              >
-                <MessageSquare size={14} /> Chat on WhatsApp
               </a>
             </div>
           </div>

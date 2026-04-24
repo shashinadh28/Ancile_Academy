@@ -149,7 +149,7 @@ export default function CountryDetail() {
 
       {/* ═══════════════  SECTION 2 — Why Study (LinearCardDialog)  ═══════════════ */}
       {country.whyStudy && (
-        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8" style={{
+        <section className="px-4 sm:px-6 lg:px-8" style={{
           background: '#f8faff',
           backgroundImage: 'radial-gradient(#b8c8e0 1px, transparent 1px)',
           backgroundSize: '28px 28px',
