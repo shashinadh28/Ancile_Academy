@@ -437,10 +437,34 @@ export const BLOG_POSTS = [
 ];
 
 export const TEAM_MEMBERS = [
-  { name: 'R Charan', role: 'Senior Manager', image: '/TEAM/senior_manager.webp' },
-  { name: 'V Victoria', role: 'Senior Counsellor', image: '/TEAM/V_Victoria_Senior_Counsellor.webp' },
-  { name: 'L John Krishna Rao', role: 'Marketing Manager', image: '/TEAM/Marketing_Manager.webp' },
-  { name: 'Anthony Snajay', role: 'Communication Specialist', image: '/TEAM/Anthony_Snajay_Communication_Specialist.webp' },
+  {
+    name: 'Anthony Sanjay',
+    role: 'Communication Specialist',
+    image: '/TEAM/Anthony_Snajay_Communication_Specialist.webp',
+    linkedin: 'https://www.linkedin.com/in/anthony-sanjay-1072a32a7/',
+    description: 'Anthony Sanjay plays a pivotal role in shaping first impressions and building meaningful connections with prospective students. With strong communication expertise and a student-centric approach, he ensures every interaction is clear, engaging, and aligned with the student\'s aspirations. His ability to understand needs and guide conversations effectively contributes significantly to the academy\'s conversion success.',
+  },
+  {
+    name: 'L John Krishna Rao',
+    role: 'Marketing Manager',
+    image: '/TEAM/Marketing_Manager.webp',
+    linkedin: 'https://www.linkedin.com/in/lagutoti-rao-72bb37388/',
+    description: 'L John Krishna Rao leads our marketing function with a strong focus on strategy, performance, and growth. With expertise in lead generation across both STEM and non-STEM segments, he ensures a consistent flow of high-quality prospects. His data-driven approach and market insights play a key role in strengthening the academy\'s reach and conversion pipeline.',
+  },
+  {
+    name: 'R Charan',
+    role: 'Senior Manager',
+    image: '/TEAM/senior_manager.webp',
+    linkedin: 'https://www.linkedin.com/in/r-charan-22567415a',
+    description: 'Charan brings over 11 years of diverse professional experience across the insurance and education sectors, making him a strong pillar of operational excellence within the organization. With a deep understanding of business processes and customer engagement, he ensures seamless coordination across teams while maintaining a sharp focus on performance, efficiency, and results. In his role, Charan leads both operations and business development initiatives, driving growth through structured planning, team alignment, and strategic execution. His ability to identify opportunities, optimize processes, and build scalable systems plays a crucial role in strengthening the academy\'s overall performance and delivering consistent value to students.',
+  },
+  {
+    name: 'V Victoria',
+    role: 'Senior Counsellor',
+    image: '/TEAM/V_Victoria_Senior_Counsellor.webp',
+    linkedin: 'https://www.linkedin.com/in/victoria-vincent-089142173/',
+    description: 'Victoria is a Senior Counsellor with extensive experience in guiding students toward successful study abroad opportunities. With a deep understanding of international education systems, she provides personalized support to help students choose the right course, university, and career path.',
+  },
 ];
 
 export const UNIVERSITY_LOGOS = [

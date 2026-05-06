@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Target, Eye, Heart, Users, Globe, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Target, Eye, Heart, Users, Globe, ArrowRight, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import PageBanner from '../components/shared/PageBanner';
 import SectionWrapper, { SectionHeader } from '../components/shared/SectionWrapper';
 import AnimateIn from '../components/shared/AnimateIn';
@@ -19,6 +19,7 @@ export default function About() {
   const [statsRef, statsInView] = useInView({ threshold: 0.2 });
   const [teamRef, teamInView] = useInView({ threshold: 0.1 });
   const [hoveredValue, setHoveredValue] = useState(null);
+  const [expandedMember, setExpandedMember] = useState(null);
 
   return (
     <>
@@ -150,14 +151,131 @@ export default function About() {
                 </div>
                 <article className='relative p-5 text-center'>
                   <div className='info transition-all duration-300'>
-                    <p className='text-lg md:text-xl font-semibold text-gray-900'>{member.name}</p>
+                    {/* Name + LinkedIn icon */}
+                    <div className='flex items-center justify-center gap-2'>
+                      <a
+                        href={member.linkedin}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-lg md:text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200'
+                        title={`${member.name} on LinkedIn`}
+                      >
+                        {member.name}
+                      </a>
+                      <a
+                        href={member.linkedin}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        title={`${member.name} on LinkedIn`}
+                        className='flex-shrink-0 text-[#0077B5] hover:text-[#005885] transition-colors duration-200'
+                      >
+                        <svg width='18' height='18' viewBox='0 0 24 24' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+                          <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/>
+                        </svg>
+                      </a>
+                    </div>
                     <p className='text-sm text-gray-500 mt-1 leading-relaxed min-h-[44px]'>{member.role}</p>
                   </div>
+                  {/* View More button */}
+                  <button
+                    onClick={() => setExpandedMember(member)}
+                    className='mt-3 w-full py-2 px-4 text-sm font-semibold rounded-xl border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-250'
+                  >
+                    View More
+                  </button>
                 </article>
               </div>
             </div>
           ))}
         </div>
+
+        {/* ── Team Member Modal ── */}
+        <AnimatePresence>
+          {expandedMember && (
+            <>
+              {/* Blur overlay */}
+              <motion.div
+                key='overlay'
+                className='fixed inset-0 z-50'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                onClick={() => setExpandedMember(null)}
+                style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
+              />
+              {/* Modal card */}
+              <motion.div
+                key='modal'
+                className='fixed z-50 bg-white rounded-3xl shadow-2xl overflow-hidden'
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  width: 'min(520px, 92vw)',
+                  maxHeight: '88vh',
+                  overflowY: 'auto',
+                }}
+                initial={{ opacity: 0, scale: 0.7, x: '-50%', y: '-50%' }}
+                animate={{ opacity: 1, scale: 1, x: '-50%', y: '-50%' }}
+                exit={{ opacity: 0, scale: 0.7, x: '-50%', y: '-50%' }}
+                transition={{ type: 'spring', stiffness: 340, damping: 28 }}
+              >
+                {/* Close button */}
+                <button
+                  onClick={() => setExpandedMember(null)}
+                  className='absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors duration-200'
+                >
+                  <X size={18} />
+                </button>
+
+                {/* Photo */}
+                <div className='w-full aspect-[16/9] bg-gray-100 overflow-hidden'>
+                  <img
+                    src={expandedMember.image}
+                    alt={expandedMember.name}
+                    className='w-full h-full object-cover object-top'
+                  />
+                </div>
+
+                {/* Content */}
+                <div className='p-7'>
+                  {/* Name + LinkedIn */}
+                  <div className='flex items-center gap-2 mb-1'>
+                    <h3 className='text-2xl font-bold text-gray-900'>{expandedMember.name}</h3>
+                    <a
+                      href={expandedMember.linkedin}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-[#0077B5] hover:text-[#005885] transition-colors duration-200 flex-shrink-0'
+                      title='LinkedIn Profile'
+                    >
+                      <svg width='20' height='20' viewBox='0 0 24 24' fill='currentColor'>
+                        <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/>
+                      </svg>
+                    </a>
+                  </div>
+                  <span className='inline-block text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4'>
+                    {expandedMember.role}
+                  </span>
+                  <p className='text-gray-600 leading-relaxed text-[15px]'>{expandedMember.description}</p>
+
+                  {/* LinkedIn CTA button */}
+                  <a
+                    href={expandedMember.linkedin}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0077B5] text-white text-sm font-semibold hover:bg-[#005885] transition-colors duration-200'
+                  >
+                    <svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor'>
+                      <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/>
+                    </svg>
+                    View LinkedIn Profile
+                  </a>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </SectionWrapper>
 
       {/* Our Journey — HiringProcess-style with white background */}

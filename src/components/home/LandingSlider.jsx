@@ -2,15 +2,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 /* ─── Slide data ─────────────────────────────────────────────────────── */
 const desktopSlides = [
-  { src: "/Desktop_landing _pages/Newzealand2.png",        alt: "Study in New Zealand"        },
-  { src: "/Desktop_landing _pages/usa.png",       alt: "Study in USA"       },
-  { src: "/Desktop_landing _pages/australia.png",            alt: "Study in Australia" },
-  { src: "/Desktop_landing _pages/Europe.png",    alt: "Study in Europe"    },
+  { src: "/Desktop_landing _pages/Newzealand2.png", alt: "Study in New Zealand" },
+  { src: "/Desktop_landing _pages/uusa.png", alt: "Study in USA" },
+  { src: "/Desktop_landing _pages/australia.png", alt: "Study in Australia" },
+  { src: "/Desktop_landing _pages/Europe.png", alt: "Study in Europe" },
 ];
 
 const mobileSlides = [
-  { src: "/Mobile_landing_pages/UK_Mobile.webp",        alt: "Study in UK"        },
-  { src: "/Mobile_landing_pages/USA_Mobile.webp",       alt: "Study in USA"       },
+  { src: "/Mobile_landing_pages/UK_Mobile.webp", alt: "Study in UK" },
+  { src: "/Mobile_landing_pages/USA_Mobile.webp", alt: "Study in USA" },
   { src: "/Mobile_landing_pages/Australia_Mobile.webp", alt: "Study in Australia" },
 ];
 
@@ -108,8 +108,8 @@ export default function LandingSlider() {
   useEffect(() => setIndex(0), [isMobile]);
 
   const handlePrev = () => { go(-1); resetTimer(); };
-  const handleNext = () => { go(1);  resetTimer(); };
-  const handleDot  = (i) => { if (i !== index) { setIndex(i); resetTimer(); } };
+  const handleNext = () => { go(1); resetTimer(); };
+  const handleDot = (i) => { if (i !== index) { setIndex(i); resetTimer(); } };
 
   return (
     <section

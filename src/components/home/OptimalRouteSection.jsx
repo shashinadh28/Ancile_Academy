@@ -27,7 +27,7 @@ function StepCard({ step, index, active }) {
         left: `${xPercent}%`,
         top: isTop ? "0%" : "auto",
         bottom: isTop ? "auto" : "0%",
-        width: "120px",
+        width: "100px",
         zIndex: 10,
         transform: "translateX(-50%)",
       }}
@@ -217,8 +217,8 @@ export default function OptimalRouteSection() {
 
         {/* ══════════ DESKTOP TRACK ══════════ */}
         <div
-          className="hidden md:block relative max-w-6xl mx-auto"
-          style={{ height: "290px" }}
+          className="hidden md:block relative mx-auto"
+          style={{ height: "260px", maxWidth: "900px" }}
         >
           {/* Ghost runway */}
           <div style={{
@@ -281,22 +281,7 @@ export default function OptimalRouteSection() {
           ))}
         </div>
 
-        {/* ── Step number indicators ── */}
-        <div className="hidden md:flex justify-between items-center max-w-6xl mx-auto mt-6 px-1">
-          {steps.map((step, index) => {
-            const active = getStepActive(index);
-            return (
-              <motion.div
-                key={step.id}
-                animate={{ opacity: active ? 0.9 : 0.2 }}
-                transition={{ duration: 0.35 }}
-                style={{ textAlign: "center", fontSize: "9px", fontWeight: 700, color: "#60a5fa", letterSpacing: "0.1em", textTransform: "uppercase" }}
-              >
-                {String(step.id).padStart(2, "0")}
-              </motion.div>
-            );
-          })}
-        </div>
+
 
         {/* ══════════ MOBILE TRACK ══════════ */}
         <div className="md:hidden relative">
