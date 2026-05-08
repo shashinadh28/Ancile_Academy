@@ -154,7 +154,7 @@ export default function OET() {
         { label: 'OET' },
       ]}
       subtitle="Language Test for Healthcare Professionals"
-      image="/EXAMS/International-English-Language-Testing-System.webp"
+      image="/EXAMS/OET.webp"
       sections={sections}
     />
   );
