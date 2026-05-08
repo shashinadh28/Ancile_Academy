@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote, Star, X } from 'lucide-react';
 import SectionWrapper, { SectionHeader } from '../shared/SectionWrapper';
 import AnimateIn from '../shared/AnimateIn';
 import { TESTIMONIALS } from '../../data/constants';
@@ -23,7 +23,7 @@ function getInitials(name) {
   return name.slice(0, 2).toUpperCase();
 }
 
-function TestimonialCard({ t, i }) {
+function TestimonialCard({ t, i, onOpen }) {
   const avatarG = avatarGradients[i % avatarGradients.length];
 
   return (
@@ -73,9 +73,17 @@ function TestimonialCard({ t, i }) {
             </div>
           </div>
 
-          <p className="text-gray-700 leading-relaxed mb-6 flex-1 text-[15px] md:text-base font-medium line-clamp-6 tracking-[0.01em]">
+          <p className="text-gray-700 leading-relaxed mb-4 flex-1 text-[15px] md:text-base font-medium line-clamp-6 tracking-[0.01em]">
             {t.quote}
           </p>
+
+          <button
+            type="button"
+            onClick={() => onOpen({ ...t, avatarG })}
+            className="mb-5 self-start rounded-full bg-primary-600 px-4 py-2 text-xs font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary-700 hover:shadow-md cursor-pointer"
+          >
+            Read Full Review
+          </button>
 
           <div className="flex items-center gap-3.5 pt-5 mt-auto border-t border-primary-200/55 bg-gradient-to-b from-transparent to-primary-100/45 -mx-6 -mb-6 px-6 pb-6 md:-mx-7 md:px-7 md:pb-7 rounded-b-3xl">
             <div
@@ -98,6 +106,7 @@ export default function Testimonials() {
   const trackRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
   const [scrollPos, setScrollPos] = useState(0);
+  const [selectedReview, setSelectedReview] = useState(null);
   const animationRef = useRef(null);
   const speed = 0.6;
 
@@ -105,7 +114,7 @@ export default function Testimonials() {
   useEffect(() => {
     let pos = scrollPos;
     const animate = () => {
-      if (!isPaused && trackRef.current) {
+      if (!isPaused && !selectedReview && trackRef.current) {
         pos += speed;
         // When we've scrolled past the first set, reset seamlessly
         const halfWidth = trackRef.current.scrollWidth / 2;
@@ -121,7 +130,7 @@ export default function Testimonials() {
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [isPaused, scrollPos]);
+  }, [isPaused, scrollPos, selectedReview]);
 
   const scrollBy = (direction) => {
     if (!trackRef.current) return;
@@ -143,6 +152,7 @@ export default function Testimonials() {
       <div className="container-custom relative z-10">
         <AnimateIn animation="fadeUp">
           <SectionHeader
+            align="center"
             title="See what our students have to say..."
             light
           />
@@ -185,15 +195,69 @@ export default function Testimonials() {
             >
               {/* Duplicate items for seamless loop */}
               {TESTIMONIALS.map((t, i) => (
-                <TestimonialCard key={`a-${i}`} t={t} i={i} />
+                <TestimonialCard key={`a-${i}`} t={t} i={i} onOpen={setSelectedReview} />
               ))}
               {TESTIMONIALS.map((t, i) => (
-                <TestimonialCard key={`b-${i}`} t={t} i={i} />
+                <TestimonialCard key={`b-${i}`} t={t} i={i} onOpen={setSelectedReview} />
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {selectedReview && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedReview(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-primary-200/30 bg-white shadow-[0_20px_80px_rgba(15,23,42,0.35)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary-500 via-sky-500 to-indigo-500" />
+
+            <button
+              type="button"
+              onClick={() => setSelectedReview(null)}
+              className="absolute right-4 top-4 z-10 rounded-full bg-slate-900/5 p-2 text-slate-500 transition-colors hover:bg-slate-900/10 hover:text-slate-800 cursor-pointer"
+              aria-label="Close review"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="p-6 md:p-8">
+              <div className="mb-5 flex items-start justify-between gap-4">
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${selectedReview.avatarG} text-sm font-bold text-white shadow-lg shadow-primary-900/15`}
+                  >
+                    {getInitials(selectedReview.name)}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-900">{selectedReview.name}</h3>
+                    <p className="text-sm font-medium text-slate-500">{selectedReview.country}</p>
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-0.5 rounded-full bg-amber-50 px-2.5 py-1 ring-1 ring-amber-200/60">
+                  {Array.from({ length: selectedReview.rating || 5 }).map((_, s) => (
+                    <Star key={s} size={14} className="fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500/12 to-navy-500/10 text-primary-600 ring-1 ring-primary-500/15">
+                <Quote size={22} strokeWidth={2} />
+              </div>
+
+              <div className="max-h-[60vh] overflow-y-auto pr-1">
+                <p className="text-[15px] leading-8 text-slate-700 md:text-base">
+                  {selectedReview.quote}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -24,6 +24,7 @@ export default function Destinations() {
       <div className="relative">
         <AnimateIn animation="fadeUp">
           <SectionHeader
+            align="center"
             title="Your Destinations Is Just a Click Away"
             subtitle="Explore study opportunities across the globe. Click on any destination to learn more about universities, scholarships, and visa requirements."
           />

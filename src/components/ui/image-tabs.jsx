@@ -7,6 +7,9 @@ export function TabsProvider({ children, defaultValue, className }) {
   const [activeTab, setActiveTab] = useState(defaultValue);
   const hasMounted = useRef(false);
   useEffect(() => { hasMounted.current = true; }, []);
+  useEffect(() => {
+    setActiveTab(defaultValue);
+  }, [defaultValue]);
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab, hasMounted }}>

@@ -39,9 +39,9 @@ export default function AssessmentPopup() {
   const [submitted, setSubmitted] = useState(false);
   const intervalRef = useRef(null);
 
-  // Show popup after 2 seconds
+  // Show popup after 20 seconds
   useEffect(() => {
-    const showTimer = setTimeout(() => setVisible(true), 2000);
+    const showTimer = setTimeout(() => setVisible(true), 20000);
     return () => clearTimeout(showTimer);
   }, []);
 

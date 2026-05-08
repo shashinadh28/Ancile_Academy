@@ -52,15 +52,6 @@ const socials = [
 const officeLocations = [
   {
     name: 'Headquarter',
-    address: '300 N Carroll Blvd, Suite 103, Denton, TX 76201',
-    phones: [
-      { display: '919.607.2143', tel: '+19196072143' },
-      { display: '913.804.7687', tel: '+19138047687' },
-    ],
-    email: 'info@ancileacademy.com',
-  },
-  {
-    name: 'Milpitas-Branch',
     address: '329 Odyssey Lane, Milpitas, CA 95035',
     phones: [{ display: '669.437.1139', tel: '+16694371139' }],
     email: 'info@ancileacademy.com',
@@ -68,30 +59,24 @@ const officeLocations = [
   {
     name: 'South Carolina-Branch',
     address: '148 Ravensara Ave, Fort Mill, SC 29715',
-    phones: [{ display: '424.242.4567', tel: '+14242424567' }],
+    phones: [{ display: '+91 8977049333', tel: '+918977049333' }],
     email: 'info@ancileacademy.com',
   },
   {
     name: 'Vijayawada, India',
     address: 'D No: 5-141, Koudinya Nagar, Penamaluru (MD), (PO), Krishna District, Andhra Pradesh 521139',
-    phones: [{ display: '+91 8885555474', tel: '+918885555474' }],
+    phones: [{ display: '+91 8977049333', tel: '+918977049333' }],
     email: 'info@ancileacademy.com',
   },
   {
     name: 'Canada, Calgary (Regus)',
     address: '8 Floor Bankers Hall West, 888, 5th Street SW, Suite 1000, Calgary, AB T2P 5C5',
-    phones: [{ display: '(+91) 9177330029', tel: '+919177330029' }],
+    phones: [{ display: '+91 8977049333', tel: '+918977049333' }],
     email: 'info@ancileacademy.com',
   },
   {
     name: 'Hyderabad, India',
-    address: 'My Co Office, Lift Lobby 4, 2nd Floor, 5th Phase, KPHB, Kukatpally, Hyderabad 500072',
-    phones: [{ display: '+918977057333', tel: '+918977057333' }],
-    email: 'info@ancileacademy.com',
-  },
-  {
-    name: 'Hyderabad, India',
-    address: 'Unit 8, 2nd floor, Vasavi sky city, Gachibowli Cir, Telecom Nagar, Gachibowli, Hyderabad, Telangana 500081',
+    address: '2nd Floor, VVG Elite, Plot 241, Phase 2, Kavuri Hills, Madhapur, Hyderabad, Telangana 500033',
     phones: [{ display: '+918977057333', tel: '+918977057333' }],
     email: 'info@ancileacademy.com',
   },
