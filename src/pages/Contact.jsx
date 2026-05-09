@@ -25,13 +25,13 @@ const OFFICE_CARDS = [
   {
     title: 'South Carolina-Branch',
     address: '148 Ravensara Ave, Fort Mill, SC 29715',
-    phones: [{ display: '+91 8977049333', tel: '+918977049333' }],
+    phones: [{ display: '+91 8977057333', tel: '+918977057333' }],
     email: 'info@ancileacademy.com',
   },
   {
     title: 'Vijayawada, India',
     address: 'D No: 5-141, Koudinya Nagar, Penamaluru (MD), (PO), Krishna District, Andhra Pradesh 521139',
-    phones: [{ display: '+91 8977049333', tel: '+918977049333' }],
+    phones: [{ display: '+91 8977057333', tel: '+918977057333' }],
     email: 'info@ancileacademy.com',
   },
   {

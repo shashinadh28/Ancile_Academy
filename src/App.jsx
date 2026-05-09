@@ -22,6 +22,9 @@ const OET = lazy(() => import('./pages/exams/OET'));
 const SAT = lazy(() => import('./pages/exams/SAT'));
 const GRE = lazy(() => import('./pages/exams/GRE'));
 const GMAT = lazy(() => import('./pages/exams/GMAT'));
+const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 
 function PageLoader() {
   return (
@@ -178,6 +181,30 @@ export default function App() {
             element={
               <Suspense fallback={<PageLoader />}>
                 <Resources />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/terms-of-use"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <TermsOfUse />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/privacy-policy"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <PrivacyPolicy />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/disclaimer"
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <Disclaimer />
               </Suspense>
             }
           />

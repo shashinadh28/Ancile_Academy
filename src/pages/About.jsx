@@ -33,7 +33,7 @@ export default function About() {
             </AnimateIn>
             <AnimateIn animation="fadeRight" delay={100}>
               <div className="space-y-4 text-gray-500 leading-relaxed">
-                <p>At Ancile Academy, our mission is to empower students to achieve their educational aspirations abroad. Founded in [Year], we have successfully guided over [Number] students to prestigious institutions worldwide.</p>
+                <p>At Ancile Academy, our mission is to empower students to achieve their educational aspirations abroad. Founded in 2010, we have successfully guided students to prestigious institutions worldwide.</p>
               </div>
             </AnimateIn>
           </div>
