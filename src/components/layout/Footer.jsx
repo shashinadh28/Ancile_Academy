@@ -150,7 +150,7 @@ export default function Footer() {
         <div style={{ marginBottom: '8px' }}>
           <Link to="/">
             <div style={{ display: 'inline-block', backgroundColor: '#ffffff', borderRadius: '10px', padding: '8px 12px' }}>
-              <img src="/LOGO/Ancile.png" alt="Ancile Academy" style={{ height: '36px', width: 'auto', display: 'block' }} />
+              <img src="/LOGO/Ancile.webp" alt="Ancile Academy" style={{ height: '36px', width: 'auto', display: 'block' }} loading="lazy" />
             </div>
           </Link>
         </div>

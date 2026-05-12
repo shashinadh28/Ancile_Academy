@@ -178,7 +178,7 @@ export default function Navbar() {
         <div className="container-custom px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 md:h-16">
             <Link to="/" className="flex items-center shrink-0">
-              <img src="/LOGO/Ancile.png" alt="Ancile Academy" className="h-9 md:h-10 w-auto" />
+              <img src="/LOGO/Ancile.webp" alt="Ancile Academy" className="h-9 md:h-10 w-auto" loading="lazy" />
             </Link>
 
             {/* Desktop nav */}

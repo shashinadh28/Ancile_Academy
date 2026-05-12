@@ -2,10 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 /* ─── Slide data ─────────────────────────────────────────────────────── */
 const desktopSlides = [
-  { src: "/Desktop_landing _pages/Newzealand2.png", alt: "Study in New Zealand" },
-  { src: "/Desktop_landing _pages/uusa.png", alt: "Study in USA" },
-  { src: "/Desktop_landing _pages/australia.png", alt: "Study in Australia" },
-  { src: "/Desktop_landing _pages/Europe.png", alt: "Study in Europe" },
+  { src: "/Desktop_landing _pages/Newzealand2.webp", alt: "Study in New Zealand" },
+  { src: "/Desktop_landing _pages/uusa.webp", alt: "Study in USA" },
+  { src: "/Desktop_landing _pages/australia.webp", alt: "Study in Australia" },
+  { src: "/Desktop_landing _pages/Europe.webp", alt: "Study in Europe" },
 ];
 
 const mobileSlides = [
